@@ -8,6 +8,9 @@ import MyProfilePage from "../pages/MyProfilePage";
 import HelpPage from "../pages/HelpPage";
 import ContactUsPage from "../pages/ContactUsPage";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import AuthPage from "../pages/AuthPage/AuthPage";
+
+import { loader as homePageLoader } from "../pages/HomePage";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +21,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />,
+        loader: homePageLoader,
       },
       {
         path: "/trade-offers",
@@ -40,6 +44,10 @@ const router = createBrowserRouter([
         element: <ContactUsPage />,
       },
     ],
+  },
+  {
+    path: "/auth",
+    element: <AuthPage />,
   },
 ]);
 
