@@ -7,6 +7,7 @@ import SignUp from "../../components/Auth/SignUp";
 function AuthPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const isRegister = searchParams.get("mode") === "register";
+  
   return (
     <Flex
       flexDirection="column"
