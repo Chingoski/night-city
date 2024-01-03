@@ -11,12 +11,18 @@ import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import AuthPage from "../pages/AuthPage/AuthPage";
 
 import { loader as homePageLoader } from "../pages/HomePage";
+import { redirectToAuthLoader } from "../util/auth";
+import { redirectToHomeLoader } from "../util/auth";
+
+import { action as logOutAction } from "../pages/LogOutPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayoutPage />,
     errorElement: <ErrorPage />,
+    id: "root",
+    loader: redirectToAuthLoader,
     children: [
       {
         index: true,
@@ -48,6 +54,12 @@ const router = createBrowserRouter([
   {
     path: "/auth",
     element: <AuthPage />,
+    id: "auth",
+    loader: redirectToHomeLoader,
+  },
+  {
+    path: "/logout",
+    action: logOutAction,
   },
 ]);
 

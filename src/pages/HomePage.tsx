@@ -1,4 +1,8 @@
 import axios from "axios";
+import host from "../host";
+
+import { json } from "react-router-dom";
+
 import Home from "../components/Home/Home";
 
 function HomePage() {
@@ -8,17 +12,17 @@ function HomePage() {
 export default HomePage;
 
 export async function loader() {
-  const response = await axios.get(
-    "https://cf2c-46-217-94-68.ngrok-free.app/api/cities",
-    {
-      headers: {
-        Authorization:
-          "Bearer 2|mrnCLQZqRHidackEOP5ESbP6QHd9onGESJs3iknN41d6ea9d",
-        "Content-Type": "application/json",
-        "ngrok-skip-browser-warning": "true",
-      },
-    }
-  );
-
+  //get token function
+  const response = await axios.get(`${host}/api/cities`, {
+    headers: {
+      Authorization:
+        "Bearer 6|3TgO7voUSwo2md2Hsz50zZuj5cfOZVrBBF1FJoHH7bf127b5",
+      "Content-Type": "application/json",
+      "ngrok-skip-browser-warning": "true",
+    },
+  });
+  if (response.status !== 200) {
+    throw json({ message: response.statusText }, { status: response.status });
+  }
   return response.data.data;
 }
