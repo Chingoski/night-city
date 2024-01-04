@@ -5,7 +5,6 @@ import {
   FormControl,
   FormErrorMessage,
   Link,
-  Select,
 } from "@chakra-ui/react";
 import { Field, Form, Formik, FieldInputProps, FormikProps } from "formik";
 
@@ -14,6 +13,7 @@ import initialValues from "../../form_validation/register/initial-values";
 
 import TextInput from "../Form/TextInput";
 import PasswordInput from "../Form/PasswordInput";
+import CitySelect from "../UI/CitySelect";
 
 import { useLoaderData } from "react-router-dom";
 import { cityType } from "../../types/city-types";
@@ -58,7 +58,6 @@ function SignUp() {
               <TextInput name="email" placeholder="Email" />
               <TextInput name="phoneNumber" placeholder="Phone Number" />
               <TextInput name="address" placeholder="Address" />
-
               <Field name="cityId">
                 {({
                   field,
@@ -75,18 +74,11 @@ function SignUp() {
                       form.touched.cityId
                     }
                   >
-                    <Select {...field} placeholder="City">
-                      {cities.map((city) => (
-                        <option key={city.id} value={city.id}>
-                          {city.name}
-                        </option>
-                      ))}
-                    </Select>
+                    <CitySelect cities={cities} field={field} />
                     <FormErrorMessage> {form.errors.cityId}</FormErrorMessage>
                   </FormControl>
                 )}
               </Field>
-
               <PasswordInput name="password" placeholder="Password" />
               <PasswordInput
                 name="confirmPassword"
@@ -111,7 +103,7 @@ function SignUp() {
               </Button>
 
               <Text textAlign="center" fontSize="0.9rem">
-                Already have an account yet?{" "}
+                Already have an account?{" "}
                 <Link
                   href="/auth?mode=sigin"
                   textDecoration="underline"

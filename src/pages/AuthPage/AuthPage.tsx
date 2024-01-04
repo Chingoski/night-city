@@ -31,7 +31,7 @@ export default AuthPage;
 
 export async function loader() {
   const response = await axios.get(
-    "https://2ba0-77-29-41-231.ngrok-free.app/api/cities",
+    "https://b8d5-77-28-44-250.ngrok-free.app/api/cities",
     {
       headers: {
         Authorization:
