@@ -19,7 +19,7 @@ import { useLoaderData } from "react-router-dom";
 import { cityType } from "../../types/city-types";
 
 function SignUp() {
-  const cities = useLoaderData() as cityType[];
+  const cities = (useLoaderData() as cityType[]) ?? [{ id: 1, name: "Skopje" }];
 
   return (
     <Flex
@@ -53,11 +53,12 @@ function SignUp() {
               alignItems="flex-start"
               gap="20px"
             >
-              <TextInput name="firstName" placeholder="First Name" />
-              <TextInput name="lastName" placeholder="Last Name" />
-              <TextInput name="email" placeholder="Email" />
-              <TextInput name="phoneNumber" placeholder="Phone Number" />
-              <TextInput name="address" placeholder="Address" />
+              <TextInput name="firstName" placeholder="First Name" type="text" />
+              <TextInput name="lastName" placeholder="Last Name" type="text"/>
+              <TextInput name="email" placeholder="Email" type="text"/>
+              <TextInput name="phoneNumber" placeholder="Phone Number" type="text"/>
+              <TextInput name="dateOfBirth" placeholder="mm/dd/yyyy" type="date"/>
+              <TextInput name="address" placeholder="Address" type="text"/>
               <Field name="cityId">
                 {({
                   field,
