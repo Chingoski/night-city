@@ -1,14 +1,6 @@
-import {
-  Flex,
-  Input,
-  Button,
-  Text,
-  FormControl,
-  FormErrorMessage,
-  Link,
-} from "@chakra-ui/react";
+import { Flex, Button, Text, Link } from "@chakra-ui/react";
 
-import { Field, Form, Formik, FieldInputProps, FormikProps } from "formik";
+import { Form, Formik } from "formik";
 import validationSchema from "../../form_validation/sign-in/validation-schema";
 
 import TextInput from "../Form/TextInput";
@@ -50,9 +42,9 @@ function SignIn() {
               justifyContent="center"
               alignItems="flex-start"
               gap="20px"
-            >          
-              <TextInput name="email" placeholder="Email"/>
-              <PasswordInput name="password" placeholder="Password"/>
+            >
+              <TextInput name="email" placeholder="Email" />
+              <PasswordInput name="password" placeholder="Password" />
             </Flex>
 
             <Flex
