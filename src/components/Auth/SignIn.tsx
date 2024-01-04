@@ -31,8 +31,11 @@ function SignIn() {
           password: "",
         }}
         validationSchema={validationSchema}
-        onSubmit={(values) => {
-          submitLoginData(values.email, values.password);
+        onSubmit={async (values, actions) => {
+          await submitLoginData(values.email, values.password);
+
+          actions.setSubmitting(false);
+
           navigate("/");
         }}
       >
@@ -53,7 +56,7 @@ function SignIn() {
               alignItems="center"
               w="100%"
             >
-              <TextInput name="email" placeholder="Email" />
+              <TextInput name="email" placeholder="Email" type="email" />
               <PasswordInput name="password" placeholder="Password" />
               <Button
                 textTransform="uppercase"
