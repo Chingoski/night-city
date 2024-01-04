@@ -13,7 +13,7 @@ function TopMenu() {
       <Input placeholder="Search listings" w="30%" minW="150px" bg="white" />
       <Select placeholder="Filter by location" w="15%" minW="180px" bg="white">
         {cities.map((city) => (
-          <option key={city.id} value={city.name}>
+          <option key={city.id} value={city.id}>
             {city.name}
           </option>
         ))}
