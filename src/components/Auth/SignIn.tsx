@@ -1,6 +1,10 @@
-import { Flex, Input, Button, Text, FormControl, FormErrorMessage, Link } from "@chakra-ui/react";
-import { Field, Form, Formik, FieldInputProps, FormikProps } from 'formik';
+import { Flex, Button, Text, Link } from "@chakra-ui/react";
+
+import { Form, Formik } from "formik";
 import validationSchema from "../../form_validation/sign-in/validation-schema";
+
+import TextInput from "../Form/TextInput";
+import PasswordInput from "../Form/PasswordInput";
 
 function SignIn() {
   return (
@@ -26,46 +30,55 @@ function SignIn() {
         //toDo Integrate axios with router actions
         onSubmit={(values, actions) => {
           setTimeout(() => {
-            alert(JSON.stringify(values, null, 2))
-            actions.setSubmitting(false)
-          }, 1000)
+            alert(JSON.stringify(values, null, 2));
+            actions.setSubmitting(false);
+          }, 1000);
         }}
       >
         {(props) => (
           <Form>
-            <Flex flexDirection="column"
+            <Flex
+              flexDirection="column"
               justifyContent="center"
               alignItems="flex-start"
-              gap="20px">
-              <Field name='email'>
-                {({ field, form }: { field: FieldInputProps<string>, form: FormikProps<{ email: string, password: string }> }) => (
-                  <FormControl isInvalid={(form.errors.email != '' && form.errors.email != undefined) && form.touched.email}>
-                    <Input {...field} placeholder='Email' type="email" />
-                    <FormErrorMessage>{form.errors.email}</FormErrorMessage>
-                  </FormControl>
-                )}
-              </Field>
-
-              <Field name='password'>
-                {({ field, form }: { field: FieldInputProps<string>, form: FormikProps<{ email: string, password: string }> }) => (
-                  <FormControl isInvalid={(form.errors.password != '' && form.errors.password != undefined) && form.touched.password}>
-                    <Input {...field} placeholder='Password' type="password" />
-                    <FormErrorMessage>{form.errors.password}</FormErrorMessage>
-                  </FormControl>
-                )}
-              </Field>
+              gap="20px"
+            >
+              <TextInput name="email" placeholder="Email" />
+              <PasswordInput name="password" placeholder="Password" />
             </Flex>
 
-            <Flex flexDirection="column" mt={4} gap="10px" justifyContent="center" alignItems="center" w="100%">
-              <Button textTransform="uppercase" isLoading={props.isSubmitting}
-                type='submit'>Sign In</Button>
-              <Text textAlign='center' fontSize='0.9rem'>Don't have an account yet? <Link href="/auth?mode=register" textDecoration="underline" _hover={{ color: 'cyan.400' }}>Register</Link>.</Text>
+            <Flex
+              flexDirection="column"
+              mt={4}
+              gap="10px"
+              justifyContent="center"
+              alignItems="center"
+              w="100%"
+            >
+              <Button
+                textTransform="uppercase"
+                isLoading={props.isSubmitting}
+                type="submit"
+              >
+                Sign In
+              </Button>
+              <Text textAlign="center" fontSize="0.9rem">
+                Don't have an account yet?{" "}
+                <Link
+                  href="/auth?mode=register"
+                  textDecoration="underline"
+                  _hover={{ color: "cyan.400" }}
+                >
+                  Register
+                </Link>
+                .
+              </Text>
             </Flex>
           </Form>
         )}
       </Formik>
     </Flex>
-  )
+  );
 }
 
 export default SignIn;
