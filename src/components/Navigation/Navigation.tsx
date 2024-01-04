@@ -1,16 +1,21 @@
-import { useAppDispatch, useAppSelector } from "../../store/store";
-import { toggleNavigation } from "../../store/navigation-slice";
+import { useContext } from "react";
+import { navigationContext } from "../../context/NavigationContext";
 
 import { Box, Flex, IconButton } from "@chakra-ui/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 
 import NavigationLink from "./NavLink";
+import LogOutLink from "./LogOutLink";
 
 function Navigation() {
-  const dispatch = useAppDispatch();
-  const isCollapsed = useAppSelector((state) => state.navigation.isCollapsed);
+  const { isCollapsed, setIsCollapsed } = useContext(navigationContext);
+
   function collapseHandler() {
-    dispatch(toggleNavigation());
+    if (isCollapsed) {
+      setIsCollapsed(false);
+    } else {
+      setIsCollapsed(true);
+    }
   }
 
   return (
@@ -77,11 +82,7 @@ function Navigation() {
         />
       </Flex>
       <Box>
-        <NavigationLink
-          path="log-out"
-          title="log out"
-          isCollapsed={isCollapsed}
-        />
+        <LogOutLink title="log out" isCollapsed={isCollapsed} />
       </Box>
     </Flex>
   );

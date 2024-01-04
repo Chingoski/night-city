@@ -43,3 +43,20 @@ export async function submitLoginData(email: string, password: string) {
     throw new Error("Sign in unsuccessful!");
   }
 }
+
+export async function logOut() {
+  const token = getAuthToken();
+  const response = await axios.post(
+    `${host}/api/auth/logout`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  if (response.status !== 204) {
+    throw json({ message: response.statusText }, { status: response.status });
+  }
+  localStorage.removeItem("token");
+}
