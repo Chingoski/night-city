@@ -44,6 +44,23 @@ export async function submitLoginData(email: string, password: string) {
   }
 }
 
+export async function logOut() {
+  const token = getAuthToken();
+  const response = await axios.post(
+    `${host}/api/auth/logout`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "ngrok-skip-browser-warning": "true",
+      },
+    }
+  );
+  if (response.status !== 204) {
+    throw json({ message: response.statusText }, { status: response.status });
+  }
+  localStorage.removeItem("token");
+}
 
 export async function submitRegisterData(firstName: string, lastName: string, email: string, phoneNumber: string, dateOfBirth: string, address: string, cityId: string, password: string, confrimPassword: string) {
   try {
