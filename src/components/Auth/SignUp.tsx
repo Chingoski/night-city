@@ -15,11 +15,31 @@ import TextInput from "../Form/TextInput";
 import PasswordInput from "../Form/PasswordInput";
 import CitySelect from "../UI/CitySelect";
 
-import { useLoaderData } from "react-router-dom";
-import { cityType } from "../../types/city-types";
+import axios from "axios";
+import host from "../../host";
+import { useState, useEffect } from "react";
 
 function SignUp() {
-  const cities = (useLoaderData() as cityType[]) ?? [{ id: 1, name: "Skopje" }];
+  const [cities, setCities] = useState([]);
+
+  const fetchCities = async () => {
+    const response = await axios.get(`${host}/api/cities`, {
+      headers: {
+        "Content-Type": "application/json",
+        "ngrok-skip-browser-warning": "true",
+      },
+    });
+
+    if (response.status !== 200) {
+      setCities([]);
+    }
+
+    setCities(response.data.data);
+  };
+
+  useEffect(() => {
+    fetchCities();
+  }, []);
 
   return (
     <Flex
@@ -53,12 +73,24 @@ function SignUp() {
               alignItems="flex-start"
               gap="20px"
             >
-              <TextInput name="firstName" placeholder="First Name" type="text" />
-              <TextInput name="lastName" placeholder="Last Name" type="text"/>
-              <TextInput name="email" placeholder="Email" type="text"/>
-              <TextInput name="phoneNumber" placeholder="Phone Number" type="text"/>
-              <TextInput name="dateOfBirth" placeholder="mm/dd/yyyy" type="date"/>
-              <TextInput name="address" placeholder="Address" type="text"/>
+              <TextInput
+                name="firstName"
+                placeholder="First Name"
+                type="text"
+              />
+              <TextInput name="lastName" placeholder="Last Name" type="text" />
+              <TextInput name="email" placeholder="Email" type="text" />
+              <TextInput
+                name="phoneNumber"
+                placeholder="Phone Number"
+                type="text"
+              />
+              <TextInput
+                name="dateOfBirth"
+                placeholder="mm/dd/yyyy"
+                type="date"
+              />
+              <TextInput name="address" placeholder="Address" type="text" />
               <Field name="cityId">
                 {({
                   field,
