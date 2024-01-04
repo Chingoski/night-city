@@ -11,6 +11,8 @@ import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import AuthPage from "../pages/AuthPage/AuthPage";
 
 import { loader as homePageLoader } from "../pages/HomePage";
+import { redirectToAuthLoader } from "../util/auth";
+import { redirectToHomeLoader } from "../util/auth";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +20,7 @@ const router = createBrowserRouter([
     element: <RootLayoutPage />,
     errorElement: <ErrorPage />,
     id: "root",
+    loader: redirectToAuthLoader,
 
     children: [
       {
@@ -50,6 +53,7 @@ const router = createBrowserRouter([
   {
     path: "/auth",
     element: <AuthPage />,
+    loader: redirectToHomeLoader,
   },
 ]);
 

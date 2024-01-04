@@ -1,17 +1,19 @@
-import { Link } from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
 import { logOut } from "../../util/auth";
+import { useNavigate } from "react-router-dom";
 
 const LogOutLink: React.FC<{
   title: string;
   isCollapsed: boolean;
 }> = ({ title, isCollapsed }) => {
-  function clickHandler() {
-    logOut();
+  const navigate = useNavigate();
+  async function clickHandler() {
+    await logOut();
+    navigate("/auth");
   }
 
   return (
-    <Link
-      href="/auth"
+    <Text
       onClick={clickHandler}
       w="100%"
       p="10px"
@@ -20,7 +22,7 @@ const LogOutLink: React.FC<{
       _hover={{ textDecoration: "none", color: "cyan.400" }}
     >
       {title}
-    </Link>
+    </Text>
   );
 };
 

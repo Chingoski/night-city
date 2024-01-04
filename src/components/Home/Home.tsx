@@ -1,11 +1,14 @@
 import { Flex } from "@chakra-ui/react";
 import TopMenu from "../TopMenu/TopMenu";
+import ListingCard from "../ListingCard/ListingCard";
 
 function Home() {
   return (
     <Flex flexDirection="column" w="100%">
       <TopMenu />
-      <Flex>list of all listings</Flex>
+      <Flex>
+        <ListingCard />
+      </Flex>
     </Flex>
   );
 }

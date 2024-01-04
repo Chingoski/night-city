@@ -31,8 +31,9 @@ function SignIn() {
           password: "",
         }}
         validationSchema={validationSchema}
-        onSubmit={(values) => {
-          submitLoginData(values.email, values.password);
+        onSubmit={async (values, actions) => {
+          await submitLoginData(values.email, values.password);
+          actions.setSubmitting(false);
           navigate("/");
         }}
       >
