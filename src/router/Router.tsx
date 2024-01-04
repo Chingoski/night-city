@@ -12,10 +12,10 @@ import AuthPage from "../pages/AuthPage/AuthPage";
 
 import { loader as homePageLoader } from "../pages/HomePage";
 
+import { loader as logOutLoader } from "../pages/LogOutPage";
+
 import { redirectToAuthLoader } from "../util/auth";
 import { redirectToHomeLoader } from "../util/auth";
-
-import { action as logOutAction } from "../pages/LogOutPage";
 
 const router = createBrowserRouter([
   {
@@ -60,7 +60,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/logout",
-    action: logOutAction,
+    loader: logOutLoader,
   },
 ]);
 

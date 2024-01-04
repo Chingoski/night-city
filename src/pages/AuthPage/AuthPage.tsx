@@ -7,9 +7,9 @@ import SignIn from "../../components/Auth/SignIn";
 import SignUp from "../../components/Auth/SignUp";
 
 function AuthPage() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, _setSearchParams] = useSearchParams();
   const isRegister = searchParams.get("mode") === "register";
-  
+
   return (
     <Flex
       flexDirection="column"
