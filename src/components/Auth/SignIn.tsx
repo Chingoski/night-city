@@ -1,12 +1,16 @@
 import { Flex, Button, Text, Link } from "@chakra-ui/react";
-
 import { Form, Formik } from "formik";
 import validationSchema from "../../form_validation/sign-in/validation-schema";
+
+import { submitLoginData } from "../../util/auth";
+import { useNavigate } from "react-router-dom";
 
 import TextInput from "../Form/TextInput";
 import PasswordInput from "../Form/PasswordInput";
 
 function SignIn() {
+  const navigate = useNavigate();
+
   return (
     <Flex
       bg="white"
@@ -27,12 +31,9 @@ function SignIn() {
           password: "",
         }}
         validationSchema={validationSchema}
-        //toDo Integrate axios with router actions
-        onSubmit={(values, actions) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            actions.setSubmitting(false);
-          }, 1000);
+        onSubmit={(values) => {
+          submitLoginData(values.email, values.password);
+          navigate("/");
         }}
       >
         {(props) => (
@@ -42,10 +43,7 @@ function SignIn() {
               justifyContent="center"
               alignItems="flex-start"
               gap="20px"
-            >
-              <TextInput name="email" placeholder="Email" />
-              <PasswordInput name="password" placeholder="Password" />
-            </Flex>
+            ></Flex>
 
             <Flex
               flexDirection="column"
@@ -55,6 +53,8 @@ function SignIn() {
               alignItems="center"
               w="100%"
             >
+              <TextInput name="email" placeholder="Email" />
+              <PasswordInput name="password" placeholder="Password" />
               <Button
                 textTransform="uppercase"
                 isLoading={props.isSubmitting}
