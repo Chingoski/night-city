@@ -15,11 +15,36 @@ import TextInput from "../Form/TextInput";
 import PasswordInput from "../Form/PasswordInput";
 import CitySelect from "../UI/CitySelect";
 
-import { useLoaderData } from "react-router-dom";
-import { cityType } from "../../types/city-types";
+import axios from "axios";
+import host from "../../host";
+import { useState, useEffect } from "react";
+
+import { submitRegisterData } from "../../util/auth";
+import { useNavigate } from "react-router-dom";
 
 function SignUp() {
-  const cities = useLoaderData() as cityType[];
+  const [cities, setCities] = useState([]);
+
+  const fetchCities = async () => {
+    const response = await axios.get(`${host}/api/cities`, {
+      headers: {
+        "Content-Type": "application/json",
+        "ngrok-skip-browser-warning": "true",
+      },
+    });
+
+    if (response.status !== 200) {
+      setCities([]);
+    }
+
+    setCities(response.data.data);
+  };
+
+  useEffect(() => {
+    fetchCities();
+  }, []);
+
+  const navigate = useNavigate();
 
   return (
     <Flex
@@ -38,11 +63,22 @@ function SignUp() {
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={(values, actions) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            actions.setSubmitting(false);
-          }, 1000);
+        onSubmit={async (values, actions) => {
+          await submitRegisterData(
+            values.firstName,
+            values.lastName,
+            values.email,
+            values.phoneNumber,
+            values.dateOfBirth,
+            values.address,
+            values.cityId,
+            values.password,
+            values.confirmPassword
+          );
+
+          actions.setSubmitting(false);
+
+          navigate('/');
         }}
       >
         {(props) => (
@@ -53,11 +89,24 @@ function SignUp() {
               alignItems="flex-start"
               gap="20px"
             >
-              <TextInput name="firstName" placeholder="First Name" />
-              <TextInput name="lastName" placeholder="Last Name" />
-              <TextInput name="email" placeholder="Email" />
-              <TextInput name="phoneNumber" placeholder="Phone Number" />
-              <TextInput name="address" placeholder="Address" />
+              <TextInput
+                name="firstName"
+                placeholder="First Name"
+                type="text"
+              />
+              <TextInput name="lastName" placeholder="Last Name" type="text" />
+              <TextInput name="email" placeholder="Email" type="text" />
+              <TextInput
+                name="phoneNumber"
+                placeholder="Phone Number"
+                type="text"
+              />
+              <TextInput
+                name="dateOfBirth"
+                placeholder="mm/dd/yyyy"
+                type="date"
+              />
+              <TextInput name="address" placeholder="Address" type="text" />
               <Field name="cityId">
                 {({
                   field,

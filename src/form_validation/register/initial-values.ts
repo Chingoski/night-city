@@ -7,6 +7,7 @@ const initialValues = {
   phoneNumber: "",
   address: "",
   cityId: "",
+  dateOfBirth: "",
 };
 
 export default initialValues;
