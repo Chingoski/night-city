@@ -1,4 +1,4 @@
-import { Flex, Button, Text } from "@chakra-ui/react";
+import { Flex, Button, SimpleGrid} from "@chakra-ui/react";
 
 import { allListingsContext } from "../../context/AllListingsContext";
 import { useContext, useEffect } from "react";
@@ -56,10 +56,12 @@ function Home() {
   return (
     <Flex flexDirection="column" w="100%">
       <TopMenu />
-      <Flex flexDirection="column">
-        {/* {allListings.map((listing) => (
-          <div key={listing.id}>{listing.description}</div>
-        ))} */}
+      <Flex flexDirection="column" w="100%" justifyContent="flex-start" padding="20px">
+      <SimpleGrid minChildWidth='300px' spacing='40px'>
+        {allListings.map((listing) => (
+          <ListingCard key={listing.id} listing={listing}/>
+        ))}
+      </SimpleGrid>
       </Flex>
       {url !== "" && <Button onClick={fetchListings}>Load More</Button>}
     </Flex>
