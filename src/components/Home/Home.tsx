@@ -59,6 +59,7 @@ function Home() {
   return (
     <Flex
       flexDirection="column"
+      marginBottom="15px"
       sx={{
         ...styles,
         width: isCollapsed
@@ -76,7 +77,18 @@ function Home() {
           <ListingCard key={listing.id} listing={listing} />
         ))}
       </SimpleGrid>
-      {url !== "" && <Button onClick={fetchListings}>Load More</Button>}
+
+      {url !== "" && (
+        <Button
+          bg="gray.200"
+          _hover={{ bg: "gray.300" }}
+          w="200px"
+          margin="auto"
+          onClick={fetchListings}
+        >
+          Load More
+        </Button>
+      )}
     </Flex>
   );
 }
