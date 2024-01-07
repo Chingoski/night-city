@@ -20,12 +20,12 @@ function Navigation() {
 
   return (
     <Flex
-      maxW="250px"
-      w={isCollapsed ? "auto" : "200px"}
+      w={isCollapsed ? "var(--collapsed-nav-width)" : "var(--open-nav-width)"}
       h="100dvh"
       flexDirection="column"
       bg="white"
       justifyContent="space-between"
+      position="fixed"
     >
       <Flex flexDirection="column">
         <Flex
@@ -36,7 +36,9 @@ function Navigation() {
           p="10px"
           marginBottom="25px"
         >
-          <Box display={isCollapsed ? "none" : "block"}>Logo</Box>
+          <Box marginLeft="10px" display={isCollapsed ? "none" : "block"}>
+            Logo
+          </Box>
           <IconButton
             aria-label="Manipulate navigation menu"
             color="cyan.900"

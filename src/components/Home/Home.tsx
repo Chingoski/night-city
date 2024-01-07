@@ -1,5 +1,6 @@
-import { Flex, Button } from "@chakra-ui/react";
+import { Flex, Button, SimpleGrid, useStyleConfig } from "@chakra-ui/react";
 
+import { navigationContext } from "../../context/NavigationContext";
 import { allListingsContext } from "../../context/AllListingsContext";
 import { useContext, useEffect } from "react";
 
@@ -8,10 +9,14 @@ import { getAuthToken } from "../../util/auth";
 import updateURL from "../../util/request";
 
 import TopMenu from "../TopMenu/TopMenu";
+import ListingCard from "../ListingCard/ListingCard";
 
 function Home() {
   const { allListings, setAllListings, isLoading, setIsLoading, url, setUrl } =
     useContext(allListingsContext);
+
+  const { isCollapsed } = useContext(navigationContext);
+  const styles = useStyleConfig("Home");
 
   const fetchListings = async () => {
     setIsLoading(true);
@@ -50,10 +55,27 @@ function Home() {
     fetchListings();
   }, []);
 
+  //adjust width
   return (
-    <Flex flexDirection="column" w="100%">
+    <Flex
+      flexDirection="column"
+      sx={{
+        ...styles,
+        width: isCollapsed
+          ? "var(--collapsed-outlet-width)"
+          : "var(--open-outlet-width)",
+        marginLeft: isCollapsed
+          ? "var(--collapsed-nav-width)"
+          : "var(--open-nav-width)",
+      }}
+    >
       <TopMenu />
-      <Flex flexDirection="column"></Flex>
+
+      <SimpleGrid minChildWidth="300px" spacing="15px" p="15px">
+        {allListings.map((listing) => (
+          <ListingCard key={listing.id} listing={listing} />
+        ))}
+      </SimpleGrid>
       {url !== "" && <Button onClick={fetchListings}>Load More</Button>}
     </Flex>
   );

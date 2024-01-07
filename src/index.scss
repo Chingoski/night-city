@@ -1,3 +1,7 @@
 :root {
   --primary-font: "Outfit", sans-serif;
+  --collapsed-nav-width: 50px;
+  --open-nav-width: 200px;
+  --collapsed-outlet-width: calc(100% - var(--collapsed-nav-width));
+  --open-outlet-width: calc(100% - var(--open-nav-width));
 }

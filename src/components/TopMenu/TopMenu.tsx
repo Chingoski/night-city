@@ -2,8 +2,7 @@ import { useLoaderData } from "react-router-dom";
 
 import { cityType } from "../../types/city-types";
 
-import { Flex } from "@chakra-ui/react";
-import { Input, Select } from "@chakra-ui/react";
+import { Flex, Input, Select } from "@chakra-ui/react";
 
 function TopMenu() {
   const cities = useLoaderData() as cityType[];
