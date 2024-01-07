@@ -43,6 +43,7 @@ function Home() {
 
       const fetchedListings = response.data.data;
       const displayedListings = allListings.concat(fetchedListings);
+
       setAllListings(displayedListings);
     } catch (error) {
       return error;
@@ -55,7 +56,6 @@ function Home() {
     fetchListings();
   }, []);
 
-  //adjust width
   return (
     <Flex
       flexDirection="column"
