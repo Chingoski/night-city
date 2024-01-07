@@ -1,4 +1,4 @@
-import { Flex, Button, Text } from "@chakra-ui/react";
+import { Flex, Button } from "@chakra-ui/react";
 
 import { allListingsContext } from "../../context/AllListingsContext";
 import { useContext, useEffect } from "react";
@@ -8,7 +8,6 @@ import { getAuthToken } from "../../util/auth";
 import updateURL from "../../util/request";
 
 import TopMenu from "../TopMenu/TopMenu";
-import ListingCard from "../ListingCard/ListingCard";
 
 function Home() {
   const { allListings, setAllListings, isLoading, setIsLoading, url, setUrl } =
@@ -51,16 +50,10 @@ function Home() {
     fetchListings();
   }, []);
 
-  useEffect(() => console.log(allListings, url), [allListings, url]);
-
   return (
     <Flex flexDirection="column" w="100%">
       <TopMenu />
-      <Flex flexDirection="column">
-        {/* {allListings.map((listing) => (
-          <div key={listing.id}>{listing.description}</div>
-        ))} */}
-      </Flex>
+      <Flex flexDirection="column"></Flex>
       {url !== "" && <Button onClick={fetchListings}>Load More</Button>}
     </Flex>
   );
