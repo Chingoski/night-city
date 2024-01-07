@@ -1,4 +1,10 @@
-import { Flex, Button, SimpleGrid, useStyleConfig } from "@chakra-ui/react";
+import {
+  Flex,
+  Button,
+  SimpleGrid,
+  useStyleConfig,
+  Text,
+} from "@chakra-ui/react";
 
 import { navigationContext } from "../../context/NavigationContext";
 import { allListingsContext } from "../../context/AllListingsContext";
@@ -78,7 +84,13 @@ function Home() {
         ))}
       </SimpleGrid>
 
-      {url !== "" && (
+      {isLoading && (
+        <Text w="100%" margin="auto" textAlign="center">
+          Loading listings...
+        </Text>
+      )}
+
+      {url !== "" && !isLoading && (
         <Button
           bg="gray.200"
           _hover={{ bg: "gray.300" }}

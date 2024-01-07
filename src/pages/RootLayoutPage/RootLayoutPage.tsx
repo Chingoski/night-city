@@ -8,6 +8,8 @@ function RootLayoutPage() {
       flexDirection="row"
       w="100%"
       bg="gray.100"
+      h="auto"
+      minH="100dvh"
       fontFamily="var(--primary-font)"
       fontSize="1.2rem"
       color="gray.700"
