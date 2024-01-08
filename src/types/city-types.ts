@@ -19,4 +19,4 @@ type cityResponseType = {
 };
 export default cityResponseType;
 
-export type cityIdType = number | null;
+export type cityIdType = number;

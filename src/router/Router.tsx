@@ -11,6 +11,7 @@ import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import AuthPage from "../pages/AuthPage/AuthPage";
 
 import { loader as homePageLoader } from "../pages/HomePage";
+import { loader as myListingsLoader } from "../pages/MyListingsPage";
 import { redirectToAuthLoader } from "../util/auth";
 import { redirectToHomeLoader } from "../util/auth";
 
@@ -35,6 +36,7 @@ const router = createBrowserRouter([
       {
         path: "/my-listings",
         element: <MyListingsPage />,
+        loader: myListingsLoader,
       },
       {
         path: "my-profile",

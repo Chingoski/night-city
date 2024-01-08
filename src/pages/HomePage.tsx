@@ -24,5 +24,6 @@ export async function loader() {
   if (response.status !== 200) {
     throw json({ message: response.statusText }, { status: response.status });
   }
+
   return response.data.data;
 }

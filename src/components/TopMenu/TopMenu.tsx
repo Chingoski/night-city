@@ -1,6 +1,6 @@
 import { useLoaderData } from "react-router-dom";
 
-import { ChangeEvent, useContext } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import { filteringContext } from "../../context/FilterContext";
 
 import { cityType } from "../../types/city-types";
@@ -10,17 +10,37 @@ import { SearchIcon } from "@chakra-ui/icons";
 
 function TopMenu() {
   const cities = useLoaderData() as cityType[];
-  const { setInputCityId } = useContext(filteringContext);
+
+  const { setInputCityId, setSearchInputValue } = useContext(filteringContext);
+  const [searchInput, setSearchInput] = useState("");
 
   function selectHandler(event: ChangeEvent<HTMLSelectElement>) {
-    const cityID = +event.target.value;
-    setInputCityId(cityID);
+    setInputCityId(+event.target.value);
+  }
+
+  function inputChangeHandler(event: ChangeEvent<HTMLInputElement>) {
+    setSearchInput(event.target.value);
+  }
+
+  function searchHandler() {
+    setSearchInputValue(searchInput);
   }
 
   return (
     <Flex flexDirection="row" w="100%" p="10px 20px" gap="10px">
-      <Input placeholder="Search listings" w="30%" minW="150px" bg="white" />
-      <IconButton aria-label="Search listings" icon={<SearchIcon />} />
+      <Input
+        placeholder="Search listings"
+        w="30%"
+        minW="150px"
+        bg="white"
+        onChange={inputChangeHandler}
+      />
+      <IconButton
+        aria-label="Click to search!"
+        icon={<SearchIcon />}
+        onClick={searchHandler}
+        bg="white"
+      />
 
       <Select
         onChange={selectHandler}

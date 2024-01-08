@@ -1,48 +1,47 @@
 import { Flex, SimpleGrid, useStyleConfig, Text } from "@chakra-ui/react";
 
-import fetchListings, {
-  constructUrl,
-  fetchNextPage,
-} from "../../util/listings";
-
-import { navigationContext } from "../../context/NavigationContext";
-import { filteringContext } from "../../context/FilterContext";
-import { allListingsContext } from "../../context/AllListingsContext";
 import { useContext, useEffect } from "react";
+import { navigationContext } from "../../context/NavigationContext";
+import { myListingsContext } from "../../context/MyListingsContext";
 
-import TopMenu from "../TopMenu/TopMenu";
+import { useLoaderData } from "react-router-dom";
+import { userType } from "../../types/user-types";
+
+import host from "../../host";
+import fetchListings, { fetchNextPage } from "../../util/listings";
+
 import ListingCard from "../ListingCard/ListingCard";
 import LoadMoreButton from "../UI/LoadMoreButton";
 
-function Home() {
+function MyListings() {
+  const styles = useStyleConfig("Home");
+  const { isCollapsed } = useContext(navigationContext);
+
   const {
-    allListings,
-    setAllListings,
+    myListings,
+    setMyListings,
     isLoading,
     setIsLoading,
     nextPage,
     setNextPage,
-  } = useContext(allListingsContext);
+  } = useContext(myListingsContext);
 
-  const { isCollapsed } = useContext(navigationContext);
-  const styles = useStyleConfig("Home");
+  const user = useLoaderData() as userType;
+  const url = `${host}/api/game_listings?owner_id=${user.id}`;
 
-  const { inputCityId, searchInputValue } = useContext(filteringContext);
-
-  function fetchAllListings() {
-    const listingUrl = constructUrl(inputCityId, searchInputValue);
-    fetchListings(listingUrl, setIsLoading, setNextPage, setAllListings);
+  function fetchMyListings() {
+    fetchListings(url, setIsLoading, setNextPage, setMyListings);
   }
 
-  useEffect(() => fetchAllListings(), [inputCityId, searchInputValue]);
+  useEffect(() => fetchMyListings(), []);
 
   function loadMoreHandler() {
     fetchNextPage(
       nextPage,
       setIsLoading,
       setNextPage,
-      allListings,
-      setAllListings
+      myListings,
+      setMyListings
     );
   }
 
@@ -60,16 +59,14 @@ function Home() {
           : "var(--open-nav-width)",
       }}
     >
-      <TopMenu />
-
-      {!isLoading && allListings.length !== 0 && (
+      {!isLoading && myListings.length !== 0 && (
         <SimpleGrid minChildWidth="300px" spacing="15px" p="15px">
-          {allListings.map((listing) => (
+          {myListings.map((listing) => (
             <ListingCard key={listing.id} listing={listing} />
           ))}
         </SimpleGrid>
       )}
-      {!isLoading && allListings.length === 0 && (
+      {!isLoading && myListings.length === 0 && (
         <Text w="100%" margin="auto" textAlign="center">
           No listings found.
         </Text>
@@ -81,11 +78,11 @@ function Home() {
         </Text>
       )}
 
-      {nextPage !== "" && !isLoading && allListings.length !== 0 && (
+      {nextPage !== "" && !isLoading && myListings.length !== 0 && (
         <LoadMoreButton loadMoreHandler={loadMoreHandler} />
       )}
     </Flex>
   );
 }
 
-export default Home;
+export default MyListings;

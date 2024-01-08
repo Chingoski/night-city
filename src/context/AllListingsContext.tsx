@@ -1,14 +1,14 @@
 import { createContext, useState } from "react";
+
 import { listingType } from "../types/listing-type";
-import host from "../host";
 
 type allListingsContextType = {
   allListings: listingType[];
   setAllListings: (allListings: listingType[]) => void;
   isLoading: boolean;
   setIsLoading: (isLoading: boolean) => void;
-  url: string;
-  setUrl: (nextPage: string) => void;
+  nextPage: string;
+  setNextPage: (nextPage: string) => void;
 };
 
 export const allListingsContext = createContext<allListingsContextType>({
@@ -16,8 +16,8 @@ export const allListingsContext = createContext<allListingsContextType>({
   setAllListings: () => {},
   isLoading: false,
   setIsLoading: () => {},
-  url: "",
-  setUrl: () => {},
+  nextPage: "",
+  setNextPage: () => {},
 });
 
 const AllListingsContextProvider: React.FC<{ children?: React.ReactNode }> = ({
@@ -25,15 +25,15 @@ const AllListingsContextProvider: React.FC<{ children?: React.ReactNode }> = ({
 }) => {
   const [allListings, setAllListings] = useState<listingType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [url, setUrl] = useState(`${host}/api/game_listings`);
+  const [nextPage, setNextPage] = useState(``);
 
   const value: allListingsContextType = {
     allListings,
     setAllListings,
     isLoading,
     setIsLoading,
-    url,
-    setUrl,
+    nextPage,
+    setNextPage,
   };
 
   return (

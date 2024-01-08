@@ -9,7 +9,7 @@ type filteringContextType = {
 };
 
 export const filteringContext = createContext<filteringContextType>({
-  inputCityId: null,
+  inputCityId: 0,
   setInputCityId: () => {},
   searchInputValue: "",
   setSearchInputValue: () => {},
@@ -18,7 +18,7 @@ export const filteringContext = createContext<filteringContextType>({
 const FilteringContextProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [inputCityId, setInputCityId] = useState<cityIdType>(null);
+  const [inputCityId, setInputCityId] = useState(0);
   const [searchInputValue, setSearchInputValue] = useState("");
   const value: filteringContextType = {
     inputCityId,

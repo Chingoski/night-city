@@ -70,7 +70,7 @@ const ListingCard: React.FC<{ listing: listingType }> = ({ listing }) => {
               <Badge bg="purple.400">{listing.platform.slug}</Badge>
             </WrapItem>
             {listing.game.genres.map((genre) => (
-              <WrapItem>
+              <WrapItem key={genre.id}>
                 <Badge bg="blue.50">{genre.name}</Badge>
               </WrapItem>
             ))}
