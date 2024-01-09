@@ -9,6 +9,12 @@ export type listingType = {
     thumbnail: string;
     rating: string;
     release_date: string;
+    genres: [
+      {
+        id: number,
+        name: string
+      }
+    ]
   };
   owner_id: number;
   owner: {
@@ -21,6 +27,10 @@ export type listingType = {
     address: string;
     date_of_birth: string;
     city_id: number;
+    city: {
+      id: number,
+      name: string
+    }
   };
   trade_preference: "string";
   platform_id: number;

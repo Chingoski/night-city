@@ -1,13 +1,19 @@
 import NavigationContextProvider from "./NavigationContext";
 import AllListingsContextProvider from "./AllListingsContext";
+import FilteringContextProvider from "./FilterContext";
+import MyListingsContextProvider from "./MyListingsContext";
 
 const ApplicationContextProvider: React.FC<{ children?: React.ReactNode }> = ({
   children,
 }) => {
   return (
-    <NavigationContextProvider>
-      <AllListingsContextProvider>{children}</AllListingsContextProvider>
-    </NavigationContextProvider>
+    <MyListingsContextProvider>
+      <FilteringContextProvider>
+        <NavigationContextProvider>
+          <AllListingsContextProvider>{children}</AllListingsContextProvider>
+        </NavigationContextProvider>
+      </FilteringContextProvider>
+    </MyListingsContextProvider>
   );
 };
 
