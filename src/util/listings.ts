@@ -76,6 +76,8 @@ export async function fetchNextPage(
     if (response.data.meta.pagination.links.next) {
       const nextPageUrl = updateURL(response.data.meta.pagination.links.next);
       setNextPage(nextPageUrl);
+    } else {
+      setNextPage("");
     }
 
     setListings(listings.concat(response.data.data));

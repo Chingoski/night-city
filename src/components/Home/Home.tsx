@@ -69,13 +69,27 @@ function Home() {
           ))}
         </SimpleGrid>
       )}
+
+      {isLoading && allListings.length !== 0 && (
+        <>
+          <SimpleGrid minChildWidth="300px" spacing="15px" p="15px">
+            {allListings.map((listing) => (
+              <ListingCard key={listing.id} listing={listing} />
+            ))}
+          </SimpleGrid>
+          <Text w="100%" margin="auto" paddingTop="25px" textAlign="center">
+            Loading more listings...
+          </Text>
+        </>
+      )}
+
       {!isLoading && allListings.length === 0 && (
         <Text w="100%" margin="auto" textAlign="center">
           No listings found.
         </Text>
       )}
 
-      {isLoading && (
+      {isLoading && allListings.length === 0 && (
         <Text w="100%" margin="auto" textAlign="center">
           Loading listings...
         </Text>
