@@ -34,7 +34,7 @@ function Home() {
     fetchListings(listingUrl, setIsLoading, setNextPage, setAllListings);
   }
 
-  useEffect(() => fetchAllListings(), [inputCityId, searchInputValue]);
+  useEffect(() => fetchAllListings(), []);
 
   function loadMoreHandler() {
     fetchNextPage(
@@ -78,7 +78,7 @@ function Home() {
             ))}
           </SimpleGrid>
           <Text w="100%" margin="auto" paddingTop="25px" textAlign="center">
-            Loading more listings...
+            Loading...
           </Text>
         </>
       )}
@@ -91,7 +91,7 @@ function Home() {
 
       {isLoading && allListings.length === 0 && (
         <Text w="100%" margin="auto" textAlign="center">
-          Loading listings...
+          Loading...
         </Text>
       )}
 
