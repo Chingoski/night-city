@@ -5,17 +5,16 @@ import { listingType } from "../types/listing-type";
 
 import { getHeaders } from "./get-request-headers";
 import updateURL from "./update-url";
-import { cityIdType } from "../types/city-types";
 
 async function fetchListings(
-  listingUrl: string,
+  listingUrl: URL | null,
   setIsLoading: (isLoading: boolean) => void,
-  setNextPage: (url: string) => void,
+  setNextPage: (url: URL | null) => void,
   setListings: (listings: listingType[]) => void
 ) {
   setIsLoading(true);
   try {
-    const response = await axios.get(listingUrl, {
+    const response = await axios.get(`${listingUrl}`, {
       headers: getHeaders,
     });
 
@@ -24,10 +23,12 @@ async function fetchListings(
     }
 
     if (response.data.meta.pagination.links.next) {
-      const nextPageUrl = updateURL(response.data.meta.pagination.links.next);
+      const nextPageUrl = new URL(
+        updateURL(response.data.meta.pagination.links.next)
+      );
       setNextPage(nextPageUrl);
     } else {
-      setNextPage("");
+      setNextPage(null);
     }
 
     setListings(response.data.data);
@@ -38,34 +39,45 @@ async function fetchListings(
   }
 }
 
-export function constructUrl(city: cityIdType, text: string) {
-  if (city === 0 && text === "") {
-    const url = `${host}/api/game_listings`;
-    return url;
+export function constructUrl(
+  city: number,
+  text: string,
+  platform: number,
+  tradePreference: string | undefined,
+  order: string | undefined
+) {
+  const url = new URL(`${host}/api/game_listings`);
+
+  if (text !== "") {
+    url.searchParams.append("search", text);
   }
-  if (city !== 0 && text === "") {
-    const url = `${host}/api/game_listings?city_id=${city}`;
-    return url;
+
+  if (city !== 0) {
+    url.searchParams.append("city_id", `${city}`);
   }
-  if (city === 0 && text !== "") {
-    const url = `${host}/api/game_listings?search=${text}`;
-    return url;
-  } else {
-    const url = `${host}/api/game_listings?search=${text}&city_id=${city}`;
-    return url;
+  if (platform !== 0) {
+    url.searchParams.append("platform_id", `${platform}`);
   }
+  if (tradePreference !== undefined) {
+    url.searchParams.append("trade_preference", tradePreference);
+  }
+  if (order !== undefined && order !== "") {
+    url.searchParams.append("order_by", order);
+  }
+
+  return url;
 }
 
 export async function fetchNextPage(
-  nextPage: string,
+  nextPage: URL | null,
   setIsLoading: (isLoading: boolean) => void,
-  setNextPage: (url: string) => void,
+  setNextPage: (url: URL | null) => void,
   listings: listingType[],
   setListings: (listings: listingType[]) => void
 ) {
   setIsLoading(true);
   try {
-    const response = await axios.get(nextPage, {
+    const response = await axios.get(`${nextPage}`, {
       headers: getHeaders,
     });
 
@@ -74,10 +86,12 @@ export async function fetchNextPage(
     }
 
     if (response.data.meta.pagination.links.next) {
-      const nextPageUrl = updateURL(response.data.meta.pagination.links.next);
+      const nextPageUrl = new URL(
+        updateURL(response.data.meta.pagination.links.next)
+      );
       setNextPage(nextPageUrl);
     } else {
-      setNextPage("");
+      setNextPage(null);
     }
 
     setListings(listings.concat(response.data.data));
