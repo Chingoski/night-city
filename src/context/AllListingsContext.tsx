@@ -7,8 +7,8 @@ type allListingsContextType = {
   setAllListings: (allListings: listingType[]) => void;
   isLoading: boolean;
   setIsLoading: (isLoading: boolean) => void;
-  nextPage: string;
-  setNextPage: (nextPage: string) => void;
+  nextPage: URL | null;
+  setNextPage: (nextPage: URL | null) => void;
 };
 
 export const allListingsContext = createContext<allListingsContextType>({
@@ -16,7 +16,7 @@ export const allListingsContext = createContext<allListingsContextType>({
   setAllListings: () => {},
   isLoading: false,
   setIsLoading: () => {},
-  nextPage: "",
+  nextPage: null,
   setNextPage: () => {},
 });
 
@@ -25,7 +25,7 @@ const AllListingsContextProvider: React.FC<{ children?: React.ReactNode }> = ({
 }) => {
   const [allListings, setAllListings] = useState<listingType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [nextPage, setNextPage] = useState(``);
+  const [nextPage, setNextPage] = useState<URL | null>(null);
 
   const value: allListingsContextType = {
     allListings,

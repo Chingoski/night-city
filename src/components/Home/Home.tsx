@@ -27,10 +27,17 @@ function Home() {
   const { isCollapsed } = useContext(navigationContext);
   const styles = useStyleConfig("Home");
 
-  const { inputCityId, searchInputValue } = useContext(filteringContext);
+  const { cityId, searchInputValue, platformId, tradePreference, order } =
+    useContext(filteringContext);
 
   function fetchAllListings() {
-    const listingUrl = constructUrl(inputCityId, searchInputValue);
+    const listingUrl = constructUrl(
+      cityId,
+      searchInputValue,
+      platformId,
+      tradePreference,
+      order
+    );
     fetchListings(listingUrl, setIsLoading, setNextPage, setAllListings);
   }
 
@@ -95,7 +102,7 @@ function Home() {
         </Text>
       )}
 
-      {nextPage !== "" && !isLoading && allListings.length !== 0 && (
+      {nextPage !== null && !isLoading && allListings.length !== 0 && (
         <LoadMoreButton loadMoreHandler={loadMoreHandler} />
       )}
     </Flex>

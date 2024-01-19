@@ -18,5 +18,3 @@ type cityResponseType = {
   data: cityType[];
 };
 export default cityResponseType;
-
-export type cityIdType = number;
