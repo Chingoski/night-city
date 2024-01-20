@@ -1,14 +1,10 @@
 import { Flex, SimpleGrid, useStyleConfig, Text } from "@chakra-ui/react";
 
-import fetchListings, {
-  constructUrl,
-  fetchNextPage,
-} from "../../util/listings";
+import { fetchNextPage } from "../../util/listings";
 
 import { navigationContext } from "../../context/NavigationContext";
-import { filteringContext } from "../../context/FilterContext";
 import { allListingsContext } from "../../context/AllListingsContext";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 
 import TopMenu from "../TopMenu/TopMenu";
 import ListingCard from "../ListingCard/ListingCard";
@@ -26,22 +22,6 @@ function Home() {
 
   const { isCollapsed } = useContext(navigationContext);
   const styles = useStyleConfig("Home");
-
-  const { cityId, searchInputValue, platformId, tradePreference, order } =
-    useContext(filteringContext);
-
-  function fetchAllListings() {
-    const listingUrl = constructUrl(
-      cityId,
-      searchInputValue,
-      platformId,
-      tradePreference,
-      order
-    );
-    fetchListings(listingUrl, setIsLoading, setNextPage, setAllListings);
-  }
-
-  useEffect(() => fetchAllListings(), []);
 
   function loadMoreHandler() {
     fetchNextPage(
@@ -70,7 +50,12 @@ function Home() {
       <TopMenu />
 
       {!isLoading && allListings.length !== 0 && (
-        <SimpleGrid minChildWidth="300px" spacing="15px" p="15px">
+        <SimpleGrid
+          minChildWidth="300px"
+          spacing="15px"
+          p="15px"
+          sx={{ gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))" }}
+        >
           {allListings.map((listing) => (
             <ListingCard key={listing.id} listing={listing} />
           ))}
@@ -79,7 +64,14 @@ function Home() {
 
       {isLoading && allListings.length !== 0 && (
         <>
-          <SimpleGrid minChildWidth="300px" spacing="15px" p="15px">
+          <SimpleGrid
+            minChildWidth="300px"
+            spacing="15px"
+            p="15px"
+            sx={{
+              gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+            }}
+          >
             {allListings.map((listing) => (
               <ListingCard key={listing.id} listing={listing} />
             ))}

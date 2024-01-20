@@ -20,7 +20,10 @@ import controller from "../../assets/game-controller-outline.svg";
 
 import { listingType } from "../../types/listing-type";
 
-const ListingCard: React.FC<{ listing: listingType }> = ({ listing }) => {
+const ListingCard: React.FC<{ listing: listingType; page?: string }> = ({
+  listing,
+  page,
+}) => {
   return (
     <Card maxW="md" justify="center">
       <CardHeader>
@@ -94,7 +97,7 @@ const ListingCard: React.FC<{ listing: listingType }> = ({ listing }) => {
           },
         }}
       >
-        <Button>Trade</Button>
+        {page !== "my-listings" && <Button>Trade</Button>}
       </CardFooter>
     </Card>
   );
