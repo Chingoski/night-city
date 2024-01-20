@@ -16,6 +16,9 @@ const validationSchema = yup.object().shape({
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
       "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special symbol"
     )
+    .test('passwords-different', 'New password must be different from current password', function(value) {
+      return this.parent.currentPassword !== value;
+    })
     .required("New Password is required"),
   newPasswordConfirmation: yup
     .string()
