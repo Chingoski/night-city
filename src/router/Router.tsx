@@ -5,7 +5,6 @@ import HomePage from "../pages/HomePage";
 import TradeOffersPage from "../pages/TradeOffersPage";
 import MyListingsPage from "../pages/MyListingsPage";
 import MyProfilePage from "../pages/MyProfilePage";
-import HelpPage from "../pages/HelpPage";
 import ContactUsPage from "../pages/ContactUsPage";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import AuthPage from "../pages/AuthPage/AuthPage";
@@ -41,10 +40,6 @@ const router = createBrowserRouter([
       {
         path: "my-profile",
         element: <MyProfilePage />,
-      },
-      {
-        path: "help",
-        element: <HelpPage />,
       },
       {
         path: "contact-us",

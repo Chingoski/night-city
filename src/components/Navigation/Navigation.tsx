@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { navigationContext } from "../../context/NavigationContext";
 
-import { Box, Flex, IconButton } from "@chakra-ui/react";
+import { Box, Flex, IconButton, Text } from "@chakra-ui/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 
 import NavigationLink from "./NavLink";
@@ -36,8 +36,8 @@ function Navigation() {
           p="10px"
           marginBottom="25px"
         >
-          <Box marginLeft="10px" display={isCollapsed ? "none" : "block"}>
-            Logo
+          <Box marginLeft="10px" display={isCollapsed ? "none" : "block"} flexDirection="row"  maxWidth="80%">
+            <Text isTruncated>GameSwapStation</Text>
           </Box>
           <IconButton
             aria-label="Manipulate navigation menu"
@@ -76,7 +76,6 @@ function Navigation() {
           title="my profile"
           isCollapsed={isCollapsed}
         />
-        <NavigationLink path="/help" title="help" isCollapsed={isCollapsed} />
         <NavigationLink
           path="/contact-us"
           title="contact us"
