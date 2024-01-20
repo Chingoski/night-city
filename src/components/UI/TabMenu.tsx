@@ -3,17 +3,28 @@ import { tab } from "../../types/tabs-types";
 
 const TabMenu: React.FC<{ tabs: tab[] }> = ({ tabs }) => {
   return (
-    <Tabs isFitted variant="enclosed-colored" width="100%" padding="10px">
+    <Tabs
+      isFitted
+      variant="enclosed-colored"
+      width="100%"
+      padding="10px"
+      h="100%"
+    >
       <TabList mb="1em" background="white">
-        {tabs.map((tab) => <Tab key={tab.id}
-          _selected={{ color: "white", bg: "teal.500" }}
-          borderTopRadius="10px"
-        >{tab.name}</Tab>)}
+        {tabs.map((tab) => (
+          <Tab
+            key={tab.id}
+            _selected={{ color: "white", bg: "teal.500" }}
+            borderTopRadius="10px"
+          >
+            {tab.name}
+          </Tab>
+        ))}
       </TabList>
       <TabPanels>
-        {tabs.map((tab) => <TabPanel key={tab.id}>
-       {tab.element}
-        </TabPanel>)}        
+        {tabs.map((tab) => (
+          <TabPanel key={tab.id}>{tab.element}</TabPanel>
+        ))}
       </TabPanels>
     </Tabs>
   );
