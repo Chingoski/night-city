@@ -1,10 +1,4 @@
-import {
-  useStyleConfig,
-  Flex,
-
-} from "@chakra-ui/react";
-
-
+import { useStyleConfig, Flex } from "@chakra-ui/react";
 
 import { navigationContext } from "../context/NavigationContext";
 import { useContext } from "react";
@@ -31,7 +25,7 @@ function ContactUsPage() {
           : "var(--open-nav-width)",
       }}
     >
-     <ContactUs/>
+      <ContactUs />
     </Flex>
   );
 }
