@@ -4,10 +4,9 @@ import { cityType } from "../../types/city-types";
 
 import { Flex } from "@chakra-ui/react";
 
-import { MdLocationCity } from "react-icons/md";
-import { GiConsoleController } from "react-icons/gi";
-import { RiExchangeDollarFill } from "react-icons/ri";
-import { FaSortAmountDown } from "react-icons/fa";
+import { FaSortAmountDown, FaGamepad, FaCity } from "react-icons/fa";
+import { FaCoins } from "react-icons/fa6";
+
 
 import { useContext, useEffect } from "react";
 import { filteringContext } from "../../context/FilterContext";
@@ -87,7 +86,7 @@ function TopMenu() {
       <SelectMenu
         name="City"
         options={cities}
-        icon={<MdLocationCity />}
+        icon={<FaCity />}
         onChange={citySelectHandler}
         isActive={cityId !== 0}
         activeId={cityId}
@@ -96,7 +95,7 @@ function TopMenu() {
       <SelectMenu
         name="Platform"
         options={platforms}
-        icon={<GiConsoleController />}
+        icon={<FaGamepad />}
         onChange={platformSelectHandler}
         isActive={platformId !== 0}
         activeId={platformId}
@@ -105,7 +104,7 @@ function TopMenu() {
       <SelectMenu
         name="Trade Preference"
         options={tradePreferences}
-        icon={<RiExchangeDollarFill />}
+        icon={<FaCoins />}
         onChange={tradePreferenceSelectHandler}
         isActive={tradePreference !== undefined}
         activeId={

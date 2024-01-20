@@ -1,6 +1,7 @@
 import { Text } from "@chakra-ui/react";
 import { logOut } from "../../util/auth";
 import { useNavigate } from "react-router-dom";
+import { FaArrowRightFromBracket } from "react-icons/fa6";
 
 const LogOutLink: React.FC<{
   title: string;
@@ -19,10 +20,14 @@ const LogOutLink: React.FC<{
       p="10px"
       marginLeft="10px"
       textTransform="capitalize"
-      display={isCollapsed ? "none" : "block"}
-      _hover={{ textDecoration: "none", color: "cyan.400" }}
+      _hover={{ textDecoration: "none", color: "teal.300", cursor: "pointer" }}
+      alignItems="center"
+      flexDirection="row"
+      display="flex"
+      gap="5px"
     >
-      {title}
+      <FaArrowRightFromBracket />
+      <Text display={isCollapsed ? "none" : "block"}>{title}</Text>
     </Text>
   );
 };
