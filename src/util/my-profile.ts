@@ -42,3 +42,34 @@ export async function updateUser(
     throw new Error("The update was unsucessfull");
   }
 }
+
+export async function resetPassword(
+  currentPassword: string,
+  newPassword: string,
+  newPasswordConfirmation: string,
+) {
+  try {
+    const token = getAuthToken();
+
+    const response = await axios.post(
+      `${host}/api/auth/password/reset`,
+      {
+        current_password: currentPassword,
+        new_password: newPassword,
+        new_password_confirmation: newPasswordConfirmation
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (response.status !== 200) {
+      throw json({ message: response.statusText }, { status: response.status });
+    }
+  } catch {
+    throw new Error("The update was unsucessfull");
+  }
+}

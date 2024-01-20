@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { userType } from "../../types/user-types";
 
 import SuccessAlert from "../UI/SuccessAlert";
-import validationSchema from "../../form_validation/my-profile/validation-schema";
+import validationSchema from "../../form_validation/my-profile/personal-information-validation-schema";
 import TextInput from "../Form/TextInput";
 import CitySelect from "../UI/CitySelect";
 
@@ -77,9 +77,6 @@ const PersonalInformation: React.FC = () => {
         initialValues={initialData}
         validationSchema={validationSchema}
         onSubmit={async (values, actions) => {
-          setShowAlert(true);
-          setTimeout(() => setShowAlert(false), 5000);
-
           await updateUser(
             authUser.id,
             values.firstName,
@@ -90,6 +87,9 @@ const PersonalInformation: React.FC = () => {
             values.address,
             values.cityId
           );
+
+          setShowAlert(true);
+          setTimeout(() => setShowAlert(false), 5000);
 
           actions.setSubmitting(false);
         }}
