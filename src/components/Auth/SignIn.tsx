@@ -1,4 +1,4 @@
-import { Flex, Button, Text, Link } from "@chakra-ui/react";
+import { Flex, Text, Link } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import validationSchema from "../../form_validation/sign-in/validation-schema";
 

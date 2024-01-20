@@ -1,4 +1,4 @@
-import { Flex, Button, FormControl, FormErrorMessage } from "@chakra-ui/react";
+import { Flex, FormControl, FormErrorMessage } from "@chakra-ui/react";
 import { Field, Form, Formik, FieldInputProps, FormikProps } from "formik";
 import { useLoaderData } from "react-router-dom";
 import { updateUser } from "../../util/my-profile";
@@ -68,7 +68,7 @@ const PersonalInformation: React.FC = () => {
       {showAlert && (
         <SuccessAlert
           title="Success!"
-          description="Your user has been updated."
+          description="Your profile information has been updated."
           onClickFunction={setShowAlert}
         />
       )}
