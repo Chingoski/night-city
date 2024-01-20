@@ -1,6 +1,5 @@
 import {
   Flex,
-  Button,
   Text,
   FormControl,
   FormErrorMessage,
@@ -21,6 +20,7 @@ import { useState, useEffect } from "react";
 
 import { submitRegisterData } from "../../util/auth";
 import { useNavigate } from "react-router-dom";
+import SubmitButton from "../UI/SubmitButton";
 
 function SignUp() {
   const [cities, setCities] = useState([]);
@@ -78,7 +78,7 @@ function SignUp() {
 
           actions.setSubmitting(false);
 
-          navigate('/');
+          navigate("/");
         }}
       >
         {(props) => (
@@ -143,14 +143,7 @@ function SignUp() {
               alignItems="center"
               w="100%"
             >
-              <Button
-                textTransform="uppercase"
-                isLoading={props.isSubmitting}
-                type="submit"
-              >
-                Register
-              </Button>
-
+              <SubmitButton title="Register" props={props} />
               <Text textAlign="center" fontSize="0.9rem">
                 Already have an account?{" "}
                 <Link

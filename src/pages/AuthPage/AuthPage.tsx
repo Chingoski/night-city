@@ -1,7 +1,7 @@
 import { Flex } from "@chakra-ui/react";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
-
+import host from "../../host";
 
 import SignIn from "../../components/Auth/SignIn";
 import SignUp from "../../components/Auth/SignUp";
@@ -30,17 +30,12 @@ function AuthPage() {
 export default AuthPage;
 
 export async function loader() {
-  const response = await axios.get(
-    "https://b8d5-77-28-44-250.ngrok-free.app/api/cities",
-    {
-      headers: {
-        Authorization:
-          "Bearer 1|INc0igPkdcEo4b2TivdSnawKyypb8NVnd17UCxqG5a33f09c",
-        "Content-Type": "application/json",
-        "ngrok-skip-browser-warning": "true",
-      },
-    }
-  );
+  const response = await axios.get(`${host}/api/cities`, {
+    headers: {
+      "Content-Type": "application/json",
+      "ngrok-skip-browser-warning": "true",
+    },
+  });
 
   return response.data.data;
 }
