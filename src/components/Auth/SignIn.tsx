@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 import TextInput from "../Form/TextInput";
 import PasswordInput from "../Form/PasswordInput";
+import SubmitButton from "../UI/SubmitButton";
 
 function SignIn() {
   const navigate = useNavigate();
@@ -58,13 +59,7 @@ function SignIn() {
             >
               <TextInput name="email" placeholder="Email" type="email" />
               <PasswordInput name="password" placeholder="Password" />
-              <Button
-                textTransform="uppercase"
-                isLoading={props.isSubmitting}
-                type="submit"
-              >
-                Sign In
-              </Button>
+              <SubmitButton title="Sign In" props={props}></SubmitButton>
               <Text textAlign="center" fontSize="0.9rem">
                 Don't have an account yet?{" "}
                 <Link

@@ -12,6 +12,7 @@ import CitySelect from "../UI/CitySelect";
 
 import axios from "axios";
 import host from "../../host";
+import SubmitButton from "../UI/SubmitButton";
 
 const formatDate = function (inputDate: string) {
   const parts = inputDate.split("/");
@@ -174,16 +175,7 @@ const PersonalInformation: React.FC = () => {
               alignItems="center"
               w="100%"
             >
-              <Button
-                textTransform="uppercase"
-                isLoading={props.isSubmitting}
-                type="submit"
-                background="teal.500"
-                color="white"
-                _hover={{backgroundColor: "teal.300"}}
-              >
-                Update
-              </Button>
+              <SubmitButton title="Update" props={props}/>
             </Flex>
           </Form>
         )}
