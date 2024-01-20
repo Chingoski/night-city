@@ -27,7 +27,7 @@ function MyListings() {
   } = useContext(myListingsContext);
 
   const user = useLoaderData() as userType;
-  const url = `${host}/api/game_listings?owner_id=${user.id}`;
+  const url = new URL(`${host}/api/game_listings?owner_id=${user.id}`);
 
   function fetchMyListings() {
     fetchListings(url, setIsLoading, setNextPage, setMyListings);
@@ -62,7 +62,11 @@ function MyListings() {
       {!isLoading && myListings.length !== 0 && (
         <SimpleGrid minChildWidth="300px" spacing="15px" p="15px">
           {myListings.map((listing) => (
-            <ListingCard key={listing.id} listing={listing} />
+            <ListingCard
+              key={listing.id}
+              listing={listing}
+              page="my-listings"
+            />
           ))}
         </SimpleGrid>
       )}
@@ -78,7 +82,7 @@ function MyListings() {
         </Text>
       )}
 
-      {nextPage !== "" && !isLoading && myListings.length !== 0 && (
+      {nextPage && !isLoading && myListings.length !== 0 && (
         <LoadMoreButton loadMoreHandler={loadMoreHandler} />
       )}
     </Flex>

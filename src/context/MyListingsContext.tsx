@@ -7,8 +7,8 @@ type myListingsContextType = {
   setMyListings: (myListings: listingType[]) => void;
   isLoading: boolean;
   setIsLoading: (isLoading: boolean) => void;
-  nextPage: string;
-  setNextPage: (nextPage: string) => void;
+  nextPage: URL | null;
+  setNextPage: (nextPage: URL | null) => void;
 };
 
 export const myListingsContext = createContext<myListingsContextType>({
@@ -16,7 +16,7 @@ export const myListingsContext = createContext<myListingsContextType>({
   setMyListings: () => {},
   isLoading: false,
   setIsLoading: () => {},
-  nextPage: "",
+  nextPage: null,
   setNextPage: () => {},
 });
 
@@ -25,7 +25,7 @@ const MyListingsContextProvider: React.FC<{ children?: React.ReactNode }> = ({
 }) => {
   const [myListings, setMyListings] = useState<listingType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [nextPage, setNextPage] = useState(``);
+  const [nextPage, setNextPage] = useState<URL | null>(null);
 
   const value: myListingsContextType = {
     myListings,
