@@ -1,5 +1,6 @@
 import { Input, IconButton } from "@chakra-ui/react";
-import { SearchIcon } from "@chakra-ui/icons";
+import { FaMagnifyingGlass } from "react-icons/fa6";
+
 
 import { useContext, useRef } from "react";
 
@@ -25,10 +26,10 @@ const SearchInput = () => {
       />
       <IconButton
         aria-label="Click to search!"
-        icon={<SearchIcon />}
+        icon={<FaMagnifyingGlass />}
         onClick={searchHandler}
         bg="white"
-        color="gray.600"
+        color="gray.700"
       />
     </>
   );

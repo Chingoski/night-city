@@ -1,10 +1,12 @@
-import { Link } from "@chakra-ui/react";
+import { Text, Link } from "@chakra-ui/react";
+import { ReactElement } from "react";
 
 const NavigationLink: React.FC<{
   path: string;
   title: string;
   isCollapsed: boolean;
-}> = ({ path, title, isCollapsed }) => {
+  icon: ReactElement;
+}> = ({ path, title, isCollapsed, icon }) => {
   return (
     <Link
       href={path}
@@ -12,10 +14,14 @@ const NavigationLink: React.FC<{
       p="10px"
       marginLeft="10px"
       textTransform="capitalize"
-      display={isCollapsed ? "none" : "block"}
-      _hover={{ textDecoration: "none", color: "cyan.400" }}
+      _hover={{ textDecoration: "none", color: "teal.300" }}
+      alignItems="center"
+      flexDirection="row"
+      display="flex"
+      gap="5px"
     >
-      {title}
+      {icon}
+      <Text display={isCollapsed ? "none" : "block"}>{title}</Text>
     </Link>
   );
 };
