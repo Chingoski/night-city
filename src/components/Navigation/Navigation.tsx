@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { navigationContext } from "../../context/NavigationContext";
 
-import {Image, Box, Flex, IconButton } from "@chakra-ui/react";
+import { Image, Box, Flex, IconButton } from "@chakra-ui/react";
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
 
 import logo from "../../assets/Logo.svg";
@@ -38,11 +38,17 @@ function Navigation() {
           justifyContent="space-between"
           alignItems="center"
           w="100%"
+          h="100px"
           p="10px"
           marginBottom="25px"
         >
           {/* <Box marginLeft="10px" flexDirection="row"  maxWidth="80%"> */}
-            <Image src={logo} alt="GameSwapHub" height="100%" width="85%" display={isCollapsed ? "none" : "block"}/>
+          <Image
+            src={logo}
+            alt="GameSwapHub"
+            width="85%"
+            display={isCollapsed ? "none" : "block"}
+          />
           {/* </Box> */}
           <IconButton
             aria-label="Manipulate navigation menu"
@@ -51,11 +57,7 @@ function Navigation() {
             w="auto"
             onClick={collapseHandler}
             icon={
-              isCollapsed ? (
-                <FaArrowAltCircleRight/>
-              ) : (
-                <FaArrowAltCircleLeft/>
-              )
+              isCollapsed ? <FaArrowAltCircleRight /> : <FaArrowAltCircleLeft />
             }
             _hover={{ bg: "none", color: "teal.300" }}
           />
@@ -65,35 +67,31 @@ function Navigation() {
           path="/"
           title="all listings"
           isCollapsed={isCollapsed}
-          icon={<FaHome/>}
+          icon={<FaHome />}
         />
         <NavigationLink
           path="/trade-offers"
           title="recieved trades"
           isCollapsed={isCollapsed}
-          icon={<FaHandshakeSimple/>}
-
+          icon={<FaHandshakeSimple />}
         />
         <NavigationLink
           path="/my-listings"
           title="my listings"
           isCollapsed={isCollapsed}
-          icon={<FaListAlt/>}
-
+          icon={<FaListAlt />}
         />
         <NavigationLink
           path="/my-profile"
           title="my profile"
           isCollapsed={isCollapsed}
-          icon={<FaUser/>}
-
+          icon={<FaUser />}
         />
         <NavigationLink
           path="/contact-us"
           title="contact us"
           isCollapsed={isCollapsed}
-          icon={<FaEnvelope/>}
-
+          icon={<FaEnvelope />}
         />
       </Flex>
       <Box>
