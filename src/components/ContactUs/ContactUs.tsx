@@ -6,17 +6,13 @@ import {
   Textarea,
   FormControl,
   FormErrorMessage,
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  AlertDescription,
-  CloseButton,
 } from "@chakra-ui/react";
 
 import { useState } from "react";
 import validationSchema from "../../form_validation/contact-us/validation-schema";
 import TextInput from "../Form/TextInput";
 import { Form, Formik, Field, FieldInputProps, FormikProps } from "formik";
+import SuccessAlert from "../UI/SuccessAlert";
 
 function ContactUs() {
   const [showAlert, setShowAlert] = useState(false);
@@ -29,23 +25,7 @@ function ContactUs() {
       alignItems="center"
     >
       {showAlert && (
-        <Alert
-          status="success"
-          position="absolute"
-          top="10px"
-          right="10px"
-          width="500px"
-        >
-          <AlertIcon />
-          <AlertTitle mr={2}>Success!</AlertTitle>
-          <AlertDescription>Your message has been sent.</AlertDescription>
-          <CloseButton
-            position="absolute"
-            right="8px"
-            top="8px"
-            onClick={() => setShowAlert(false)}
-          />
-        </Alert>
+        <SuccessAlert title="Success!" description="Your message has been sent." onClickFunction={setShowAlert}/>
       )}
 
       <Text noOfLines={1} color="teal.500">

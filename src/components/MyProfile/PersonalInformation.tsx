@@ -1,21 +1,33 @@
-import { Flex, Button, FormControl, FormErrorMessage } from "@chakra-ui/react";
+import { Flex, FormControl, FormErrorMessage } from "@chakra-ui/react";
 import { Field, Form, Formik, FieldInputProps, FormikProps } from "formik";
+import { useLoaderData } from "react-router-dom";
+import { updateUser } from "../../util/my-profile";
+import { useState, useEffect } from "react";
+import { userType } from "../../types/user-types";
 
-import validationSchema from "../../form_validation/register/validation-schema";
-import initialValues from "../../form_validation/register/initial-values";
-
+import SuccessAlert from "../UI/SuccessAlert";
+import validationSchema from "../../form_validation/my-profile/personal-information-validation-schema";
 import TextInput from "../Form/TextInput";
 import CitySelect from "../UI/CitySelect";
 
 import axios from "axios";
 import host from "../../host";
-import { useState, useEffect } from "react";
+import SubmitButton from "../UI/SubmitButton";
 
-import { submitRegisterData } from "../../util/auth";
-import { useNavigate } from "react-router-dom";
+const formatDate = function (inputDate: string) {
+  const parts = inputDate.split("/");
 
-const PersonalInformation:React.FC = () => {
+  const day = parts[0];
+  const month = parts[1];
+  const year = parts[2];
+
+  return `${year}-${month}-${day}`;
+};
+
+const PersonalInformation: React.FC = () => {
   const [cities, setCities] = useState([]);
+  const [showAlert, setShowAlert] = useState(false);
+  const authUser = useLoaderData() as userType;
 
   const fetchCities = async () => {
     const response = await axios.get(`${host}/api/cities`, {
@@ -36,7 +48,15 @@ const PersonalInformation:React.FC = () => {
     fetchCities();
   }, []);
 
-  const navigate = useNavigate();
+  const initialData = {
+    firstName: authUser.first_name,
+    lastName: authUser.last_name,
+    email: authUser.email,
+    phoneNumber: authUser.phone_number,
+    address: authUser.address,
+    cityId: `${authUser.city_id}`,
+    dateOfBirth: formatDate(authUser.date_of_birth),
+  };
 
   return (
     <Flex
@@ -45,25 +65,33 @@ const PersonalInformation:React.FC = () => {
       justifyContent="center"
       alignItems="center"
     >
+      {showAlert && (
+        <SuccessAlert
+          title="Success!"
+          description="Your profile information has been updated."
+          onClickFunction={setShowAlert}
+        />
+      )}
+
       <Formik
-        initialValues={initialValues}
+        initialValues={initialData}
         validationSchema={validationSchema}
         onSubmit={async (values, actions) => {
-          await submitRegisterData(
+          await updateUser(
+            authUser.id,
             values.firstName,
             values.lastName,
             values.email,
             values.phoneNumber,
             values.dateOfBirth,
             values.address,
-            values.cityId,
-            values.password,
-            values.confirmPassword
+            values.cityId
           );
 
-          actions.setSubmitting(false);
+          setShowAlert(true);
+          setTimeout(() => setShowAlert(false), 5000);
 
-          navigate("/");
+          actions.setSubmitting(false);
         }}
       >
         {(props) => (
@@ -88,7 +116,6 @@ const PersonalInformation:React.FC = () => {
                   background="white"
                 />
               </Flex>
-
               <TextInput
                 name="email"
                 placeholder="Email"
@@ -148,21 +175,13 @@ const PersonalInformation:React.FC = () => {
               alignItems="center"
               w="100%"
             >
-              <Button
-                textTransform="uppercase"
-                isLoading={props.isSubmitting}
-                type="submit"
-                background="teal.500"
-                color="white"
-              >
-                Update
-              </Button>
+              <SubmitButton title="Update" props={props}/>
             </Flex>
           </Form>
         )}
       </Formik>
     </Flex>
   );
-}
+};
 
 export default PersonalInformation;

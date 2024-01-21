@@ -38,7 +38,7 @@ export async function submitLoginData(email: string, password: string) {
       throw json({ message: response.statusText }, { status: response.status });
     }
     const token = response.data.meta.auth.token;
-    localStorage.setItem("token", token);
+    await localStorage.setItem("token", token);
   } catch {
     throw new Error("Sign in unsuccessful!");
   }
@@ -80,7 +80,7 @@ export async function submitRegisterData(firstName: string, lastName: string, em
       throw json({ message: response.statusText }, { status: response.status });
     }
     const token = response.data.meta.auth.token;
-    localStorage.setItem("token", token);
+    await localStorage.setItem("token", token);
   } catch {
     throw new Error("Sign in unsuccessful!");
   }
