@@ -78,7 +78,7 @@ function SignUp() {
 
           actions.setSubmitting(false);
 
-          navigate('/');
+          navigate("/");
         }}
       >
         {(props) => (
@@ -154,7 +154,7 @@ function SignUp() {
               <Text textAlign="center" fontSize="0.9rem">
                 Already have an account?{" "}
                 <Link
-                  href="/auth?mode=sigin"
+                  href="/auth?mode=signin"
                   textDecoration="underline"
                   _hover={{ color: "cyan.400" }}
                 >

@@ -57,7 +57,11 @@ function Home() {
           sx={{ gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))" }}
         >
           {allListings.map((listing) => (
-            <ListingCard key={listing.id} listing={listing} />
+            <ListingCard
+              key={listing.id}
+              listing={listing}
+              page="all-listings"
+            />
           ))}
         </SimpleGrid>
       )}

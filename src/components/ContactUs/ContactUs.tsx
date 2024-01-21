@@ -54,7 +54,7 @@ function ContactUs() {
       <Heading as="h1" noOfLines={1}>
         Help & Support
       </Heading>
-      <Text noOfLines={1}>Get in touch and let us know how we can help</Text>
+      <Text noOfLines={1}>Get in touch and let us know how we can help.</Text>
 
       <Formik
         initialValues={{
@@ -103,7 +103,7 @@ function ContactUs() {
                   >
                     <Textarea
                       background="white"
-                      placeholder="How can we asssit you?"
+                      placeholder="How can we assist you?"
                       {...field}
                     ></Textarea>
                     <FormErrorMessage>

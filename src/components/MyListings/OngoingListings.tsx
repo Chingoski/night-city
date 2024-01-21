@@ -36,7 +36,6 @@ const OngoingListings = () => {
 
   function fetchMyListings() {
     fetchListings(url, setIsLoading, setNextPage, setOngoingListings);
-    console.log(ongoingListings);
   }
 
   useEffect(() => fetchMyListings(), []);

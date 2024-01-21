@@ -16,6 +16,8 @@ import {
   Tooltip,
 } from "@chakra-ui/react";
 
+import { useNavigate } from "react-router-dom";
+
 import controller from "../../assets/game-controller-outline.svg";
 
 import { listingType } from "../../types/listing-type";
@@ -24,6 +26,11 @@ const ListingCard: React.FC<{ listing: listingType; page?: string }> = ({
   listing,
   page,
 }) => {
+  const navigate = useNavigate();
+
+  function tradeClickHandler() {
+    navigate(`/create-trade/${listing.id}`);
+  }
   return (
     <Card maxW="md" justify="center">
       <CardHeader>
@@ -97,7 +104,9 @@ const ListingCard: React.FC<{ listing: listingType; page?: string }> = ({
           },
         }}
       >
-        {page !== "my-listings" && <Button>Trade</Button>}
+        {page === "all-listings" && (
+          <Button onClick={tradeClickHandler}>Trade</Button>
+        )}
       </CardFooter>
     </Card>
   );
