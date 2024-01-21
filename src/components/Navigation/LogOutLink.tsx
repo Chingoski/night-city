@@ -1,4 +1,4 @@
-import { Text } from "@chakra-ui/react";
+import { Text, Flex } from "@chakra-ui/react";
 import { logOut } from "../../util/auth";
 import { useNavigate } from "react-router-dom";
 import { FaArrowRightFromBracket } from "react-icons/fa6";
@@ -14,7 +14,7 @@ const LogOutLink: React.FC<{
   }
 
   return (
-    <Text
+    <Flex
       onClick={clickHandler}
       w="100%"
       p="10px"
@@ -28,7 +28,7 @@ const LogOutLink: React.FC<{
     >
       <FaArrowRightFromBracket />
       <Text display={isCollapsed ? "none" : "block"}>{title}</Text>
-    </Text>
+    </Flex>
   );
 };
 
