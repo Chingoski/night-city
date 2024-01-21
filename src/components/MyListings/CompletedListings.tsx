@@ -36,7 +36,6 @@ const CompletedListings = () => {
 
   function fetchMyListings() {
     fetchListings(url, setIsLoading, setNextPage, setCompletedListings);
-    console.log(completedListings);
   }
 
   useEffect(() => fetchMyListings(), []);

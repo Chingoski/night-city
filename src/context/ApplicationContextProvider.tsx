@@ -3,20 +3,25 @@ import AllListingsContextProvider from "./AllListingsContext";
 import FilteringContextProvider from "./FilterContext";
 import OngoingListingsContextProvider from "./OngoingListingsContext";
 import CompletedListingsContextProvider from "./CompletedListingsContext";
+import CreateTradeContextProvider from "./CreateListingContext";
 
 const ApplicationContextProvider: React.FC<{ children?: React.ReactNode }> = ({
   children,
 }) => {
   return (
-    <CompletedListingsContextProvider>
-      <OngoingListingsContextProvider>
-        <FilteringContextProvider>
-          <NavigationContextProvider>
-            <AllListingsContextProvider>{children}</AllListingsContextProvider>
-          </NavigationContextProvider>
-        </FilteringContextProvider>
-      </OngoingListingsContextProvider>
-    </CompletedListingsContextProvider>
+    <CreateTradeContextProvider>
+      <CompletedListingsContextProvider>
+        <OngoingListingsContextProvider>
+          <FilteringContextProvider>
+            <NavigationContextProvider>
+              <AllListingsContextProvider>
+                {children}
+              </AllListingsContextProvider>
+            </NavigationContextProvider>
+          </FilteringContextProvider>
+        </OngoingListingsContextProvider>
+      </CompletedListingsContextProvider>
+    </CreateTradeContextProvider>
   );
 };
 

@@ -3,8 +3,8 @@ import host from "../host";
 
 import { listingType } from "../types/listing-type";
 
-import { getHeaders } from "./get-request-headers";
 import updateURL from "./update-url";
+import { getAuthToken } from "./auth";
 
 async function fetchListings(
   listingUrl: URL | null,
@@ -13,9 +13,14 @@ async function fetchListings(
   setListings: (listings: listingType[]) => void
 ) {
   setIsLoading(true);
+  const token = getAuthToken();
   try {
     const response = await axios.get(`${listingUrl}`, {
-      headers: getHeaders,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+        "ngrok-skip-browser-warning": "true",
+      },
     });
 
     if (response.status !== 200) {
@@ -75,10 +80,15 @@ export async function fetchNextPage(
   listings: listingType[],
   setListings: (listings: listingType[]) => void
 ) {
+  const token = getAuthToken();
   setIsLoading(true);
   try {
     const response = await axios.get(`${nextPage}`, {
-      headers: getHeaders,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+        "ngrok-skip-browser-warning": "true",
+      },
     });
 
     if (response.status !== 200) {
