@@ -1,7 +1,6 @@
 import { Input, IconButton } from "@chakra-ui/react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 
-
 import { useContext, useRef } from "react";
 
 import { filteringContext } from "../../context/FilterContext";

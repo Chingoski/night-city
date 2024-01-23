@@ -39,14 +39,14 @@ export async function updateUser(
       throw json({ message: response.statusText }, { status: response.status });
     }
   } catch {
-    throw new Error("The update was unsucessfull");
+    throw new Error("The update was unsuccessful");
   }
 }
 
 export async function resetPassword(
   currentPassword: string,
   newPassword: string,
-  newPasswordConfirmation: string,
+  newPasswordConfirmation: string
 ) {
   try {
     const token = getAuthToken();
@@ -56,7 +56,7 @@ export async function resetPassword(
       {
         current_password: currentPassword,
         new_password: newPassword,
-        new_password_confirmation: newPasswordConfirmation
+        new_password_confirmation: newPasswordConfirmation,
       },
       {
         headers: {
@@ -70,6 +70,6 @@ export async function resetPassword(
       throw json({ message: response.statusText }, { status: response.status });
     }
   } catch {
-    throw new Error("The update was unsucessfull");
+    throw new Error("The update was unsuccessful");
   }
 }

@@ -7,7 +7,6 @@ import { Flex } from "@chakra-ui/react";
 import { FaSortAmountDown, FaGamepad, FaCity } from "react-icons/fa";
 import { FaCoins } from "react-icons/fa6";
 
-
 import { useContext, useEffect } from "react";
 import { filteringContext } from "../../context/FilterContext";
 import fetchListings, { constructUrl } from "../../util/listings";
@@ -71,6 +70,7 @@ function TopMenu() {
       tradePreference,
       order
     );
+
     fetchListings(listingUrl, setIsLoading, setNextPage, setAllListings);
   }, [cityId, searchInputValue, platformId, tradePreference, order]);
 

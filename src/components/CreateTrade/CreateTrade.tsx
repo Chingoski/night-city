@@ -6,7 +6,7 @@ import { fetchListing } from "../../util/create-trade";
 import { Flex, useStyleConfig, Text } from "@chakra-ui/react";
 
 import CreateTradeForm from "./CreateTradeForm";
-import Listing from "./Listing";
+import ListingInfo from "./ListingInfo";
 
 const CreateTrade: React.FC<{ listingID: string }> = ({ listingID }) => {
   const { isCollapsed } = useContext(navigationContext);
@@ -29,6 +29,7 @@ const CreateTrade: React.FC<{ listingID: string }> = ({ listingID }) => {
       justifyContent="center"
       alignItems="center"
       marginBottom="15px"
+      overflow="none"
       sx={{
         ...styles,
         width: isCollapsed
@@ -46,13 +47,13 @@ const CreateTrade: React.FC<{ listingID: string }> = ({ listingID }) => {
       )}
       {!isLoading && listing && (
         <Flex
-          w="100%"
+          w="90%"
           flexDir="row"
           justifyContent="center"
           alignItems="flex-start"
-          gap="10px"
+          gap="25px"
         >
-          <Listing listing={listing} />
+          <ListingInfo listing={listing} />
           <CreateTradeForm listing={listing} />
         </Flex>
       )}
