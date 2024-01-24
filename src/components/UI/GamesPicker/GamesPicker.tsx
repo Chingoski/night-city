@@ -1,48 +1,56 @@
-import {
-  Flex,
-  FormControl,
-  Input,
-  Text,
-  InputGroup,
-  InputLeftElement,
-  Icon,
-} from "@chakra-ui/react";
 import { ChangeEvent, useState } from "react";
+import { useLoaderData, useNavigate } from "react-router-dom";
+
 import { gameType } from "../../../types/game-types";
 import { userType } from "../../../types/user-types";
+import { listingType } from "../../../types/listing-type";
+
 import { fetchGames, placeTradeOffer } from "../../../util/create-trade";
-import GameOption from "./GameOption";
+
+import { Flex, Text } from "@chakra-ui/react";
+import SubmitButton from "../SubmitButton";
+import GamesSearchInput from "./GamesSearchInput";
+import GameResults from "./GameResults";
 import SelectedGamesList from "./SelectedGamesList";
 import CashInput from "../CashInput";
 
-import { FaGamepad } from "react-icons/fa";
-import SubmitButton from "../SubmitButton";
-import { useLoaderData } from "react-router-dom";
-import { listingType } from "../../../types/listing-type";
-
 const GamesPicker: React.FC<{ listing: listingType }> = ({ listing }) => {
+  const [searchValue, setSearchValue] = useState("");
   const [offeredCash, setOfferedCash] = useState(0);
+  const [resultsOpen, setResultsOpen] = useState(false);
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
   const [gameResults, setGameResults] = useState<gameType[]>([]);
   const [pickedGames, setPickedGames] = useState<gameType[]>([]);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [gamesErrorMessage, setGamesErrorMessage] = useState("");
+  const [formErrorMessage, setFormErrorMessage] = useState("");
+
+  const navigate = useNavigate();
 
   const authUser = useLoaderData() as userType;
 
   function inputChangeHandler(event: ChangeEvent<HTMLInputElement>) {
+    setFormErrorMessage("");
     const value = event.target.value;
+    setSearchValue(value);
     if (timeoutId) {
       clearTimeout(timeoutId);
     }
 
     const newTimeoutId = setTimeout(() => {
-      fetchGames(value, setGameResults);
-    }, 500);
+      fetchGames(value, setGameResults, pickedGames);
+      if (event.target.value !== "") {
+        setResultsOpen(true);
+      } else {
+        setResultsOpen(false);
+      }
+    }, 300);
 
     setTimeoutId(newTimeoutId);
   }
 
   function gamePickHandler(game: gameType) {
+    setResultsOpen(false);
+    setSearchValue("");
     if (pickedGames.length < 3) {
       setPickedGames([...pickedGames, game]);
       setGameResults(
@@ -54,8 +62,12 @@ const GamesPicker: React.FC<{ listing: listingType }> = ({ listing }) => {
         )
       );
     } else {
-      setErrorMessage("You have reached the games limit!");
+      setGamesErrorMessage("You have reached the games limit!");
     }
+  }
+
+  function closeResultsHandler() {
+    setResultsOpen(false);
   }
 
   function gameRemoveHandler(removedGame: gameType) {
@@ -70,73 +82,76 @@ const GamesPicker: React.FC<{ listing: listingType }> = ({ listing }) => {
   }
 
   function cashChangeHandler(value: number) {
+    setFormErrorMessage("");
     setOfferedCash(value);
   }
 
   function onSubmit() {
-    placeTradeOffer(pickedGames, offeredCash, authUser.id, listing.id);
+    if (pickedGames.length !== 0 || offeredCash !== 0) {
+      placeTradeOffer(
+        pickedGames,
+        offeredCash,
+        authUser.id,
+        listing.id,
+        setPickedGames,
+        setSearchValue,
+        setOfferedCash
+      );
+      navigate("/");
+    }
+    if (pickedGames.length === 0 && offeredCash === 0) {
+      setFormErrorMessage(
+        `You can't trade nothing for something! Offer cash or another game title for this listing - or both!`
+      );
+    }
   }
 
   return (
-    <>
+    <Flex
+      flexDir="column"
+      justifyContent="space-between"
+      alignItems="center"
+      w="100%"
+    >
+      <CashInput onChange={cashChangeHandler} />
       <SelectedGamesList games={pickedGames} onClick={gameRemoveHandler} />
-      {errorMessage !== "" && pickedGames.length === 3 && (
+      {gamesErrorMessage !== "" && pickedGames.length === 3 && (
         <Text fontSize="0.9rem" color="red.500">
-          {errorMessage}
+          {gamesErrorMessage}
         </Text>
       )}
-      <Flex w="100%" flexDir="column">
-        <FormControl>
-          <InputGroup>
-            <InputLeftElement pointerEvents="none">
-              <Icon as={FaGamepad} color="gray.600" />
-            </InputLeftElement>
-            <Input
-              type="text"
-              onChange={inputChangeHandler}
-              placeholder="Search games"
-            />
-          </InputGroup>
-        </FormControl>
-      </Flex>
-
-      {gameResults.length > 0 && (
-        <Flex
-          w="100%"
-          flexDir="column"
-          maxH="200px"
-          overflowY="auto"
-          p="10px"
-          backgroundColor="gray.200"
-          marginTop="10px"
-          sx={{
-            "&::-webkit-scrollbar": {
-              width: "8px",
-            },
-            "&::-webkit-scrollbar-thumb": {
-              bg: "gray.500",
-              borderRadius: "md",
-            },
-            "&::-webkit-scrollbar-track": {
-              bg: "gray.100",
-            },
-          }}
-        >
-          {gameResults.map((gameResult) => (
-            <GameOption
-              key={`${gameResult.id} ${gameResult.platform.id}`}
-              game={gameResult}
-              onClick={() => gamePickHandler(gameResult)}
-            />
-          ))}
-        </Flex>
+      <GamesSearchInput
+        inputChangeHandler={inputChangeHandler}
+        searchValue={searchValue}
+      />
+      {resultsOpen && (
+        <GameResults
+          gameResults={gameResults}
+          gamePickHandler={gamePickHandler}
+          closeResultsHandler={closeResultsHandler}
+        />
       )}
-
-      <CashInput onChange={cashChangeHandler} />
-      <Flex w="100%" justifyContent="center" marginTop="20px">
+      <Flex
+        w="100%"
+        flexDir="column"
+        alignItems="center"
+        justifyContent="center"
+        marginTop="30px"
+      >
         <SubmitButton title="Place Offer" onClick={onSubmit} />
+        {formErrorMessage !== "" && (
+          <Text
+            fontSize="0.9rem"
+            color="red.500"
+            marginTop="10px"
+            textAlign="center"
+            w="80%"
+          >
+            {formErrorMessage}
+          </Text>
+        )}
       </Flex>
-    </>
+    </Flex>
   );
 };
 

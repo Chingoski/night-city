@@ -9,12 +9,12 @@ const SelectedGamesList: React.FC<{
   onClick: (game: gameType) => void;
 }> = ({ games, onClick }) => {
   return (
-    <Flex flexDir="column" marginTop="20px">
-      <Text fontSize="1rem" fontWeight="600">
+    <Flex flexDir="column" marginTop="20px" marginBottom="10px" w="100%">
+      <Text fontSize="1rem" fontWeight="600" w="100%">
         Games I'm offering for trade:
       </Text>
       {games.length === 0 ? (
-        <Text fontSize="1rem" color="gray.500">
+        <Text fontSize="1rem" color="gray.500" w="100%">
           No games have been selected yet.
         </Text>
       ) : (
@@ -28,7 +28,7 @@ const SelectedGamesList: React.FC<{
               backgroundColor="gray.200"
               borderRadius="15px"
               p="3px 3px 3px 10px"
-              _hover={{ color: "teal.300", cursor: "pointer" }}
+              _hover={{ cursor: "pointer" }}
               key={`${game.id} ${game.platform.id}`}
               onClick={() => onClick(game)}
             >
@@ -39,9 +39,8 @@ const SelectedGamesList: React.FC<{
                 icon={<FaXmark />}
                 aria-label="Remove game"
                 backgroundColor="transparent"
-                _hover={{
-                  backgroundColor: "transparent",
-                }}
+                color="gray.600"
+                _hover={{ color: "teal.300", backgroundColor: "transparent" }}
               />
             </Flex>
           ))}

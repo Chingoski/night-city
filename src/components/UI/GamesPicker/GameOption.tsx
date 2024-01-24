@@ -8,7 +8,7 @@ const GameOption: React.FC<{
   return (
     <Text
       fontSize="1rem"
-      color="gray.900"
+      color="gray.600"
       _hover={{ color: "teal.300", cursor: "pointer" }}
       onClick={() => onClick(game)}
     >

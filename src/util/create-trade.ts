@@ -34,7 +34,8 @@ export async function fetchListing(
 
 export async function fetchGames(
   value: string,
-  setGameResults: (gameResults: gameType[]) => void
+  setGameResults: (gameResults: gameType[]) => void,
+  pickedGames: gameType[]
 ) {
   const token = getAuthToken();
   if (value !== "") {
@@ -51,7 +52,18 @@ export async function fetchGames(
         throw new Error(response.statusText);
       }
 
-      setGameResults(response.data.data);
+      const responseGames: gameType[] = response.data.data;
+
+      setGameResults(
+        responseGames.filter(
+          (responseGame) =>
+            !pickedGames.some(
+              (pickedGame) =>
+                pickedGame.id === responseGame.id &&
+                pickedGame.platform.id === responseGame.platform.id
+            )
+        )
+      );
     } catch (error) {
       return error;
     }
@@ -62,13 +74,16 @@ export async function fetchGames(
 }
 
 export async function placeTradeOffer(
-  games: gameType[],
+  pickedGames: gameType[],
   cash: number,
   userID: number,
-  listingID: number
+  listingID: number,
+  setPickedGames: (pickedGame: gameType[]) => void,
+  setSearchValue: (searchValue: string) => void,
+  setOfferedCash: (offeredCash: number) => void
 ) {
   const token = getAuthToken();
-  const offeredGames = games.map((game) => {
+  const offeredGames = pickedGames.map((game) => {
     return {
       id: game.id,
       platform: {
@@ -97,6 +112,10 @@ export async function placeTradeOffer(
     if (response.status !== 200) {
       throw new Error(response.statusText);
     }
+
+    setPickedGames([]);
+    setOfferedCash(0);
+    setSearchValue("");
   } catch (error) {
     return error;
   }
