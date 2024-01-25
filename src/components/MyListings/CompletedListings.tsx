@@ -1,23 +1,21 @@
-import { Flex, SimpleGrid, Text } from "@chakra-ui/react";
-import { useContext, useEffect } from "react";
-import { completedListingsContext } from "../../context/CompletedListingsContext";
+import { useEffect, useState } from "react";
+import { useLoaderData } from "react-router-dom";
+
 import { fetchNextPage } from "../../util/listings";
 import fetchListings from "../../util/listings";
 import host from "../../host";
-import { useLoaderData } from "react-router-dom";
+
+import { listingType } from "../../types/listing-type";
 import { userType } from "../../types/user-types";
+
+import { Flex, SimpleGrid, Text } from "@chakra-ui/react";
 import LoadMoreButton from "../UI/LoadMoreButton";
 import ListingCard from "../ListingCard/ListingCard";
 
 const CompletedListings = () => {
-  const {
-    completedListings,
-    setCompletedListings,
-    isLoading,
-    setIsLoading,
-    nextPage,
-    setNextPage,
-  } = useContext(completedListingsContext);
+  const [completedListings, setCompletedListings] = useState<listingType[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [nextPage, setNextPage] = useState<URL | null>(null);
 
   function loadMoreHandler() {
     fetchNextPage(
@@ -39,6 +37,7 @@ const CompletedListings = () => {
   }
 
   useEffect(() => fetchMyListings(), []);
+
   return (
     <Flex flexDirection="column" w="100%">
       {!isLoading && completedListings.length !== 0 && (

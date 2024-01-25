@@ -14,6 +14,12 @@ const SearchInput = () => {
       setSearchInputValue(searchInput.current.value);
     }
   }
+
+  function onEnterKeyPress(event: React.KeyboardEvent<HTMLInputElement>) {
+    if (event.key === "Enter") {
+      searchHandler();
+    }
+  }
   return (
     <>
       <Input
@@ -23,6 +29,7 @@ const SearchInput = () => {
         bg="white"
         ref={searchInput}
         name="search"
+        onKeyDown={onEnterKeyPress}
       />
       <IconButton
         aria-label="Click to search!"

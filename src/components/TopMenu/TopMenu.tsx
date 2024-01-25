@@ -1,27 +1,22 @@
+import { useContext } from "react";
 import { useLoaderData } from "react-router-dom";
+import { filteringContext } from "../../context/FilterContext";
 
 import { cityType } from "../../types/city-types";
+import { option } from "../../types/option-types";
+import { platforms, tradePreferences, sortBy } from "../../util/options";
 
 import { Flex } from "@chakra-ui/react";
+import SearchInput from "./SearchInput";
+import SelectMenu from "./SelectMenu";
 
 import { FaSortAmountDown, FaGamepad, FaCity } from "react-icons/fa";
 import { FaCoins } from "react-icons/fa6";
-
-import { useContext, useEffect } from "react";
-import { filteringContext } from "../../context/FilterContext";
-import fetchListings, { constructUrl } from "../../util/listings";
-import { allListingsContext } from "../../context/AllListingsContext";
-
-import SearchInput from "./SearchInput";
-import SelectMenu from "./SelectMenu";
-import { option } from "../../types/option-types";
-import { platforms, tradePreferences, sortBy } from "../../util/options";
 
 function TopMenu() {
   const cities = useLoaderData() as cityType[];
 
   const {
-    searchInputValue,
     cityId,
     setCityId,
     platformId,
@@ -31,8 +26,6 @@ function TopMenu() {
     order,
     setOrder,
   } = useContext(filteringContext);
-  const { setIsLoading, setNextPage, setAllListings } =
-    useContext(allListingsContext);
 
   function citySelectHandler(value: number) {
     setCityId(value);
@@ -61,18 +54,6 @@ function TopMenu() {
       setOrder(sortVal.name);
     }
   }
-
-  useEffect(() => {
-    const listingUrl = constructUrl(
-      cityId,
-      searchInputValue,
-      platformId,
-      tradePreference,
-      order
-    );
-
-    fetchListings(listingUrl, setIsLoading, setNextPage, setAllListings);
-  }, [cityId, searchInputValue, platformId, tradePreference, order]);
 
   return (
     <Flex

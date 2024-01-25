@@ -1,27 +1,37 @@
-import { Flex, SimpleGrid, useStyleConfig, Text } from "@chakra-ui/react";
+import { useContext, useState, useEffect } from "react";
 
-import { fetchNextPage } from "../../util/listings";
+import { fetchNextPage, constructUrl } from "../../util/listings";
+import fetchListings from "../../util/listings";
 
 import { navigationContext } from "../../context/NavigationContext";
-import { allListingsContext } from "../../context/AllListingsContext";
-import { useContext } from "react";
+import { filteringContext } from "../../context/FilterContext";
+import { listingType } from "../../types/listing-type";
 
+import { Flex, SimpleGrid, useStyleConfig, Text } from "@chakra-ui/react";
 import TopMenu from "../TopMenu/TopMenu";
 import ListingCard from "../ListingCard/ListingCard";
 import LoadMoreButton from "../UI/LoadMoreButton";
 
 function Home() {
-  const {
-    allListings,
-    setAllListings,
-    isLoading,
-    setIsLoading,
-    nextPage,
-    setNextPage,
-  } = useContext(allListingsContext);
-
+  const [allListings, setAllListings] = useState<listingType[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [nextPage, setNextPage] = useState<URL | null>(null);
   const { isCollapsed } = useContext(navigationContext);
+  const { cityId, searchInputValue, platformId, tradePreference, order } =
+    useContext(filteringContext);
   const styles = useStyleConfig("Home");
+
+  useEffect(() => {
+    const listingUrl = constructUrl(
+      cityId,
+      searchInputValue,
+      platformId,
+      tradePreference,
+      order
+    );
+
+    fetchListings(listingUrl, setIsLoading, setNextPage, setAllListings);
+  }, [cityId, searchInputValue, platformId, tradePreference, order]);
 
   function loadMoreHandler() {
     fetchNextPage(
