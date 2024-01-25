@@ -1,7 +1,7 @@
 import { Text } from "@chakra-ui/react";
 import { gameType } from "../../../types/game-types";
 
-const GameOption: React.FC<{
+const GameResult: React.FC<{
   game: gameType;
   onClick: (game: gameType) => void;
 }> = ({ game, onClick }) => {
@@ -17,4 +17,4 @@ const GameOption: React.FC<{
   );
 };
 
-export default GameOption;
+export default GameResult;

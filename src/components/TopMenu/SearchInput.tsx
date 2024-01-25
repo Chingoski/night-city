@@ -22,6 +22,7 @@ const SearchInput = () => {
         minW="150px"
         bg="white"
         ref={searchInput}
+        name="search"
       />
       <IconButton
         aria-label="Click to search!"

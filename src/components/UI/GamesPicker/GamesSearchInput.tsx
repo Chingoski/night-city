@@ -27,6 +27,7 @@ const GamesSearchInput: React.FC<{
             placeholder="Search games"
             focusBorderColor="teal.300"
             value={searchValue}
+            name="games"
           />
         </InputGroup>
       </FormControl>

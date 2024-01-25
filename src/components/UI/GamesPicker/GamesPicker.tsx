@@ -2,7 +2,7 @@ import { useContext, useState, ChangeEvent } from "react";
 import { gamesPickerContext } from "../../../context/GamesPickerContext";
 
 import { Flex, Text } from "@chakra-ui/react";
-import SelectedGamesList from "./SelectedGamesList";
+import PickedGamesList from "./PickedGamesList";
 import GamesSearchInput from "./GamesSearchInput";
 import GameResults from "./GameResults";
 
@@ -87,7 +87,7 @@ const GamesPicker: React.FC<{
       justifyContent="space-evenly"
       alignItems="left"
     >
-      <SelectedGamesList games={pickedGames} onClick={gameRemoveHandler} />
+      <PickedGamesList games={pickedGames} onClick={gameRemoveHandler} />
       {gamesErrorMessage !== "" && pickedGames.length === 3 && (
         <Text fontSize="0.9rem" color="red.500">
           {gamesErrorMessage}

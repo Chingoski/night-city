@@ -1,5 +1,5 @@
 import { Flex, Text, IconButton } from "@chakra-ui/react";
-import GameOption from "./GameOption";
+import GameResult from "./GameResult";
 import { FaXmark } from "react-icons/fa6";
 import { gameType } from "../../../types/game-types";
 
@@ -50,7 +50,7 @@ const GameResults: React.FC<{
           }}
         >
           {gameResults.map((gameResult) => (
-            <GameOption
+            <GameResult
               key={`${gameResult.id} ${gameResult.platform.id}`}
               game={gameResult}
               onClick={() => gamePickHandler(gameResult)}

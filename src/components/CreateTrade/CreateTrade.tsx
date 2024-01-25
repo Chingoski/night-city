@@ -5,8 +5,8 @@ import { fetchListing } from "../../util/create-trade";
 
 import { Flex, useStyleConfig, Text } from "@chakra-ui/react";
 
-import CreateTradeForm from "./CreateTradeForm";
-import ListingInfo from "./ListingInfo";
+import TradeDetails from "./TradeDetails";
+import ListingDetails from "./ListingDetails";
 import SuccessModal from "../UI/SuccessModal";
 
 const CreateTrade: React.FC<{ listingID: string }> = ({ listingID }) => {
@@ -56,8 +56,8 @@ const CreateTrade: React.FC<{ listingID: string }> = ({ listingID }) => {
               alignItems="flex-start"
               gap="25px"
             >
-              <ListingInfo listing={listing} />
-              <CreateTradeForm listing={listing} />
+              <ListingDetails listing={listing} />
+              <TradeDetails listing={listing} />
             </Flex>
           )}
         </>

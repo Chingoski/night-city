@@ -1,11 +1,17 @@
 import { Input, FormControl, FormErrorMessage } from "@chakra-ui/react";
 import { Field, FieldInputProps, FormikProps } from "formik";
 
-function PasswordInput(props: { name: string, placeholder: string, background?: string}) {
+function PasswordInput(props: {
+  name: string;
+  placeholder: string;
+  background?: string;
+}) {
   let name = props.name;
   let placeholder = props.placeholder;
-  const backgroundStyle = props.background ? {background: props.background} : {};
- 
+  const backgroundStyle = props.background
+    ? { background: props.background }
+    : {};
+
   return (
     <Field name={name}>
       {({
@@ -22,7 +28,13 @@ function PasswordInput(props: { name: string, placeholder: string, background?: 
             form.touched[name] == true
           }
         >
-          <Input {...field} placeholder={placeholder} type="password" {...backgroundStyle}/>
+          <Input
+            {...field}
+            placeholder={placeholder}
+            type="password"
+            {...backgroundStyle}
+            name="password"
+          />
           <FormErrorMessage>
             {" "}
             {typeof form.errors[name] === "string"

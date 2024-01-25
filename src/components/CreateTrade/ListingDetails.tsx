@@ -5,7 +5,7 @@ import controller from "../../assets/controller.png";
 import { Flex, Image, Text, Box } from "@chakra-ui/react";
 import TradeTip from "../UI/TradeTip";
 
-const ListingInfo: React.FC<{ listing: listingType }> = ({ listing }) => {
+const ListingDetails: React.FC<{ listing: listingType }> = ({ listing }) => {
   return (
     <Flex
       flexDir="column"
@@ -66,4 +66,4 @@ const ListingInfo: React.FC<{ listing: listingType }> = ({ listing }) => {
   );
 };
 
-export default ListingInfo;
+export default ListingDetails;

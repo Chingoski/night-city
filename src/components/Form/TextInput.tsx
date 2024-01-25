@@ -1,13 +1,23 @@
-import { Input, FormControl, FormErrorMessage, background } from "@chakra-ui/react";
+import {
+  Input,
+  FormControl,
+  FormErrorMessage,
+  background,
+} from "@chakra-ui/react";
 import { Field, FieldInputProps, FormikProps } from "formik";
 
-function TextInput(props: { name: string; placeholder: string; type: string, background?: string }) {
+function TextInput(props: {
+  name: string;
+  placeholder: string;
+  type: string;
+  background?: string;
+}) {
   const name = props.name;
   const placeholder = props.placeholder;
   const type = props.type;
-  
-  const backgroundStyle = background ? {background: props.background} : {};
- 
+
+  const backgroundStyle = background ? { background: props.background } : {};
+
   return (
     <Field name={name}>
       {({
@@ -24,7 +34,14 @@ function TextInput(props: { name: string; placeholder: string; type: string, bac
             form.touched[name] == true
           }
         >
-          <Input w="100%" {...field} placeholder={placeholder} type={type} {...backgroundStyle}/>
+          <Input
+            w="100%"
+            {...field}
+            placeholder={placeholder}
+            type={type}
+            {...backgroundStyle}
+            name="text"
+          />
           <FormErrorMessage>
             {typeof form.errors[name] === "string"
               ? (form.errors[name] as string)

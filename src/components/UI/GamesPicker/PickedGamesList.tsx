@@ -4,7 +4,7 @@ import { FaXmark } from "react-icons/fa6";
 
 import { Flex, IconButton, Text } from "@chakra-ui/react";
 
-const SelectedGamesList: React.FC<{
+const PickedGamesList: React.FC<{
   games: gameType[];
   onClick: (game: gameType) => void;
 }> = ({ games, onClick }) => {
@@ -50,4 +50,4 @@ const SelectedGamesList: React.FC<{
   );
 };
 
-export default SelectedGamesList;
+export default PickedGamesList;

@@ -31,6 +31,7 @@ const CashInput: React.FC<{
             type="number"
             placeholder="Enter amount"
             focusBorderColor="teal.300"
+            name="cash"
           />
         </InputGroup>
       </FormControl>
