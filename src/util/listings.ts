@@ -48,7 +48,7 @@ export function constructUrl(
   city: number,
   text: string,
   platform: number,
-  tradePreference: string | undefined,
+  tradePreference: string | null,
   order: string | undefined
 ) {
   const url = new URL(`${host}/api/game_listings`);
@@ -63,7 +63,7 @@ export function constructUrl(
   if (platform !== 0) {
     url.searchParams.append("platform_id", `${platform}`);
   }
-  if (tradePreference !== undefined) {
+  if (tradePreference !== null) {
     url.searchParams.append("trade_preference", tradePreference);
   }
   if (order !== undefined && order !== "") {

@@ -1,4 +1,4 @@
 export type option = {
   id: number;
-  name: string | undefined;
+  name: string | null;
 };

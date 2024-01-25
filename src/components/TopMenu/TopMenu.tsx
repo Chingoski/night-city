@@ -6,17 +6,18 @@ import { cityType } from "../../types/city-types";
 import { option } from "../../types/option-types";
 import { platforms, tradePreferences, sortBy } from "../../util/options";
 
-import { Flex } from "@chakra-ui/react";
+import { Flex, IconButton } from "@chakra-ui/react";
 import SearchInput from "./SearchInput";
 import SelectMenu from "./SelectMenu";
 
 import { FaSortAmountDown, FaGamepad, FaCity } from "react-icons/fa";
-import { FaCoins } from "react-icons/fa6";
+import { FaCoins, FaArrowRotateLeft } from "react-icons/fa6";
 
 function TopMenu() {
   const cities = useLoaderData() as cityType[];
 
   const {
+    setSearchInputValue,
     cityId,
     setCityId,
     platformId,
@@ -37,7 +38,7 @@ function TopMenu() {
 
   function tradePreferenceSelectHandler(value: number) {
     if (value === 0) {
-      setTradePreference(undefined);
+      setTradePreference(null);
     } else {
       const tradePreferenceVal = tradePreferences.find(
         (preference) => preference.id === value
@@ -53,6 +54,14 @@ function TopMenu() {
       const sortVal = sortBy.find((sortVal) => sortVal.id === value) as option;
       setOrder(sortVal.name);
     }
+  }
+
+  function clearFilters() {
+    setCityId(0);
+    setSearchInputValue("");
+    setPlatformId(0);
+    setTradePreference(null);
+    setOrder("");
   }
 
   return (
@@ -87,7 +96,7 @@ function TopMenu() {
         options={tradePreferences}
         icon={<FaCoins />}
         onChange={tradePreferenceSelectHandler}
-        isActive={tradePreference !== undefined}
+        isActive={tradePreference !== null}
         activeId={
           tradePreferences.find(
             (preference) => preference.name === tradePreference
@@ -103,6 +112,14 @@ function TopMenu() {
         isActive={order !== ""}
         activeId={sortBy.find((sortVal) => sortVal.name === order)?.id}
         sortingMenu={true}
+      />
+      <IconButton
+        onClick={clearFilters}
+        icon={<FaArrowRotateLeft />}
+        aria-label="clear filters"
+        backgroundColor={"white"}
+        color="gray.600"
+        fontSize="1.5rem"
       />
     </Flex>
   );
