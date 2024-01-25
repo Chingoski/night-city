@@ -1,23 +1,21 @@
-import { Flex, SimpleGrid, Text } from "@chakra-ui/react";
-import { useContext, useEffect } from "react";
-import { ongoingListingsContext } from "../../context/OngoingListingsContext";
+import { useEffect, useState } from "react";
+import { useLoaderData } from "react-router-dom";
+
 import { fetchNextPage } from "../../util/listings";
 import fetchListings from "../../util/listings";
 import host from "../../host";
-import { useLoaderData } from "react-router-dom";
+
 import { userType } from "../../types/user-types";
+import { listingType } from "../../types/listing-type";
+
+import { Flex, SimpleGrid, Text } from "@chakra-ui/react";
 import LoadMoreButton from "../UI/LoadMoreButton";
 import ListingCard from "../ListingCard/ListingCard";
 
 const OngoingListings = () => {
-  const {
-    ongoingListings,
-    setOngoingListings,
-    isLoading,
-    setIsLoading,
-    nextPage,
-    setNextPage,
-  } = useContext(ongoingListingsContext);
+  const [ongoingListings, setOngoingListings] = useState<listingType[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [nextPage, setNextPage] = useState<URL | null>(null);
 
   function loadMoreHandler() {
     fetchNextPage(
