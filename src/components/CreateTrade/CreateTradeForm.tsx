@@ -1,7 +1,7 @@
 import { Flex, Heading, Text } from "@chakra-ui/react";
 
 import { listingType } from "../../types/listing-type";
-import GamesPicker from "../UI/GamesPicker/GamesPicker";
+import GamesPicker from "./TradeInputs";
 
 const CreateTradeForm: React.FC<{ listing: listingType }> = ({ listing }) => {
   return (

@@ -6,6 +6,8 @@ type createTradeContextType = {
   setListing: (listing: listingType | null) => void;
   isLoading: boolean;
   setIsLoading: (isLoading: boolean) => void;
+  didSubmit: boolean;
+  setDidSubmit: (didSubmit: boolean) => void;
 };
 
 export const createTradeContext = createContext<createTradeContextType>({
@@ -13,6 +15,8 @@ export const createTradeContext = createContext<createTradeContextType>({
   setListing: () => {},
   isLoading: false,
   setIsLoading: () => {},
+  didSubmit: false,
+  setDidSubmit: () => {},
 });
 
 const CreateTradeContextProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -20,7 +24,17 @@ const CreateTradeContextProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [listing, setListing] = useState<listingType | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const value = { listing, setListing, isLoading, setIsLoading };
+  const [didSubmit, setDidSubmit] = useState(false);
+
+  const value = {
+    listing,
+    setListing,
+    isLoading,
+    setIsLoading,
+    didSubmit,
+    setDidSubmit,
+  };
+
   return (
     <createTradeContext.Provider value={value}>
       {children}

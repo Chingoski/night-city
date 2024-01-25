@@ -80,7 +80,9 @@ export async function placeTradeOffer(
   listingID: number,
   setPickedGames: (pickedGame: gameType[]) => void,
   setSearchValue: (searchValue: string) => void,
-  setOfferedCash: (offeredCash: number) => void
+  setOfferedCash: (offeredCash: number) => void,
+  setFormErrorMessage: (formErrorMessage: string) => void,
+  setDidSubmit: (didSubmit: boolean) => void
 ) {
   const token = getAuthToken();
   const offeredGames = pickedGames.map((game) => {
@@ -109,14 +111,15 @@ export async function placeTradeOffer(
       }
     );
 
-    if (response.status !== 200) {
+    if (response.status !== 201) {
       throw new Error(response.statusText);
     }
 
     setPickedGames([]);
     setOfferedCash(0);
     setSearchValue("");
+    setDidSubmit(true);
   } catch (error) {
-    return error;
+    setFormErrorMessage("Trade offer could not be placed!");
   }
 }

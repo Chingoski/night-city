@@ -1,18 +1,19 @@
 import { useContext, useEffect } from "react";
 import { navigationContext } from "../../context/NavigationContext";
-import { createTradeContext } from "../../context/CreateListingContext";
+import { createTradeContext } from "../../context/CreateTradeContext";
 import { fetchListing } from "../../util/create-trade";
 
 import { Flex, useStyleConfig, Text } from "@chakra-ui/react";
 
 import CreateTradeForm from "./CreateTradeForm";
 import ListingInfo from "./ListingInfo";
+import SuccessModal from "../UI/SuccessModal";
 
 const CreateTrade: React.FC<{ listingID: string }> = ({ listingID }) => {
   const { isCollapsed } = useContext(navigationContext);
   const styles = useStyleConfig("Home");
 
-  const { listing, setListing, isLoading, setIsLoading } =
+  const { listing, setListing, isLoading, setIsLoading, didSubmit } =
     useContext(createTradeContext);
 
   async function fetchCurrentListing() {
@@ -40,22 +41,28 @@ const CreateTrade: React.FC<{ listingID: string }> = ({ listingID }) => {
           : "var(--open-nav-width)",
       }}
     >
-      {isLoading && (
-        <Text margin="auto" w="100%" textAlign="center">
-          Loading listing...
-        </Text>
-      )}
-      {!isLoading && listing && (
-        <Flex
-          w="90%"
-          flexDir="row"
-          justifyContent="center"
-          alignItems="flex-start"
-          gap="25px"
-        >
-          <ListingInfo listing={listing} />
-          <CreateTradeForm listing={listing} />
-        </Flex>
+      {!didSubmit ? (
+        <>
+          {isLoading && (
+            <Text margin="auto" w="100%" textAlign="center">
+              Loading listing...
+            </Text>
+          )}
+          {!isLoading && listing && (
+            <Flex
+              w="90%"
+              flexDir="row"
+              justifyContent="center"
+              alignItems="flex-start"
+              gap="25px"
+            >
+              <ListingInfo listing={listing} />
+              <CreateTradeForm listing={listing} />
+            </Flex>
+          )}
+        </>
+      ) : (
+        <SuccessModal message="You have successfully placed your trade offer!" />
       )}
     </Flex>
   );

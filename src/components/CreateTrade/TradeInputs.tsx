@@ -1,20 +1,23 @@
-import { ChangeEvent, useState } from "react";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { ChangeEvent, useState, useContext } from "react";
+import { useLoaderData } from "react-router-dom";
 
-import { gameType } from "../../../types/game-types";
-import { userType } from "../../../types/user-types";
-import { listingType } from "../../../types/listing-type";
+import { gameType } from "../../types/game-types";
+import { userType } from "../../types/user-types";
+import { listingType } from "../../types/listing-type";
 
-import { fetchGames, placeTradeOffer } from "../../../util/create-trade";
+import { fetchGames, placeTradeOffer } from "../../util/create-trade";
+import { createTradeContext } from "../../context/CreateTradeContext";
 
 import { Flex, Text } from "@chakra-ui/react";
-import SubmitButton from "../SubmitButton";
-import GamesSearchInput from "./GamesSearchInput";
-import GameResults from "./GameResults";
-import SelectedGamesList from "./SelectedGamesList";
-import CashInput from "../CashInput";
+import SubmitButton from "../UI/SubmitButton";
+import GamesSearchInput from "../UI/GamesPicker/GamesSearchInput";
+import GameResults from "../UI/GamesPicker/GameResults";
+import SelectedGamesList from "../UI/GamesPicker/SelectedGamesList";
+import CashInput from "../UI/CashInput";
 
-const GamesPicker: React.FC<{ listing: listingType }> = ({ listing }) => {
+const TradeInputs: React.FC<{
+  listing: listingType;
+}> = ({ listing }) => {
   const [searchValue, setSearchValue] = useState("");
   const [offeredCash, setOfferedCash] = useState(0);
   const [resultsOpen, setResultsOpen] = useState(false);
@@ -24,7 +27,7 @@ const GamesPicker: React.FC<{ listing: listingType }> = ({ listing }) => {
   const [gamesErrorMessage, setGamesErrorMessage] = useState("");
   const [formErrorMessage, setFormErrorMessage] = useState("");
 
-  const navigate = useNavigate();
+  const { setDidSubmit } = useContext(createTradeContext);
 
   const authUser = useLoaderData() as userType;
 
@@ -95,9 +98,10 @@ const GamesPicker: React.FC<{ listing: listingType }> = ({ listing }) => {
         listing.id,
         setPickedGames,
         setSearchValue,
-        setOfferedCash
+        setOfferedCash,
+        setFormErrorMessage,
+        setDidSubmit
       );
-      navigate("/");
     }
     if (pickedGames.length === 0 && offeredCash === 0) {
       setFormErrorMessage(
@@ -155,4 +159,4 @@ const GamesPicker: React.FC<{ listing: listingType }> = ({ listing }) => {
   );
 };
 
-export default GamesPicker;
+export default TradeInputs;
