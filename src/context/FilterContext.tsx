@@ -7,10 +7,10 @@ type filteringContextType = {
   setCityId: (cityId: number) => void;
   platformId: number;
   setPlatformId: (platformId: number) => void;
-  tradePreference: string | undefined;
-  setTradePreference: (tradePreference: string | undefined) => void;
-  order: string | undefined;
-  setOrder: (order: string | undefined) => void;
+  tradePreference: string | null;
+  setTradePreference: (tradePreference: string | null) => void;
+  order: string | null;
+  setOrder: (order: string | null) => void;
 };
 
 export const filteringContext = createContext<filteringContextType>({
@@ -20,7 +20,7 @@ export const filteringContext = createContext<filteringContextType>({
   setCityId: () => {},
   platformId: 0,
   setPlatformId: () => {},
-  tradePreference: undefined,
+  tradePreference: null,
   setTradePreference: () => {},
   order: "",
   setOrder: () => {},
@@ -32,10 +32,8 @@ const FilteringContextProvider: React.FC<{ children: React.ReactNode }> = ({
   const [searchInputValue, setSearchInputValue] = useState("");
   const [cityId, setCityId] = useState(0);
   const [platformId, setPlatformId] = useState(0);
-  const [tradePreference, setTradePreference] = useState<string | undefined>(
-    undefined
-  );
-  const [order, setOrder] = useState<string | undefined>("");
+  const [tradePreference, setTradePreference] = useState<string | null>(null);
+  const [order, setOrder] = useState<string | null>("");
 
   const value: filteringContextType = {
     searchInputValue,
