@@ -1,7 +1,6 @@
 import { Input, IconButton } from "@chakra-ui/react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 
-
 import { useContext, useRef } from "react";
 
 import { filteringContext } from "../../context/FilterContext";
@@ -23,6 +22,7 @@ const SearchInput = () => {
         minW="150px"
         bg="white"
         ref={searchInput}
+        name="search"
       />
       <IconButton
         aria-label="Click to search!"

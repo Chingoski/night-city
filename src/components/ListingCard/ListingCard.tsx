@@ -27,7 +27,6 @@ const ListingCard: React.FC<{ listing: listingType; page?: string }> = ({
   page,
 }) => {
   const navigate = useNavigate();
-
   function tradeClickHandler() {
     navigate(`/create-trade/${listing.id}`);
   }

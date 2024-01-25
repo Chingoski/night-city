@@ -5,7 +5,7 @@ import controller from "../../assets/controller.png";
 import { Flex, Image, Text, Box } from "@chakra-ui/react";
 import TradeTip from "../UI/TradeTip";
 
-const Listing: React.FC<{ listing: listingType }> = ({ listing }) => {
+const ListingDetails: React.FC<{ listing: listingType }> = ({ listing }) => {
   return (
     <Flex
       flexDir="column"
@@ -49,21 +49,15 @@ const Listing: React.FC<{ listing: listingType }> = ({ listing }) => {
         <TradeTip title="platform" tip={listing.platform.slug} />
         <TradeTip
           title="rating"
-          tip={listing.game.rating.length > 0 ? listing.game.rating : "N/A"}
+          tip={listing.game.rating?.length > 0 ? listing.game.rating : "N/A"}
         />
         <TradeTip
           title="release date"
-          tip={
-            listing.game.release_date.length > 0
-              ? listing.game.release_date
-              : "N/A"
-          }
+          tip={listing.game.release_date ? listing.game.release_date : "N/A"}
         />
         <TradeTip
           title="genre"
-          tip={
-            listing.game.genres.length > 0 ? listing.game.genres[0].name : "N/A"
-          }
+          tip={listing.game.genres ? listing.game.genres[0].name : "N/A"}
           align="left"
         />
         <TradeTip title="trade preference" tip={listing.trade_preference} />
@@ -72,4 +66,4 @@ const Listing: React.FC<{ listing: listingType }> = ({ listing }) => {
   );
 };
 
-export default Listing;
+export default ListingDetails;

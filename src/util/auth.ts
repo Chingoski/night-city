@@ -62,7 +62,17 @@ export async function logOut() {
   localStorage.removeItem("token");
 }
 
-export async function submitRegisterData(firstName: string, lastName: string, email: string, phoneNumber: string, dateOfBirth: string, address: string, cityId: string, password: string, confrimPassword: string) {
+export async function submitRegisterData(
+  firstName: string,
+  lastName: string,
+  email: string,
+  phoneNumber: string,
+  dateOfBirth: string,
+  address: string,
+  cityId: string,
+  password: string,
+  confrimPassword: string
+) {
   try {
     const response = await axios.post(`${host}/api/auth/register`, {
       first_name: firstName,
@@ -73,7 +83,7 @@ export async function submitRegisterData(firstName: string, lastName: string, em
       date_of_birth: dateOfBirth,
       city_id: cityId,
       password: password,
-      password_confirmation: confrimPassword
+      password_confirmation: confrimPassword,
     });
 
     if (response.status !== 201) {

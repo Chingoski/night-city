@@ -104,7 +104,7 @@ export async function fetchNextPage(
       setNextPage(null);
     }
 
-    setListings(listings.concat(response.data.data));
+    setListings([...listings, ...response.data.data]);
   } catch (error) {
     return error;
   } finally {

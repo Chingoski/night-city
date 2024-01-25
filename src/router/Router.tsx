@@ -14,7 +14,7 @@ import { loader as homePageLoader } from "../pages/HomePage";
 import { loader as myListingsLoader } from "../pages/MyListingsPage";
 import { redirectToAuthLoader } from "../util/auth";
 import { redirectToHomeLoader } from "../util/auth";
-import { loader as myProfileLoader } from "../pages/MyProfilePage";
+import { loader as userLoader } from "../pages/MyProfilePage";
 
 const router = createBrowserRouter([
   {
@@ -42,7 +42,7 @@ const router = createBrowserRouter([
       {
         path: "my-profile",
         element: <MyProfilePage />,
-        loader: myProfileLoader,
+        loader: userLoader,
       },
       {
         path: "contact-us",
@@ -51,6 +51,7 @@ const router = createBrowserRouter([
       {
         path: "create-trade/:listingID",
         element: <CreateTradePage />,
+        loader: userLoader,
       },
     ],
   },

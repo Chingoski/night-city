@@ -1,15 +1,24 @@
 import { Button } from "@chakra-ui/react";
 import { FormikProps } from "formik";
 
-function SubmitButton({title, props} : {title: string, props: FormikProps<any>}) {
+function SubmitButton({
+  title,
+  props,
+  onClick,
+}: {
+  title: string;
+  props?: FormikProps<any>;
+  onClick?: () => void;
+}) {
   return (
     <Button
       textTransform="uppercase"
-      isLoading={props.isSubmitting}
+      isLoading={props?.isSubmitting}
       type="submit"
       background="teal.500"
       color="white"
       _hover={{ backgroundColor: "teal.300" }}
+      onClick={onClick}
     >
       {title}
     </Button>
