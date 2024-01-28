@@ -39,6 +39,14 @@ const OngoingListings = () => {
     console.log(ongoingListings);
   }
 
+  function removeListing(deletedListing: listingType | null) {
+    setOngoingListings(
+      ongoingListings.filter(
+        (ongoingListing) => ongoingListing.id !== deletedListing?.id
+      )
+    );
+  }
+
   useEffect(() => fetchMyListings(), []);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
