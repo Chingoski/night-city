@@ -14,12 +14,9 @@ import { loader as homePageLoader } from "../pages/HomePage";
 import { loader as myListingsLoader } from "../pages/MyListingsPage";
 import { redirectToAuthLoader } from "../util/auth";
 import { redirectToHomeLoader } from "../util/auth";
-<<<<<<< Updated upstream
-=======
 import { loader as userLoader } from "../pages/MyProfilePage";
 import CreateNewListingPage from "../pages/CreateNewListingPage";
 import UpdateListingPage from "../pages/UpdateListingPage";
->>>>>>> Stashed changes
 
 const router = createBrowserRouter([
   {
@@ -53,8 +50,6 @@ const router = createBrowserRouter([
         path: "contact-us",
         element: <ContactUsPage />,
       },
-<<<<<<< Updated upstream
-=======
       {
         path: "create-trade/:listingID",
         element: <CreateTradePage />,
@@ -70,7 +65,6 @@ const router = createBrowserRouter([
         element: <UpdateListingPage />,
         loader: userLoader,
       },
->>>>>>> Stashed changes
     ],
   },
   {

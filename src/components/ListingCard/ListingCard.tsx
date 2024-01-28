@@ -22,18 +22,11 @@ import controller from "../../assets/controller.png";
 
 import { listingType } from "../../types/listing-type";
 
-<<<<<<< Updated upstream
-const ListingCard: React.FC<{ listing: listingType; page?: string }> = ({
-  listing,
-  page,
-}) => {
-=======
 const ListingCard: React.FC<{ listing: listingType }> = ({ listing }) => {
   const navigate = useNavigate();
   function tradeClickHandler() {
     navigate(`/create-trade/${listing.id}`);
   }
->>>>>>> Stashed changes
   return (
     <Card maxW="md" justify="center">
       <CardHeader>
@@ -107,11 +100,7 @@ const ListingCard: React.FC<{ listing: listingType }> = ({ listing }) => {
           },
         }}
       >
-<<<<<<< Updated upstream
-        {page !== "my-listings" && <Button>Trade</Button>}
-=======
         <Button onClick={tradeClickHandler}>Trade</Button>
->>>>>>> Stashed changes
       </CardFooter>
     </Card>
   );

@@ -6,15 +6,10 @@ import fetchListings from "../../util/listings";
 import host from "../../host";
 
 import { userType } from "../../types/user-types";
-<<<<<<< Updated upstream
-=======
 import { listingType } from "../../types/listing-type";
 
 import { Flex, SimpleGrid, Text, useDisclosure } from "@chakra-ui/react";
->>>>>>> Stashed changes
-import { listingType } from "../../types/listing-type";
 
-import { Flex, SimpleGrid, Text } from "@chakra-ui/react";
 import LoadMoreButton from "../UI/LoadMoreButton";
 import OngoingListingsCard from "./OngoingListingsCard";
 import DeleteListingModal from "./DeleteListingModal";
