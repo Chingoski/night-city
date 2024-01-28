@@ -1,4 +1,4 @@
-import { Input, IconButton } from "@chakra-ui/react";
+import { Input, Icon, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 
 import { useContext, useRef } from "react";
@@ -21,24 +21,24 @@ const SearchInput = () => {
     }
   }
   return (
-    <>
+    <InputGroup w="30%" minW="150px">
+      <InputLeftElement>
+        <Icon
+          as={FaMagnifyingGlass}
+          onClick={searchHandler}
+          bg="white"
+          color="gray.700"
+        />
+      </InputLeftElement>
       <Input
         placeholder="Search listings"
-        w="30%"
-        minW="150px"
         bg="white"
         ref={searchInput}
         name="search"
         onKeyDown={onEnterKeyPress}
+        focusBorderColor="teal.300"
       />
-      <IconButton
-        aria-label="Click to search!"
-        icon={<FaMagnifyingGlass />}
-        onClick={searchHandler}
-        bg="white"
-        color="gray.700"
-      />
-    </>
+    </InputGroup>
   );
 };
 

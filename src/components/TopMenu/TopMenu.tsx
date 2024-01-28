@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { filteringContext } from "../../context/FilterContext";
 
 import { cityType } from "../../types/city-types";
@@ -12,9 +12,11 @@ import SelectMenu from "./SelectMenu";
 
 import { FaSortAmountDown, FaGamepad, FaCity } from "react-icons/fa";
 import { FaCoins, FaArrowRotateLeft } from "react-icons/fa6";
+import AddButton from "../UI/AddButton";
 
 function TopMenu() {
   const cities = useLoaderData() as cityType[];
+  const navigate = useNavigate();
 
   const {
     setSearchInputValue,
@@ -64,11 +66,15 @@ function TopMenu() {
     setOrder("");
   }
 
+  function navigateNewListing() {
+    navigate("/new-listing");
+  }
+
   return (
     <Flex
       flexDirection="row"
       w="100%"
-      p="10px 20px"
+      p="10px 15px 0 15px"
       gap="10px"
       alignItems="center"
     >
@@ -121,6 +127,7 @@ function TopMenu() {
         color="gray.600"
         fontSize="1.5rem"
       />
+      <AddButton title="Add Listing" onClick={navigateNewListing} />
     </Flex>
   );
 }
