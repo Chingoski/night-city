@@ -8,14 +8,7 @@ import host from "../../host";
 import { userType } from "../../types/user-types";
 import { listingType } from "../../types/listing-type";
 
-import {
-  Flex,
-  SimpleGrid,
-  Text,
-  useDisclosure,
-  useDisclosure,
-} from "@chakra-ui/react";
-
+import { Flex, SimpleGrid, Text, useDisclosure } from "@chakra-ui/react";
 import LoadMoreButton from "../UI/LoadMoreButton";
 import OngoingListingsCard from "./OngoingListingsCard";
 import DeleteListingModal from "./DeleteListingModal";
@@ -53,17 +46,7 @@ const OngoingListings = () => {
     );
   }
 
-  function removeListing(deletedListing: listingType | null) {
-    setOngoingListings(
-      ongoingListings.filter(
-        (ongoingListing) => ongoingListing.id !== deletedListing?.id
-      )
-    );
-  }
-
   useEffect(() => fetchMyListings(), []);
-
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -134,20 +117,12 @@ const OngoingListings = () => {
                 Loading listings...
               </Text>
             )}
-            {isLoading && (
-              <Text w="100%" margin="auto" textAlign="center">
-                Loading listings...
-              </Text>
-            )}
 
             {nextPage && !isLoading && ongoingListings.length !== 0 && (
               <LoadMoreButton loadMoreHandler={loadMoreHandler} />
             )}
           </Flex>
         </>
-        {nextPage && !isLoading && ongoingListings.length !== 0 && (
-          <LoadMoreButton loadMoreHandler={loadMoreHandler} />
-        )}
       </Flex>
     </>
   );
