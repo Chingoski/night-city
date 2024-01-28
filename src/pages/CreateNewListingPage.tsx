@@ -1,5 +1,7 @@
+import CreateListing from "../components/CreateListing/CreateListing";
+
 function CreateNewListingPage() {
-  return <div>CreateNewListingPage</div>;
+  return <CreateListing />;
 }
 
 export default CreateNewListingPage;
