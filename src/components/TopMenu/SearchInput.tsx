@@ -1,5 +1,5 @@
 import { Input, IconButton } from "@chakra-ui/react";
-import { SearchIcon } from "@chakra-ui/icons";
+import { FaMagnifyingGlass } from "react-icons/fa6";
 
 import { useContext, useRef } from "react";
 
@@ -14,6 +14,12 @@ const SearchInput = () => {
       setSearchInputValue(searchInput.current.value);
     }
   }
+
+  function onEnterKeyPress(event: React.KeyboardEvent<HTMLInputElement>) {
+    if (event.key === "Enter") {
+      searchHandler();
+    }
+  }
   return (
     <>
       <Input
@@ -22,13 +28,15 @@ const SearchInput = () => {
         minW="150px"
         bg="white"
         ref={searchInput}
+        name="search"
+        onKeyDown={onEnterKeyPress}
       />
       <IconButton
         aria-label="Click to search!"
-        icon={<SearchIcon />}
+        icon={<FaMagnifyingGlass />}
         onClick={searchHandler}
         bg="white"
-        color="gray.600"
+        color="gray.700"
       />
     </>
   );

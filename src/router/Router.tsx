@@ -8,6 +8,7 @@ import MyProfilePage from "../pages/MyProfilePage";
 import ContactUsPage from "../pages/ContactUsPage";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import AuthPage from "../pages/AuthPage/AuthPage";
+import CreateTradePage from "../pages/CreateTradePage";
 
 import { loader as homePageLoader } from "../pages/HomePage";
 import { loader as myListingsLoader } from "../pages/MyListingsPage";
@@ -46,6 +47,7 @@ const router = createBrowserRouter([
       {
         path: "my-profile",
         element: <MyProfilePage />,
+        loader: userLoader,
       },
       {
         path: "contact-us",

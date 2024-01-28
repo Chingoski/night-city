@@ -16,7 +16,9 @@ import {
   Tooltip,
 } from "@chakra-ui/react";
 
-import controller from "../../assets/game-controller-outline.svg";
+import { useNavigate } from "react-router-dom";
+
+import controller from "../../assets/controller.png";
 
 import { listingType } from "../../types/listing-type";
 

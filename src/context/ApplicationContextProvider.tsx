@@ -1,5 +1,4 @@
 import NavigationContextProvider from "./NavigationContext";
-import AllListingsContextProvider from "./AllListingsContext";
 import FilteringContextProvider from "./FilterContext";
 <<<<<<< Updated upstream
 import OngoingListingsContextProvider from "./OngoingListingsContext";
@@ -9,6 +8,8 @@ import CreateTradeContextProvider from "./CreateTradeContext";
 import GamesPickerContextProvider from "./GamesPickerContext";
 import DeleteListingContextProvider from "./DeleteListingContext";
 >>>>>>> Stashed changes
+import CreateTradeContextProvider from "./CreateTradeContext";
+import GamesPickerContextProvider from "./GamesPickerContext";
 
 const ApplicationContextProvider: React.FC<{ children?: React.ReactNode }> = ({
   children,
@@ -17,24 +18,13 @@ const ApplicationContextProvider: React.FC<{ children?: React.ReactNode }> = ({
 <<<<<<< Updated upstream
     <CompletedListingsContextProvider>
       <OngoingListingsContextProvider>
+    <GamesPickerContextProvider>
+      <CreateTradeContextProvider>
         <FilteringContextProvider>
-          <NavigationContextProvider>
-            <AllListingsContextProvider>{children}</AllListingsContextProvider>
-          </NavigationContextProvider>
+          <NavigationContextProvider>{children}</NavigationContextProvider>
         </FilteringContextProvider>
       </OngoingListingsContextProvider>
     </CompletedListingsContextProvider>
-=======
-    <DeleteListingContextProvider>
-      <GamesPickerContextProvider>
-        <CreateTradeContextProvider>
-          <FilteringContextProvider>
-            <NavigationContextProvider>{children}</NavigationContextProvider>
-          </FilteringContextProvider>
-        </CreateTradeContextProvider>
-      </GamesPickerContextProvider>
-    </DeleteListingContextProvider>
->>>>>>> Stashed changes
   );
 };
 

@@ -1,29 +1,23 @@
+import { useContext } from "react";
 import { useLoaderData } from "react-router-dom";
+import { filteringContext } from "../../context/FilterContext";
 
 import { cityType } from "../../types/city-types";
-
-import { Flex } from "@chakra-ui/react";
-
-import { MdLocationCity } from "react-icons/md";
-import { GiConsoleController } from "react-icons/gi";
-import { RiExchangeDollarFill } from "react-icons/ri";
-import { FaSortAmountDown } from "react-icons/fa";
-
-import { useContext, useEffect } from "react";
-import { filteringContext } from "../../context/FilterContext";
-import fetchListings, { constructUrl } from "../../util/listings";
-import { allListingsContext } from "../../context/AllListingsContext";
-
-import SearchInput from "./SearchInput";
-import SelectMenu from "./SelectMenu";
 import { option } from "../../types/option-types";
 import { platforms, tradePreferences, sortBy } from "../../util/options";
+
+import { Flex, IconButton } from "@chakra-ui/react";
+import SearchInput from "./SearchInput";
+import SelectMenu from "./SelectMenu";
+
+import { FaSortAmountDown, FaGamepad, FaCity } from "react-icons/fa";
+import { FaCoins, FaArrowRotateLeft } from "react-icons/fa6";
 
 function TopMenu() {
   const cities = useLoaderData() as cityType[];
 
   const {
-    searchInputValue,
+    setSearchInputValue,
     cityId,
     setCityId,
     platformId,
@@ -33,8 +27,6 @@ function TopMenu() {
     order,
     setOrder,
   } = useContext(filteringContext);
-  const { setIsLoading, setNextPage, setAllListings } =
-    useContext(allListingsContext);
 
   function citySelectHandler(value: number) {
     setCityId(value);
@@ -46,7 +38,7 @@ function TopMenu() {
 
   function tradePreferenceSelectHandler(value: number) {
     if (value === 0) {
-      setTradePreference(undefined);
+      setTradePreference(null);
     } else {
       const tradePreferenceVal = tradePreferences.find(
         (preference) => preference.id === value
@@ -64,16 +56,13 @@ function TopMenu() {
     }
   }
 
-  useEffect(() => {
-    const listingUrl = constructUrl(
-      cityId,
-      searchInputValue,
-      platformId,
-      tradePreference,
-      order
-    );
-    fetchListings(listingUrl, setIsLoading, setNextPage, setAllListings);
-  }, [cityId, searchInputValue, platformId, tradePreference, order]);
+  function clearFilters() {
+    setCityId(0);
+    setSearchInputValue("");
+    setPlatformId(0);
+    setTradePreference(null);
+    setOrder("");
+  }
 
   return (
     <Flex
@@ -87,7 +76,7 @@ function TopMenu() {
       <SelectMenu
         name="City"
         options={cities}
-        icon={<MdLocationCity />}
+        icon={<FaCity />}
         onChange={citySelectHandler}
         isActive={cityId !== 0}
         activeId={cityId}
@@ -96,7 +85,7 @@ function TopMenu() {
       <SelectMenu
         name="Platform"
         options={platforms}
-        icon={<GiConsoleController />}
+        icon={<FaGamepad />}
         onChange={platformSelectHandler}
         isActive={platformId !== 0}
         activeId={platformId}
@@ -105,9 +94,9 @@ function TopMenu() {
       <SelectMenu
         name="Trade Preference"
         options={tradePreferences}
-        icon={<RiExchangeDollarFill />}
+        icon={<FaCoins />}
         onChange={tradePreferenceSelectHandler}
-        isActive={tradePreference !== undefined}
+        isActive={tradePreference !== null}
         activeId={
           tradePreferences.find(
             (preference) => preference.name === tradePreference
@@ -123,6 +112,14 @@ function TopMenu() {
         isActive={order !== ""}
         activeId={sortBy.find((sortVal) => sortVal.name === order)?.id}
         sortingMenu={true}
+      />
+      <IconButton
+        onClick={clearFilters}
+        icon={<FaArrowRotateLeft />}
+        aria-label="clear filters"
+        backgroundColor={"white"}
+        color="gray.600"
+        fontSize="1.5rem"
       />
     </Flex>
   );

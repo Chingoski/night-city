@@ -3,8 +3,8 @@ import host from "../host";
 
 import { listingType } from "../types/listing-type";
 
-import { getHeaders } from "./get-request-headers";
 import updateURL from "./update-url";
+import { getAuthToken } from "./auth";
 
 async function fetchListings(
   listingUrl: URL | null,
@@ -13,9 +13,14 @@ async function fetchListings(
   setListings: (listings: listingType[]) => void
 ) {
   setIsLoading(true);
+  const token = getAuthToken();
   try {
     const response = await axios.get(`${listingUrl}`, {
-      headers: getHeaders,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+        "ngrok-skip-browser-warning": "true",
+      },
     });
 
     if (response.status !== 200) {
@@ -43,7 +48,7 @@ export function constructUrl(
   city: number,
   text: string,
   platform: number,
-  tradePreference: string | undefined,
+  tradePreference: string | null,
   order: string | undefined
 ) {
   const url = new URL(`${host}/api/game_listings`);
@@ -58,7 +63,7 @@ export function constructUrl(
   if (platform !== 0) {
     url.searchParams.append("platform_id", `${platform}`);
   }
-  if (tradePreference !== undefined) {
+  if (tradePreference !== null) {
     url.searchParams.append("trade_preference", tradePreference);
   }
   if (order !== undefined && order !== "") {
@@ -75,10 +80,15 @@ export async function fetchNextPage(
   listings: listingType[],
   setListings: (listings: listingType[]) => void
 ) {
+  const token = getAuthToken();
   setIsLoading(true);
   try {
     const response = await axios.get(`${nextPage}`, {
-      headers: getHeaders,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+        "ngrok-skip-browser-warning": "true",
+      },
     });
 
     if (response.status !== 200) {
@@ -94,7 +104,7 @@ export async function fetchNextPage(
       setNextPage(null);
     }
 
-    setListings(listings.concat(response.data.data));
+    setListings([...listings, ...response.data.data]);
   } catch (error) {
     return error;
   } finally {
