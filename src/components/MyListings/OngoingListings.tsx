@@ -6,8 +6,15 @@ import fetchListings from "../../util/listings";
 import host from "../../host";
 import { useLoaderData } from "react-router-dom";
 import { userType } from "../../types/user-types";
+<<<<<<< Updated upstream
+=======
+import { listingType } from "../../types/listing-type";
+
+import { Flex, SimpleGrid, Text, useDisclosure } from "@chakra-ui/react";
+>>>>>>> Stashed changes
 import LoadMoreButton from "../UI/LoadMoreButton";
-import ListingCard from "../ListingCard/ListingCard";
+import OngoingListingsCard from "./OngoingListingsCard";
+import DeleteListingModal from "./DeleteListingModal";
 
 const OngoingListings = () => {
   const {
@@ -39,41 +46,61 @@ const OngoingListings = () => {
     console.log(ongoingListings);
   }
 
+  function removeListing(deletedListing: listingType | null) {
+    setOngoingListings(
+      ongoingListings.filter(
+        (ongoingListing) => ongoingListing.id !== deletedListing?.id
+      )
+    );
+  }
+
   useEffect(() => fetchMyListings(), []);
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
-    <Flex flexDirection="column" w="100%" h="100%">
-      {!isLoading && ongoingListings.length !== 0 && (
-        <SimpleGrid
-          minChildWidth="300px"
-          spacing="15px"
-          p="15px"
-          sx={{ gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))" }}
-        >
-          {ongoingListings.map((listing) => (
-            <ListingCard
-              key={listing.id}
-              listing={listing}
-              page="my-listings"
-            />
-          ))}
-        </SimpleGrid>
-      )}
-      {!isLoading && ongoingListings.length === 0 && (
-        <Text w="100%" margin="auto" textAlign="center">
-          No listings found.
-        </Text>
-      )}
+    <>
+      <DeleteListingModal
+        isOpen={isOpen}
+        onClose={onClose}
+        removeListing={removeListing}
+      />
+      <Flex flexDirection="column" w="100%" h="100%">
+        {!isLoading && ongoingListings.length !== 0 && (
+          <SimpleGrid
+            minChildWidth="300px"
+            spacing="15px"
+            p="15px"
+            sx={{
+              gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+            }}
+          >
+            {ongoingListings.map((listing) => (
+              <OngoingListingsCard
+                key={listing.id}
+                listing={listing}
+                deleteHandler={onOpen}
+              />
+            ))}
+          </SimpleGrid>
+        )}
+        {!isLoading && ongoingListings.length === 0 && (
+          <Text w="100%" margin="auto" textAlign="center">
+            No listings found.
+          </Text>
+        )}
 
-      {isLoading && (
-        <Text w="100%" margin="auto" textAlign="center">
-          Loading listings...
-        </Text>
-      )}
+        {isLoading && (
+          <Text w="100%" margin="auto" textAlign="center">
+            Loading listings...
+          </Text>
+        )}
 
-      {nextPage && !isLoading && ongoingListings.length !== 0 && (
-        <LoadMoreButton loadMoreHandler={loadMoreHandler} />
-      )}
-    </Flex>
+        {nextPage && !isLoading && ongoingListings.length !== 0 && (
+          <LoadMoreButton loadMoreHandler={loadMoreHandler} />
+        )}
+      </Flex>
+    </>
   );
 };
 export default OngoingListings;

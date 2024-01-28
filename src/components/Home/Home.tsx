@@ -50,6 +50,7 @@ function Home() {
       <TopMenu />
 
       {!isLoading && allListings.length !== 0 && (
+<<<<<<< Updated upstream
         <SimpleGrid
           minChildWidth="300px"
           spacing="15px"
@@ -60,6 +61,28 @@ function Home() {
             <ListingCard key={listing.id} listing={listing} />
           ))}
         </SimpleGrid>
+=======
+        <>
+          {searchInputValue !== "" && (
+            <Text p="10px 15px 0 15px" fontSize="0.9rem" color="gray.500" m="0">
+              Showing results for: "{searchInputValue}"
+            </Text>
+          )}
+          <SimpleGrid
+            mt="10px"
+            minChildWidth="300px"
+            spacing="15px"
+            p=" 0 15px"
+            sx={{
+              gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+            }}
+          >
+            {allListings.map((listing) => (
+              <ListingCard key={listing.id} listing={listing} />
+            ))}
+          </SimpleGrid>
+        </>
+>>>>>>> Stashed changes
       )}
 
       {isLoading && allListings.length !== 0 && (
