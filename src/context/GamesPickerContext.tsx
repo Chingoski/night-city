@@ -4,8 +4,6 @@ import { gameType } from "../types/game-types";
 type gamesPickerContextType = {
   searchValue: string;
   setSearchValue: (searchValue: string) => void;
-  gamesErrorMessage: string;
-  setGamesErrorMessage: (gamesErrorMessage: string) => void;
   gameResults: gameType[];
   setGameResults: (gameResults: gameType[]) => void;
   pickedGames: gameType[];
@@ -17,8 +15,6 @@ type gamesPickerContextType = {
 export const gamesPickerContext = createContext<gamesPickerContextType>({
   searchValue: "",
   setSearchValue: () => {},
-  gamesErrorMessage: "",
-  setGamesErrorMessage: () => {},
   gameResults: [],
   setGameResults: () => {},
   pickedGames: [],
@@ -33,7 +29,6 @@ const GamesPickerContextProvider: React.FC<{ children: React.ReactNode }> = ({
   const [searchValue, setSearchValue] = useState("");
   const [pickedGames, setPickedGames] = useState<gameType[]>([]);
   const [gameResults, setGameResults] = useState<gameType[]>([]);
-  const [gamesErrorMessage, setGamesErrorMessage] = useState("");
   const [resultsOpen, setResultsOpen] = useState(false);
 
   const value = {
@@ -43,8 +38,6 @@ const GamesPickerContextProvider: React.FC<{ children: React.ReactNode }> = ({
     setPickedGames,
     gameResults,
     setGameResults,
-    gamesErrorMessage,
-    setGamesErrorMessage,
     resultsOpen,
     setResultsOpen,
   };

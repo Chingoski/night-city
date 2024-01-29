@@ -58,7 +58,11 @@ const CreateTradeForm: React.FC<{
       w="100%"
     >
       <CashInput onChange={cashChangeHandler} />
-      <GamesPicker setFormErrorMessage={setFormErrorMessage} />
+      <GamesPicker
+        setFormErrorMessage={setFormErrorMessage}
+        title="Games I want to trade:"
+        maxGames={3}
+      />
       <Flex
         w="100%"
         flexDir="column"
