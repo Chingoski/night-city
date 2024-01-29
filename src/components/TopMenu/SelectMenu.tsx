@@ -22,7 +22,7 @@ const SelectMenu: React.FC<{
       <MenuButton
         as={IconButton}
         icon={icon}
-        backgroundColor={isActive ? "#81E6D9" : "white"}
+        backgroundColor={isActive ? "teal.300" : "white"}
         color="gray.600"
         fontSize="1.5rem"
       />

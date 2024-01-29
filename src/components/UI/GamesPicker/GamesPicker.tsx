@@ -1,7 +1,7 @@
 import { useContext, useState, ChangeEvent } from "react";
 import { gamesPickerContext } from "../../../context/GamesPickerContext";
 
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import PickedGamesList from "./PickedGamesList";
 import GamesSearchInput from "./GamesSearchInput";
 import GameResults from "./GameResults";
@@ -11,8 +11,10 @@ import { fetchGames } from "../../../util/create-trade";
 import { gameType } from "../../../types/game-types";
 
 const GamesPicker: React.FC<{
+  title: string;
+  maxGames: number;
   setFormErrorMessage: (formErrorMessage: string) => void;
-}> = ({ setFormErrorMessage }) => {
+}> = ({ title, maxGames, setFormErrorMessage }) => {
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
   const {
     searchValue,
@@ -21,8 +23,6 @@ const GamesPicker: React.FC<{
     setGameResults,
     pickedGames,
     setPickedGames,
-    gamesErrorMessage,
-    setGamesErrorMessage,
     resultsOpen,
     setResultsOpen,
   } = useContext(gamesPickerContext);
@@ -50,7 +50,7 @@ const GamesPicker: React.FC<{
   function gamePickHandler(game: gameType) {
     setResultsOpen(false);
     setSearchValue("");
-    if (pickedGames.length < 3) {
+    if (pickedGames.length < maxGames) {
       setPickedGames([...pickedGames, game]);
       setGameResults(
         gameResults.filter(
@@ -60,8 +60,6 @@ const GamesPicker: React.FC<{
             )
         )
       );
-    } else {
-      setGamesErrorMessage("You have reached the games limit!");
     }
   }
 
@@ -87,22 +85,26 @@ const GamesPicker: React.FC<{
       justifyContent="space-evenly"
       alignItems="left"
     >
-      <PickedGamesList games={pickedGames} onClick={gameRemoveHandler} />
-      {gamesErrorMessage !== "" && pickedGames.length === 3 && (
-        <Text fontSize="0.9rem" color="red.500">
-          {gamesErrorMessage}
-        </Text>
-      )}
-      <GamesSearchInput
-        inputChangeHandler={inputChangeHandler}
-        searchValue={searchValue}
+      <PickedGamesList
+        games={pickedGames}
+        onClick={gameRemoveHandler}
+        title={title}
       />
-      {resultsOpen && (
-        <GameResults
-          gameResults={gameResults}
-          gamePickHandler={gamePickHandler}
-          closeResultsHandler={closeResultsHandler}
-        />
+
+      {pickedGames.length !== maxGames && (
+        <>
+          <GamesSearchInput
+            inputChangeHandler={inputChangeHandler}
+            searchValue={searchValue}
+          />
+          {resultsOpen && (
+            <GameResults
+              gameResults={gameResults}
+              gamePickHandler={gamePickHandler}
+              closeResultsHandler={closeResultsHandler}
+            />
+          )}
+        </>
       )}
     </Flex>
   );

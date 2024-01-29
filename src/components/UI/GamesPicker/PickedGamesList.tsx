@@ -7,15 +7,16 @@ import { Flex, IconButton, Text } from "@chakra-ui/react";
 const PickedGamesList: React.FC<{
   games: gameType[];
   onClick: (game: gameType) => void;
-}> = ({ games, onClick }) => {
+  title: string;
+}> = ({ games, onClick, title }) => {
   return (
     <Flex flexDir="column" marginTop="20px" marginBottom="10px" w="100%">
       <Text fontSize="1rem" fontWeight="600" w="100%">
-        Games I'm offering for trade:
+        {title}
       </Text>
       {games.length === 0 ? (
         <Text fontSize="1rem" color="gray.500" w="100%">
-          No games have been selected yet.
+          No game has been selected yet.
         </Text>
       ) : (
         <Flex w="100%" flexDir="row" flexWrap="wrap" gap="5px">

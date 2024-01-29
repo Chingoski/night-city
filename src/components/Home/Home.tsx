@@ -60,21 +60,6 @@ function Home() {
       <TopMenu />
 
       {!isLoading && allListings.length !== 0 && (
-        // <>
-        // <SimpleGrid
-        //   minChildWidth="300px"
-        //   spacing="15px"
-        //   p="15px"
-        //   sx={{ gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))" }}
-        // >
-        //   {allListings.map((listing) => (
-        //     <ListingCard
-        //       key={listing.id}
-        //       listing={listing}
-        //       page="all-listings"
-        //     />
-        //   ))}
-        // </SimpleGrid>
         <>
           {searchInputValue !== "" && (
             <Text p="10px 15px 0 15px" fontSize="0.9rem" color="gray.500" m="0">
@@ -99,7 +84,13 @@ function Home() {
 
       {isLoading && allListings.length !== 0 && (
         <>
+          {searchInputValue !== "" && (
+            <Text p="10px 15px 0 15px" fontSize="0.9rem" color="gray.500" m="0">
+              Showing results for: "{searchInputValue}"
+            </Text>
+          )}
           <SimpleGrid
+            mt="10px"
             minChildWidth="300px"
             spacing="15px"
             p="15px"
