@@ -22,10 +22,7 @@ import controller from "../../assets/controller.png";
 
 import { listingType } from "../../types/listing-type";
 
-const ListingCard: React.FC<{ listing: listingType; page?: string }> = ({
-  listing,
-  page,
-}) => {
+const ListingCard: React.FC<{ listing: listingType }> = ({ listing }) => {
   const navigate = useNavigate();
   function tradeClickHandler() {
     navigate(`/create-trade/${listing.id}`);
@@ -103,9 +100,7 @@ const ListingCard: React.FC<{ listing: listingType; page?: string }> = ({
           },
         }}
       >
-        {page === "all-listings" && (
-          <Button onClick={tradeClickHandler}>Trade</Button>
-        )}
+        <Button onClick={tradeClickHandler}>Trade</Button>
       </CardFooter>
     </Card>
   );

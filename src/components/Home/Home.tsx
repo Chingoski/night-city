@@ -76,11 +76,7 @@ function Home() {
             }}
           >
             {allListings.map((listing) => (
-              <ListingCard
-                key={listing.id}
-                listing={listing}
-                page="all-listings"
-              />
+              <ListingCard key={listing.id} listing={listing} />
             ))}
           </SimpleGrid>
         </>
