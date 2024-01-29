@@ -35,7 +35,6 @@ const OngoingListings = () => {
 
   function fetchMyListings() {
     fetchListings(url, setIsLoading, setNextPage, setOngoingListings);
-    console.log(ongoingListings);
   }
 
   function removeListing(deletedListing: listingType | null) {
@@ -58,7 +57,7 @@ const OngoingListings = () => {
         removeListing={removeListing}
       />
       <Flex flexDirection="column" w="100%" h="100%">
-        {!isLoading && ongoingListings.length !== 0 && (
+        {/* {!isLoading && ongoingListings.length !== 0 && (
           <SimpleGrid
             minChildWidth="300px"
             spacing="15px"
@@ -80,7 +79,7 @@ const OngoingListings = () => {
           <Text w="100%" margin="auto" textAlign="center">
             No listings found.
           </Text>
-        )}
+        )} */}
         <>
           <DeleteListingModal
             isOpen={isOpen}

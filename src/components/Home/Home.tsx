@@ -60,22 +60,21 @@ function Home() {
       <TopMenu />
 
       {!isLoading && allListings.length !== 0 && (
-<<<<<<< Updated upstream
-        <SimpleGrid
-          minChildWidth="300px"
-          spacing="15px"
-          p="15px"
-          sx={{ gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))" }}
-        >
-          {allListings.map((listing) => (
-            <ListingCard
-              key={listing.id}
-              listing={listing}
-              page="all-listings"
-            />
-          ))}
-        </SimpleGrid>
-=======
+        // <>
+        // <SimpleGrid
+        //   minChildWidth="300px"
+        //   spacing="15px"
+        //   p="15px"
+        //   sx={{ gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))" }}
+        // >
+        //   {allListings.map((listing) => (
+        //     <ListingCard
+        //       key={listing.id}
+        //       listing={listing}
+        //       page="all-listings"
+        //     />
+        //   ))}
+        // </SimpleGrid>
         <>
           {searchInputValue !== "" && (
             <Text p="10px 15px 0 15px" fontSize="0.9rem" color="gray.500" m="0">
@@ -96,7 +95,6 @@ function Home() {
             ))}
           </SimpleGrid>
         </>
->>>>>>> Stashed changes
       )}
 
       {isLoading && allListings.length !== 0 && (

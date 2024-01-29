@@ -15,7 +15,7 @@ import { loader as myListingsLoader } from "../pages/MyListingsPage";
 import { redirectToAuthLoader } from "../util/auth";
 import { redirectToHomeLoader } from "../util/auth";
 import { loader as userLoader } from "../pages/MyProfilePage";
-import CreateNewListingPage from "../pages/CreateNewListingPage";
+// import CreateNewListingPage from "../pages/CreateNewListingPage";
 import UpdateListingPage from "../pages/UpdateListingPage";
 
 const router = createBrowserRouter([
@@ -55,11 +55,11 @@ const router = createBrowserRouter([
         element: <CreateTradePage />,
         loader: userLoader,
       },
-      {
-        path: "new-listing",
-        element: <CreateNewListingPage />,
-        loader: userLoader,
-      },
+      // {
+      //   path: "new-listing",
+      //   element: <CreateNewListingPage />,
+      //   loader: userLoader,
+      // },
       {
         path: "update-listing/:listingID",
         element: <UpdateListingPage />,
