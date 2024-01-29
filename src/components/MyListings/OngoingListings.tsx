@@ -57,29 +57,6 @@ const OngoingListings = () => {
         removeListing={removeListing}
       />
       <Flex flexDirection="column" w="100%" h="100%">
-        {/* {!isLoading && ongoingListings.length !== 0 && (
-          <SimpleGrid
-            minChildWidth="300px"
-            spacing="15px"
-            p="15px"
-            sx={{
-              gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-            }}
-          >
-            {ongoingListings.map((listing) => (
-              <OngoingListingsCard
-                key={listing.id}
-                listing={listing}
-                deleteHandler={onOpen}
-              />
-            ))}
-          </SimpleGrid>
-        )}
-        {!isLoading && ongoingListings.length === 0 && (
-          <Text w="100%" margin="auto" textAlign="center">
-            No listings found.
-          </Text>
-        )} */}
         <>
           <DeleteListingModal
             isOpen={isOpen}
