@@ -42,13 +42,17 @@ const UpdateListingModal: React.FC<{
   }, [toUpdateListing]);
 
   async function updateListingHandler() {
-    await updateListing(
-      toUpdateListing,
-      updatedDescription,
-      updatedTradePreference,
-      setFormErrorMessage,
-      setDidSubmit
-    );
+    if (updatedDescription.length > 20) {
+      await updateListing(
+        toUpdateListing,
+        updatedDescription,
+        updatedTradePreference,
+        setFormErrorMessage,
+        setDidSubmit
+      );
+    } else {
+      setFormErrorMessage("Your listing description is too short!");
+    }
   }
 
   function descriptionUpdateHandler(value: string) {
