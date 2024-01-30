@@ -9,7 +9,6 @@ import ContactUsPage from "../pages/ContactUsPage";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import AuthPage from "../pages/AuthPage/AuthPage";
 import CreateTradePage from "../pages/CreateTradePage";
-import UpdateListingPage from "../pages/UpdateListingPage";
 import CreateNewListingPage from "../pages/CreateNewListingPage";
 
 import { loader as homePageLoader } from "../pages/HomePage";
@@ -59,11 +58,6 @@ const router = createBrowserRouter([
       {
         path: "new-listing",
         element: <CreateNewListingPage />,
-        loader: userLoader,
-      },
-      {
-        path: "update-listing/:listingID",
-        element: <UpdateListingPage />,
         loader: userLoader,
       },
     ],

@@ -3,7 +3,7 @@ import host from "../host";
 import { listingType } from "../types/listing-type";
 import { getAuthToken } from "./auth";
 
-export async function deleteListing(listing: listingType) {
+export async function deleteMyListing(listing: listingType) {
   const token = getAuthToken();
   const listingID: number = listing.id;
   try {

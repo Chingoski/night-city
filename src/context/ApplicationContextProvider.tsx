@@ -2,13 +2,12 @@ import NavigationContextProvider from "./NavigationContext";
 import FilteringContextProvider from "./FilterContext";
 import CreateTradeContextProvider from "./CreateTradeContext";
 import GamesPickerContextProvider from "./GamesPickerContext";
-import DeleteListingContextProvider from "./DeleteListingContext";
-
+import ListingActionsContextProvider from "./ListingActionsContext";
 const ApplicationContextProvider: React.FC<{ children?: React.ReactNode }> = ({
   children,
 }) => {
   return (
-    <DeleteListingContextProvider>
+    <ListingActionsContextProvider>
       <GamesPickerContextProvider>
         <CreateTradeContextProvider>
           <FilteringContextProvider>
@@ -16,7 +15,7 @@ const ApplicationContextProvider: React.FC<{ children?: React.ReactNode }> = ({
           </FilteringContextProvider>
         </CreateTradeContextProvider>
       </GamesPickerContextProvider>
-    </DeleteListingContextProvider>
+    </ListingActionsContextProvider>
   );
 };
 

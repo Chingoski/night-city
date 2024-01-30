@@ -1,6 +1,5 @@
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { deleteListingContext } from "../../context/DeleteListingContext";
+import { listingActionsContext } from "../../context/ListingActionsContext";
 
 import {
   Card,
@@ -26,17 +25,20 @@ import { FaPenToSquare } from "react-icons/fa6";
 const OngoingListingsCard: React.FC<{
   listing: listingType;
   deleteHandler: () => void;
-}> = ({ listing, deleteHandler }) => {
-  const { setListing } = useContext(deleteListingContext);
-  const navigate = useNavigate();
+  updateHandler: () => void;
+}> = ({ listing, deleteHandler, updateHandler }) => {
+  const { setToDeleteListing, setToUpdateListing } = useContext(
+    listingActionsContext
+  );
 
   function onDelete() {
-    setListing(listing);
+    setToDeleteListing(listing);
     deleteHandler();
   }
 
   function onUpdate() {
-    navigate(`/update-listing/${listing.id}`);
+    setToUpdateListing(listing);
+    updateHandler();
   }
 
   return (
