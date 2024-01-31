@@ -1,3 +1,3 @@
-const host: string = "https://63f2-77-29-33-254.ngrok-free.app";
+const host: string = "https://f87a-77-29-47-33.ngrok-free.app";
 
 export default host;

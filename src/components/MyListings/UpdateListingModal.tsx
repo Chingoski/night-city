@@ -14,12 +14,16 @@ import {
   Flex,
   Text,
   Icon,
+  Image,
+  Tooltip,
 } from "@chakra-ui/react";
 
 import TextAreaInput from "../UI/TextAreaInput";
 import TradePreferenceSelect from "../UI/TradePreferenceSelect";
+
 import { updateListing } from "../../util/update-listing";
 import { FaCheckCircle } from "react-icons/fa";
+import controller from "../../assets/controller.png";
 
 const UpdateListingModal: React.FC<{
   isOpen: boolean;
@@ -65,6 +69,10 @@ const UpdateListingModal: React.FC<{
     setFormErrorMessage("");
   }
 
+  function closeModalHandler() {
+    onClose();
+  }
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -74,6 +82,29 @@ const UpdateListingModal: React.FC<{
         {!didSubmit ? (
           <>
             <ModalBody color="gray.900">
+              <Tooltip
+                label={toUpdateListing?.game.name}
+                placement="top"
+                bg="gray.600"
+              >
+                <Text
+                  noOfLines={1}
+                  textAlign="center"
+                  fontWeight="600"
+                  w="100%"
+                  marginTop="5px"
+                  textTransform="uppercase"
+                >
+                  {toUpdateListing?.game.name} ({toUpdateListing?.platform.slug}
+                  )
+                </Text>
+              </Tooltip>
+              <Image
+                src={toUpdateListing?.game.thumbnail}
+                fallbackSrc={controller}
+                w="100%"
+                borderRadius="5px"
+              />
               <FormControl>
                 <TextAreaInput
                   title="Description:"
@@ -129,7 +160,7 @@ const UpdateListingModal: React.FC<{
               variant="ghost"
               color="red.400"
               _hover={{ backgroundColor: "red.50" }}
-              onClick={() => onClose()}
+              onClick={closeModalHandler}
             >
               Close
             </Button>
