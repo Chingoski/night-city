@@ -24,19 +24,19 @@ import TradePreferenceSelect from "../UI/TradePreferenceSelect";
 import { updateListing } from "../../util/update-listing";
 import { FaCheckCircle } from "react-icons/fa";
 import controller from "../../assets/controller.png";
+import { listingType } from "../../types/listing-type";
 
 const UpdateListingModal: React.FC<{
   isOpen: boolean;
   onClose: () => void;
-}> = ({ isOpen, onClose }) => {
+  updateListingsHandler: (listing: listingType) => void;
+}> = ({ isOpen, onClose, updateListingsHandler }) => {
   const { toUpdateListing } = useContext(listingActionsContext);
 
   const [didSubmit, setDidSubmit] = useState(false);
   const [formErrorMessage, setFormErrorMessage] = useState("");
-  const [updatedDescription, setUpdatedDescription] = useState<string>("");
-  const [updatedTradePreference, setUpdatedTradePreference] = useState<
-    string | null
-  >("");
+  const [updatedDescription, setUpdatedDescription] = useState("");
+  const [updatedTradePreference, setUpdatedTradePreference] = useState("");
 
   useEffect(() => {
     setUpdatedDescription(toUpdateListing?.description as string);
@@ -54,6 +54,12 @@ const UpdateListingModal: React.FC<{
         setFormErrorMessage,
         setDidSubmit
       );
+      const newListing = {
+        ...toUpdateListing,
+        description: updatedDescription,
+        trade_preference: updatedTradePreference,
+      };
+      updateListingsHandler(newListing as listingType);
     } else {
       setFormErrorMessage("Your listing description is too short!");
     }
@@ -64,7 +70,7 @@ const UpdateListingModal: React.FC<{
     setFormErrorMessage("");
   }
 
-  function tradePreferenceUpdateHandler(value: string | null) {
+  function tradePreferenceUpdateHandler(value: string) {
     setUpdatedTradePreference(value);
     setFormErrorMessage("");
   }

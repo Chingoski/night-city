@@ -46,6 +46,13 @@ const OngoingListings = () => {
     );
   }
 
+  function updateListingsHandler(updatedListing: listingType) {
+    const updatedOngoingListings = ongoingListings.map((listing) =>
+      listing.id === updatedListing.id ? updatedListing : listing
+    );
+    setOngoingListings(updatedOngoingListings);
+  }
+
   useEffect(() => fetchMyListings(), []);
 
   const {
@@ -70,6 +77,7 @@ const OngoingListings = () => {
       <UpdateListingModal
         isOpen={updateListingIsOpen}
         onClose={updateListingOnClose}
+        updateListingsHandler={updateListingsHandler}
       />
 
       <Flex flexDirection="column" w="100%" h="100%">
