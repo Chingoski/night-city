@@ -1,5 +1,7 @@
 import { useContext } from "react";
-import { deleteListingContext } from "../../context/DeleteListingContext";
+import { listingActionsContext } from "../../context/ListingActionsContext";
+import { deleteMyListing } from "../../util/delete-listing";
+import { listingType } from "../../types/listing-type";
 
 import {
   Modal,
@@ -12,21 +14,20 @@ import {
   Button,
   Text,
 } from "@chakra-ui/react";
-import { deleteListing } from "../../util/delete-listing";
-import { listingType } from "../../types/listing-type";
 
 const DeleteListingModal: React.FC<{
   isOpen: boolean;
   onClose: () => void;
-  removeListing: (deletedListing: listingType | null) => void;
+  removeListing: (toDeleteListing: listingType | null) => void;
 }> = ({ isOpen, onClose, removeListing }) => {
-  const { listing } = useContext(deleteListingContext);
+  const { toDeleteListing } = useContext(listingActionsContext);
 
   function deleteListingHandler() {
-    deleteListing(listing as listingType);
+    deleteMyListing(toDeleteListing as listingType);
     onClose();
-    removeListing(listing);
+    removeListing(toDeleteListing);
   }
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -36,7 +37,7 @@ const DeleteListingModal: React.FC<{
         <ModalBody color="gray.900">
           Are you sure you want to delete your listing for{" "}
           <Text display="inline" fontWeight="600" color="teal.700">
-            {listing?.game.name}
+            {toDeleteListing?.game.name}
           </Text>
           ?
         </ModalBody>

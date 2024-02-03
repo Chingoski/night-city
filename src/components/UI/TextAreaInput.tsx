@@ -13,7 +13,7 @@ const TextAreaInput: React.FC<{
   function textAreaChangeHandler(event: ChangeEvent<HTMLTextAreaElement>) {
     valueChangeHandler(event.target.value);
     if (event.target.value.length < 20) {
-      setErrorMessage("Your description seems kind of short");
+      setErrorMessage("Minimum 20 characters");
       setIsInvalid(true);
     }
     if (event.target.value.length >= 20) {

@@ -12,6 +12,7 @@ import { Flex, SimpleGrid, Text, useDisclosure } from "@chakra-ui/react";
 import LoadMoreButton from "../UI/LoadMoreButton";
 import OngoingListingsCard from "./OngoingListingsCard";
 import DeleteListingModal from "./DeleteListingModal";
+import UpdateListingModal from "./UpdateListingModal";
 
 const OngoingListings = () => {
   const [ongoingListings, setOngoingListings] = useState<listingType[]>([]);
@@ -45,60 +46,75 @@ const OngoingListings = () => {
     );
   }
 
+  function updateListingsHandler(updatedListing: listingType) {
+    const updatedOngoingListings = ongoingListings.map((listing) =>
+      listing.id === updatedListing.id ? updatedListing : listing
+    );
+    setOngoingListings(updatedOngoingListings);
+  }
+
   useEffect(() => fetchMyListings(), []);
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: deleteListingIsOpen,
+    onOpen: deleteListingOnOpen,
+    onClose: deleteListingOnClose,
+  } = useDisclosure();
+
+  const {
+    isOpen: updateListingIsOpen,
+    onOpen: updateListingOnOpen,
+    onClose: updateListingOnClose,
+  } = useDisclosure();
 
   return (
     <>
       <DeleteListingModal
-        isOpen={isOpen}
-        onClose={onClose}
+        isOpen={deleteListingIsOpen}
+        onClose={deleteListingOnClose}
         removeListing={removeListing}
       />
+      <UpdateListingModal
+        isOpen={updateListingIsOpen}
+        onClose={updateListingOnClose}
+        updateListingsHandler={updateListingsHandler}
+      />
+
       <Flex flexDirection="column" w="100%" h="100%">
-        <>
-          <DeleteListingModal
-            isOpen={isOpen}
-            onClose={onClose}
-            removeListing={removeListing}
-          />
-          <Flex flexDirection="column" w="100%" h="100%">
-            {!isLoading && ongoingListings.length !== 0 && (
-              <SimpleGrid
-                minChildWidth="300px"
-                spacing="15px"
-                p="15px"
-                sx={{
-                  gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-                }}
-              >
-                {ongoingListings.map((listing) => (
-                  <OngoingListingsCard
-                    key={listing.id}
-                    listing={listing}
-                    deleteHandler={onOpen}
-                  />
-                ))}
-              </SimpleGrid>
-            )}
-            {!isLoading && ongoingListings.length === 0 && (
-              <Text w="100%" margin="auto" textAlign="center">
-                No listings found.
-              </Text>
-            )}
+        {!isLoading && ongoingListings.length !== 0 && (
+          <SimpleGrid
+            minChildWidth="300px"
+            spacing="15px"
+            p="15px"
+            sx={{
+              gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+            }}
+          >
+            {ongoingListings.map((listing) => (
+              <OngoingListingsCard
+                key={listing.id}
+                listing={listing}
+                deleteHandler={deleteListingOnOpen}
+                updateHandler={updateListingOnOpen}
+              />
+            ))}
+          </SimpleGrid>
+        )}
+        {!isLoading && ongoingListings.length === 0 && (
+          <Text w="100%" margin="auto" textAlign="center">
+            No listings found.
+          </Text>
+        )}
 
-            {isLoading && (
-              <Text w="100%" margin="auto" textAlign="center">
-                Loading listings...
-              </Text>
-            )}
+        {isLoading && (
+          <Text w="100%" margin="auto" textAlign="center">
+            Loading listings...
+          </Text>
+        )}
 
-            {nextPage && !isLoading && ongoingListings.length !== 0 && (
-              <LoadMoreButton loadMoreHandler={loadMoreHandler} />
-            )}
-          </Flex>
-        </>
+        {nextPage && !isLoading && ongoingListings.length !== 0 && (
+          <LoadMoreButton loadMoreHandler={loadMoreHandler} />
+        )}
       </Flex>
     </>
   );

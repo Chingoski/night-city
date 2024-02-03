@@ -10,7 +10,7 @@ import { userType } from "../../types/user-types";
 
 import { Flex, SimpleGrid, Text } from "@chakra-ui/react";
 import LoadMoreButton from "../UI/LoadMoreButton";
-import ListingCard from "../ListingCard/ListingCard";
+import CompletedListingsCard from "./CompletedListingsCard";
 
 const CompletedListings = () => {
   const [completedListings, setCompletedListings] = useState<listingType[]>([]);
@@ -48,11 +48,7 @@ const CompletedListings = () => {
           sx={{ gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))" }}
         >
           {completedListings.map((listing) => (
-            <ListingCard
-              key={listing.id}
-              listing={listing}
-              page="my-listings"
-            />
+            <CompletedListingsCard key={listing.id} listing={listing} />
           ))}
         </SimpleGrid>
       )}

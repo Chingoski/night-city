@@ -11,10 +11,10 @@ export type listingType = {
     release_date: string;
     genres: [
       {
-        id: number,
-        name: string
+        id: number;
+        name: string;
       }
-    ]
+    ];
   };
   owner_id: number;
   owner: {
@@ -28,15 +28,17 @@ export type listingType = {
     date_of_birth: string;
     city_id: number;
     city: {
-      id: number,
-      name: string
-    }
+      id: number;
+      name: string;
+    };
   };
-  trade_preference: "string";
+  trade_preference: string;
   platform_id: number;
   platform: {
     id: number;
     name: string;
     slug: string;
   };
+  pending_trade_offers_count: number;
+  has_accepted_trade_offer: boolean;
 };

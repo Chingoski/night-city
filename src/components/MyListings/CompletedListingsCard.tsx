@@ -1,6 +1,3 @@
-import { useContext } from "react";
-import { listingActionsContext } from "../../context/ListingActionsContext";
-
 import {
   Card,
   CardBody,
@@ -12,34 +9,30 @@ import {
   WrapItem,
   Badge,
   CardHeader,
-  Button,
-  Flex,
-  Icon,
 } from "@chakra-ui/react";
 
 import { listingType } from "../../types/listing-type";
 import controller from "../../assets/controller.png";
-import { FaTrash } from "react-icons/fa";
-import { FaPenToSquare } from "react-icons/fa6";
+import { useEffect, useState } from "react";
+import { tradeType } from "../../types/trade-type";
+import { getTrade } from "../../util/get-trade";
+import { userType } from "../../types/user-types";
+import { getUser } from "../../util/get-user";
 
-const OngoingListingsCard: React.FC<{
+const CompletedListingsCard: React.FC<{
   listing: listingType;
-  deleteHandler: () => void;
-  updateHandler: () => void;
-}> = ({ listing, deleteHandler, updateHandler }) => {
-  const { setToDeleteListing, setToUpdateListing } = useContext(
-    listingActionsContext
-  );
+}> = ({ listing }) => {
+  const [completedTrade, setCompletedTrade] = useState<tradeType | null>(null);
+  const [traderUser, setTraderUser] = useState<userType | null>(null);
 
-  function onDelete() {
-    setToDeleteListing(listing);
-    deleteHandler();
+  function getCompletedTrade() {
+    getTrade(listing.id, setCompletedTrade);
   }
 
-  function onUpdate() {
-    setToUpdateListing(listing);
-    updateHandler();
-  }
+  useEffect(() => getCompletedTrade(), []);
+  useEffect(() => {
+    getUser(completedTrade?.trader_user_id, setTraderUser);
+  }, [completedTrade]);
 
   return (
     <Card maxW="md" justify="center">
@@ -88,33 +81,12 @@ const OngoingListingsCard: React.FC<{
         </Tooltip>
       </CardBody>
       <CardFooter>
-        <Flex w="100%" justifyContent="space-evenly">
-          <Button
-            borderColor="teal.400"
-            variant="outline"
-            _hover={{ backgroundColor: "teal.50" }}
-            onClick={onUpdate}
-          >
-            <Icon as={FaPenToSquare} color="teal.400" />
-            <Text ml="5px" color="teal.400">
-              Update
-            </Text>
-          </Button>
-          <Button
-            borderColor="red.400"
-            variant="outline"
-            _hover={{ backgroundColor: "red.50" }}
-            onClick={onDelete}
-          >
-            <Icon as={FaTrash} color="red.400" />
-            <Text ml="5px" color="red.400">
-              Delete
-            </Text>
-          </Button>
-        </Flex>
+        {/* <Text>
+          Traded with {traderUser?.first_name} {""} {traderUser?.last_name} for{" "}
+        </Text> */}
       </CardFooter>
     </Card>
   );
 };
 
-export default OngoingListingsCard;
+export default CompletedListingsCard;

@@ -12,8 +12,8 @@ import { tradePreferences } from "../../util/options";
 import { FaChevronDown } from "react-icons/fa";
 
 const TradePreferenceSelect: React.FC<{
-  selectedTradePreference: string | null;
-  selectHandler: (value: string | null) => void;
+  selectedTradePreference: string;
+  selectHandler: (value: string) => void;
 }> = ({ selectedTradePreference, selectHandler }) => {
   return (
     <Flex w="100%" flexDir="column">
@@ -36,7 +36,7 @@ const TradePreferenceSelect: React.FC<{
             <MenuItem
               fontSize="1rem"
               key={tradePreference.id}
-              onClick={() => selectHandler(tradePreference.name)}
+              onClick={() => selectHandler(`${tradePreference.name}`)}
             >
               {tradePreference.name}
             </MenuItem>
