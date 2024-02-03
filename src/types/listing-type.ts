@@ -39,4 +39,6 @@ export type listingType = {
     name: string;
     slug: string;
   };
+  pending_trade_offers_count: number;
+  has_accepted_trade_offer: boolean;
 };
