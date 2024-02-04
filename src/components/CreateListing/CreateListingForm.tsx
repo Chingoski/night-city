@@ -1,8 +1,9 @@
-import { FormControl, Flex, Text } from "@chakra-ui/react";
+import { FormControl, Flex, Text, Button } from "@chakra-ui/react";
 import GamesPicker from "../UI/GamesPicker/GamesPicker";
 import SubmitButton from "../UI/SubmitButton";
 import TextAreaInput from "../UI/TextAreaInput";
 import TradePreferenceSelect from "../UI/TradePreferenceSelect";
+import { useNavigate } from "react-router-dom";
 
 const CreateListingForm: React.FC<{
   selectedTradePreference: string | null;
@@ -21,6 +22,12 @@ const CreateListingForm: React.FC<{
   tradePreferenceHandler,
   createListingHandler,
 }) => {
+  const navigate = useNavigate();
+
+  function onCancel() {
+    navigate("/");
+  }
+
   return (
     <FormControl
       w="100%"
@@ -54,7 +61,26 @@ const CreateListingForm: React.FC<{
         justifyContent="center"
         marginTop="30px"
       >
-        <SubmitButton title="List Game" onClick={createListingHandler} />
+        <Flex
+          flex="row"
+          flexDirection="row"
+          alignItems="center"
+          justifyContent="center"
+          gap="10px"
+        >
+          <SubmitButton title="List Game" onClick={createListingHandler} />
+          <Button
+            background="red.500"
+            variant="fill"
+            _hover={{ backgroundColor: "red.300" }}
+            minWidth="115px"
+            onClick={onCancel}
+          >
+            <Text ml="5px" color="white">
+              Cancel
+            </Text>
+          </Button>
+        </Flex>
         {formErrorMessage !== "" && (
           <Text
             fontSize="0.9rem"

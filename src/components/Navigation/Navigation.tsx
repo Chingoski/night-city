@@ -70,16 +70,16 @@ function Navigation() {
           icon={<FaHome />}
         />
         <NavigationLink
-          path="/trade-offers"
-          title="recieved trades"
-          isCollapsed={isCollapsed}
-          icon={<FaHandshakeSimple />}
-        />
-        <NavigationLink
           path="/my-listings"
           title="my listings"
           isCollapsed={isCollapsed}
           icon={<FaListAlt />}
+        />
+        <NavigationLink
+          path="/trade-offers"
+          title="trade offers"
+          isCollapsed={isCollapsed}
+          icon={<FaHandshakeSimple />}
         />
         <NavigationLink
           path="/my-profile"

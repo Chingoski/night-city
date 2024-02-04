@@ -43,13 +43,19 @@ const DeleteListingModal: React.FC<{
         </ModalBody>
 
         <ModalFooter>
-          <Button colorScheme="teal" mr={3} onClick={onClose}>
+          <Button
+            color="white"
+            background="teal.500"
+            _hover={{ backgroundColor: "teal.300" }}
+            mr={3}
+            onClick={onClose}
+          >
             No
           </Button>
           <Button
-            variant="ghost"
-            color="red.400"
-            _hover={{ backgroundColor: "red.50" }}
+            color="white"
+            background="red.500"
+            _hover={{ backgroundColor: "red.300" }}
             onClick={deleteListingHandler}
           >
             Delete

@@ -100,7 +100,15 @@ const ListingCard: React.FC<{ listing: listingType }> = ({ listing }) => {
           },
         }}
       >
-        <Button onClick={tradeClickHandler}>Trade</Button>
+        <Button
+          borderColor="teal.400"
+          variant="outline"
+          color="teal.400"
+          _hover={{ backgroundColor: "teal.50" }}
+          onClick={tradeClickHandler}
+        >
+          Trade
+        </Button>
       </CardFooter>
     </Card>
   );
