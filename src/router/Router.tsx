@@ -34,6 +34,7 @@ const router = createBrowserRouter([
       {
         path: "/trade-offers",
         element: <TradeOffersPage />,
+        loader: userLoader,
       },
       {
         path: "/my-listings",

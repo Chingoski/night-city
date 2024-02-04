@@ -1,5 +1,7 @@
+import TradeOffers from "../components/TradeOffers/TradeOffers";
+
 function TradeOffersPage() {
-  return <div>TradeOffersPage</div>;
+  return <TradeOffers />;
 }
 
 export default TradeOffersPage;

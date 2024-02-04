@@ -22,17 +22,8 @@ import { getUser } from "../../util/get-user";
 const CompletedListingsCard: React.FC<{
   listing: listingType;
 }> = ({ listing }) => {
-  const [completedTrade, setCompletedTrade] = useState<tradeType | null>(null);
-  const [traderUser, setTraderUser] = useState<userType | null>(null);
-
-  function getCompletedTrade() {
-    getTrade(listing.id, setCompletedTrade);
-  }
-
-  useEffect(() => getCompletedTrade(), []);
-  useEffect(() => {
-    getUser(completedTrade?.trader_user_id, setTraderUser);
-  }, [completedTrade]);
+  // const [completedTrade, setCompletedTrade] = useState<tradeType | null>(null);
+  // const [traderUser, setTraderUser] = useState<userType | null>(null);
 
   return (
     <Card maxW="md" justify="center">

@@ -40,7 +40,6 @@ function TextInput(props: {
             placeholder={placeholder}
             type={type}
             {...backgroundStyle}
-            name="text"
           />
           <FormErrorMessage>
             {typeof form.errors[name] === "string"

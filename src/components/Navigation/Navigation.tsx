@@ -71,7 +71,7 @@ function Navigation() {
         />
         <NavigationLink
           path="/trade-offers"
-          title="recieved trades"
+          title="received trades"
           isCollapsed={isCollapsed}
           icon={<FaHandshakeSimple />}
         />
