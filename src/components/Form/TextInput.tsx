@@ -40,6 +40,7 @@ function TextInput(props: {
             placeholder={placeholder}
             type={type}
             {...backgroundStyle}
+            focusBorderColor="teal.300"
           />
           <FormErrorMessage>
             {typeof form.errors[name] === "string"

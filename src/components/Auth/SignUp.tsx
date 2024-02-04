@@ -149,7 +149,7 @@ function SignUp() {
                 <Link
                   href="/auth?mode=signin"
                   textDecoration="underline"
-                  _hover={{ color: "cyan.400" }}
+                  _hover={{ color: "teal.400" }}
                 >
                   Sign In
                 </Link>

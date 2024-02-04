@@ -33,7 +33,7 @@ function PasswordInput(props: {
             placeholder={placeholder}
             type="password"
             {...backgroundStyle}
-            name="password"
+            focusBorderColor="teal.300"
           />
           <FormErrorMessage>
             {" "}

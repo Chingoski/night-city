@@ -164,8 +164,8 @@ const UpdateListingModal: React.FC<{
             <Text>You have successfully updated your listing.</Text>
             <Button
               variant="ghost"
-              color="red.400"
-              _hover={{ backgroundColor: "red.50" }}
+              color="red.500"
+              _hover={{ backgroundColor: "red.300" }}
               onClick={closeModalHandler}
             >
               Close
