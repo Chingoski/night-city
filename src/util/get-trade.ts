@@ -9,7 +9,7 @@ export async function getTrade(
 ) {
   const token = getAuthToken();
   try {
-    const response = await axios.delete(
+    const response = await axios.get(
       `${host}/api/trades?game_listing_id=${listingID}`,
       {
         headers: {

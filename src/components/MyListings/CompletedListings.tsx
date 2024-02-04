@@ -29,7 +29,7 @@ const CompletedListings = () => {
 
   const user = useLoaderData() as userType;
   const url = new URL(
-    `${host}/api/game_listings?owner_id=${user.id}&finished=1`
+    `${host}/api/game_listings?owner_id=${user.id}&finished=1&include[]=finished_trade&include[]=finished_trade.trader`
   );
 
   function fetchMyListings() {

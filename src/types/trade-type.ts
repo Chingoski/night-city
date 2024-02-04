@@ -1,3 +1,5 @@
+import { userType } from "./user-types";
+
 export type tradeType = {
   id: number;
   game_listing_id: number;
@@ -28,4 +30,7 @@ export type tradeType = {
   owner_confirmed: boolean;
   trader_confirmed: boolean;
   status: string;
+  trader? : {
+    data: userType
+  }
 };
