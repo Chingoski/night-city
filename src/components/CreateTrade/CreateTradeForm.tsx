@@ -7,8 +7,9 @@ import { listingType } from "../../types/listing-type";
 import { placeTradeOffer } from "../../util/create-trade";
 import { createTradeContext } from "../../context/CreateTradeContext";
 import { gamesPickerContext } from "../../context/GamesPickerContext";
+import { useNavigate } from "react-router-dom";
 
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex, Text, Button } from "@chakra-ui/react";
 import SubmitButton from "../UI/SubmitButton";
 import CashInput from "../UI/CashInput";
 import GamesPicker from "../UI/GamesPicker/GamesPicker";
@@ -23,6 +24,7 @@ const CreateTradeForm: React.FC<{
     useContext(gamesPickerContext);
 
   const authUser = useLoaderData() as userType;
+  const navigate = useNavigate();
 
   function cashChangeHandler(value: number) {
     setFormErrorMessage("");
@@ -50,6 +52,10 @@ const CreateTradeForm: React.FC<{
     }
   }
 
+  function onCancel() {
+    navigate('/')
+  }
+
   return (
     <Flex
       flexDir="column"
@@ -70,7 +76,26 @@ const CreateTradeForm: React.FC<{
         justifyContent="center"
         marginTop="30px"
       >
-        <SubmitButton title="Place Offer" onClick={onSubmit} />
+        <Flex
+          flex="row"
+          flexDirection="row"
+          alignItems="center"
+          justifyContent="center"
+          gap="10px"
+        >
+          <SubmitButton title="Place Offer" onClick={onSubmit} />
+          <Button
+            background="red.500"
+            variant="fill"
+            _hover={{ backgroundColor: "red.300" }}
+            minWidth="140px"
+            onClick={onCancel}
+          >
+            <Text ml="5px" color="white">
+              Cancel
+            </Text>
+          </Button>
+        </Flex>
         {formErrorMessage !== "" && (
           <Text
             fontSize="0.9rem"

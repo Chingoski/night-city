@@ -30,7 +30,7 @@ function ErrorPage() {
           <Link
             href="/"
             color="cyan.700"
-            _hover={{ textDecoration: "none", color: "cyan.400" }}
+            _hover={{ textDecoration: "none", color: "teal.400" }}
           >
             all listings
           </Link>
