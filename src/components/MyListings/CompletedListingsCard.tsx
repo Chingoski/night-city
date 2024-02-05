@@ -11,19 +11,49 @@ import {
   CardHeader,
 } from "@chakra-ui/react";
 
-import { listingType } from "../../types/listing-type";
 import controller from "../../assets/controller.png";
-import { useEffect, useState } from "react";
-import { tradeType } from "../../types/trade-type";
-import { getTrade } from "../../util/get-trades";
+
+import { listingType } from "../../types/listing-type";
 import { userType } from "../../types/user-types";
-import { getUser } from "../../util/get-user";
+import { tradeType } from "../../types/trade-type";
+import { gameType } from "../../types/game-types";
 
 const CompletedListingsCard: React.FC<{
   listing: listingType;
 }> = ({ listing }) => {
-  // const [completedTrade, setCompletedTrade] = useState<tradeType | null>(null);
-  // const [traderUser, setTraderUser] = useState<userType | null>(null);
+  function generateTradeText() {
+    const finishedTrade = listing.finished_trade?.data as tradeType;
+    const traderUser = finishedTrade.trader?.data as userType;
+    const offeredGames: gameType[] | [] = finishedTrade.offered_games ?? [];
+
+    const amount = parseFloat(finishedTrade.offered_amount);
+    let gamesText = "";
+    let amountText = "";
+    let finalText = "";
+
+    offeredGames.forEach((game) => {
+      gamesText += `${game.name} (${game.platform.slug}), `;
+    });
+
+    if (amount > 0) {
+      amountText = `$${amount}`;
+    }
+    if (gamesText.length != 0) {
+      gamesText = gamesText.substring(0, gamesText.length - 2);
+    }
+
+    if (gamesText.length != 0 && amountText.length != 0) {
+      finalText = `${gamesText} and ${amountText}`;
+    }
+    if (gamesText.length != 0 && amountText.length == 0) {
+      finalText = gamesText;
+    }
+    if (gamesText.length == 0 && amountText.length != 0) {
+      finalText = amountText;
+    }
+
+    return `Traded with ${traderUser.full_name} for ${finalText}.`;
+  }
 
   return (
     <Card maxW="md" justify="center">
@@ -72,9 +102,9 @@ const CompletedListingsCard: React.FC<{
         </Tooltip>
       </CardBody>
       <CardFooter>
-        {/* <Text>
-          Traded with {traderUser?.first_name} {""} {traderUser?.last_name} for{" "}
-        </Text> */}
+        <Text textAlign="center" fontSize="1rem" color="gray.700">
+          {generateTradeText()}
+        </Text>
       </CardFooter>
     </Card>
   );

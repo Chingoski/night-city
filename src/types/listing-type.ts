@@ -1,3 +1,5 @@
+import { tradeType } from "./trade-type";
+
 export type listingType = {
   id: number;
   description: string;
@@ -41,4 +43,7 @@ export type listingType = {
   };
   pending_trade_offers_count: number;
   has_accepted_trade_offer: boolean;
+  finished_trade?: {
+    data: tradeType
+  }
 };
