@@ -58,6 +58,10 @@ function TopMenu() {
     }
   }
 
+  function searchInputHandler(value: string) {
+    setSearchInputValue(value);
+  }
+
   function clearFilters() {
     setCityId(0);
     setSearchInputValue("");
@@ -78,7 +82,10 @@ function TopMenu() {
       gap="10px"
       alignItems="center"
     >
-      <SearchInput />
+      <SearchInput
+        searchInputHandler={searchInputHandler}
+        placeholder="Search listings"
+      />
       <SelectMenu
         name="City"
         options={cities}

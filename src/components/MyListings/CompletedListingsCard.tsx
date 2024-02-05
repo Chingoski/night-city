@@ -15,7 +15,7 @@ import { listingType } from "../../types/listing-type";
 import controller from "../../assets/controller.png";
 import { useEffect, useState } from "react";
 import { tradeType } from "../../types/trade-type";
-import { getTrade } from "../../util/get-trade";
+import { getTrade } from "../../util/get-trades";
 import { userType } from "../../types/user-types";
 import { getUser } from "../../util/get-user";
 
