@@ -67,7 +67,7 @@ const TradeOfferItems: React.FC<{ trade: tradeType; type: string }> = ({
             </Flex>
           </Flex>
         ))}
-      {trade.offered_amount !== "0" && (
+      {trade.offered_amount !== "0.00" && (
         <Flex
           w="100%"
           justifyContent="flex-start"
