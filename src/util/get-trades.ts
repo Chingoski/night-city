@@ -11,6 +11,8 @@ export function constructURL(
   userID: number
 ) {
   const url = new URL(`${host}/api/trades`);
+  url.searchParams.append("include[]", "trader");
+  url.searchParams.append("include[]", "game_listing");
   if (type === "received") {
     url.searchParams.append("owner_id", `${userID}`);
     url.searchParams.append("status", `${statusID}`);

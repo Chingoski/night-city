@@ -4,9 +4,11 @@ import { tradeType } from "../../types/trade-type";
 
 import { constructURL, fetchTrades } from "../../util/get-trades";
 
-import { Flex } from "@chakra-ui/react";
+import { Flex, Text, SimpleGrid } from "@chakra-ui/react";
+import TradeCard from "./TradeCard";
 import SearchInput from "../TopMenu/SearchInput";
 import StatusMenuSelect from "./StatusMenuSelect";
+import LoadMoreButton from "../UI/LoadMoreButton";
 
 const TradeOffersPanel: React.FC<{ type: string; userID: number }> = ({
   type,
@@ -26,6 +28,8 @@ const TradeOffersPanel: React.FC<{ type: string; userID: number }> = ({
     setSearchInputValue("");
     setActiveStatus(value);
   }
+
+  function loadMoreHandler() {}
 
   useEffect(() => {
     const tradesURL = constructURL(
@@ -54,9 +58,69 @@ const TradeOffersPanel: React.FC<{ type: string; userID: number }> = ({
           selectStatusHandler={statusSelectHandler}
         />
       </Flex>
-      {trades.map((trade) => (
-        <Flex key={trade.id}>{trade.id}</Flex>
-      ))}
+
+      {!isLoading && trades.length !== 0 && (
+        <>
+          {searchInputValue !== "" && (
+            <Text p="10px 15px 0 15px" fontSize="0.9rem" color="gray.500" m="0">
+              Showing results for: "{searchInputValue}"
+            </Text>
+          )}
+          <SimpleGrid
+            mt="10px"
+            minChildWidth="300px"
+            spacing="15px"
+            sx={{
+              gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+            }}
+          >
+            {trades.map((trade) => (
+              <TradeCard key={trade.id} trade={trade} type={type} />
+            ))}
+          </SimpleGrid>
+        </>
+      )}
+
+      {isLoading && trades.length !== 0 && (
+        <>
+          {searchInputValue !== "" && (
+            <Text p="10px 15px 0 15px" fontSize="0.9rem" color="gray.500" m="0">
+              Showing results for: "{searchInputValue}"
+            </Text>
+          )}
+          <SimpleGrid
+            mt="10px"
+            minChildWidth="300px"
+            spacing="15px"
+            sx={{
+              gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+            }}
+          >
+            {trades.map((trade) => (
+              <TradeCard key={trade.id} trade={trade} type={type} />
+            ))}
+          </SimpleGrid>
+          <Text w="100%" margin="auto" paddingTop="25px" textAlign="center">
+            Loading...
+          </Text>
+        </>
+      )}
+
+      {!isLoading && trades.length === 0 && (
+        <Text w="100%" margin="auto" textAlign="center">
+          No listings found.
+        </Text>
+      )}
+
+      {isLoading && trades.length === 0 && (
+        <Text w="100%" margin="auto" textAlign="center">
+          Loading...
+        </Text>
+      )}
+
+      {nextPage !== null && !isLoading && trades.length !== 0 && (
+        <LoadMoreButton loadMoreHandler={loadMoreHandler} />
+      )}
     </Flex>
   );
 };
