@@ -11,8 +11,9 @@ import {
   CardHeader,
 } from "@chakra-ui/react";
 
-import { listingType } from "../../types/listing-type";
 import controller from "../../assets/controller.png";
+
+import { listingType } from "../../types/listing-type";
 import { userType } from "../../types/user-types";
 import { tradeType } from "../../types/trade-type";
 import { gameType } from "../../types/game-types";
@@ -21,11 +22,11 @@ const CompletedListingsCard: React.FC<{
   listing: listingType;
 }> = ({ listing }) => {
   function generateTradeText() {
-    const finsihedTrade = listing.finished_trade?.data as tradeType;
-    const traderUser = finsihedTrade.trader?.data as userType;
-    const offeredGames: gameType[] | [] = finsihedTrade.offered_games ?? [];
+    const finishedTrade = listing.finished_trade?.data as tradeType;
+    const traderUser = finishedTrade.trader?.data as userType;
+    const offeredGames: gameType[] | [] = finishedTrade.offered_games ?? [];
 
-    const amount = parseFloat(finsihedTrade.offered_amount);
+    const amount = parseFloat(finishedTrade.offered_amount);
     let gamesText = "";
     let amountText = "";
     let finalText = "";

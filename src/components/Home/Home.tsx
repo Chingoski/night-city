@@ -70,7 +70,7 @@ function Home() {
             mt="10px"
             minChildWidth="300px"
             spacing="15px"
-            p=" 0 15px"
+            p="15px 0 15px 15px"
             sx={{
               gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
             }}

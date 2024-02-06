@@ -12,7 +12,7 @@ import { tradePreferences } from "../../util/options";
 import { FaChevronDown } from "react-icons/fa";
 
 const TradePreferenceSelect: React.FC<{
-  selectedTradePreference: string;
+  selectedTradePreference: string | null;
   selectHandler: (value: string) => void;
 }> = ({ selectedTradePreference, selectHandler }) => {
   return (

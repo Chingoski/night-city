@@ -69,6 +69,7 @@ function Navigation() {
           isCollapsed={isCollapsed}
           icon={<FaHome />}
         />
+
         <NavigationLink
           path="/my-listings"
           title="my listings"

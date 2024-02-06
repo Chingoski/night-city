@@ -1,17 +1,17 @@
 import { Input, Icon, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 
-import { useContext, useRef } from "react";
+import { useRef } from "react";
 
-import { filteringContext } from "../../context/FilterContext";
-
-const SearchInput = () => {
+const SearchInput: React.FC<{
+  searchInputHandler: (searchInput: string) => void;
+  placeholder: string;
+}> = ({ searchInputHandler, placeholder }) => {
   const searchInput = useRef<HTMLInputElement | null>(null);
-  const { setSearchInputValue } = useContext(filteringContext);
 
   function searchHandler() {
     if (searchInput.current) {
-      setSearchInputValue(searchInput.current.value);
+      searchInputHandler(searchInput.current.value);
     }
   }
 
@@ -31,7 +31,7 @@ const SearchInput = () => {
         />
       </InputLeftElement>
       <Input
-        placeholder="Search listings"
+        placeholder={placeholder}
         bg="white"
         ref={searchInput}
         name="search"

@@ -1,3 +1,5 @@
+import { gameType } from "./game-types";
+import { listingType } from "./listing-type";
 import { userType } from "./user-types";
 
 export type tradeType = {
@@ -5,32 +7,14 @@ export type tradeType = {
   game_listing_id: number;
   trader_user_id: number;
   offered_amount: string;
-  offered_games: [
-    {
-      id: number;
-      name: string;
-      slug: string;
-      thumbnail: string;
-      rating: string;
-      release_date: string;
-      genres: [
-        {
-          id: number;
-          name: string;
-          slug: string;
-        }
-      ];
-      platform: {
-        id: number;
-        name: string;
-        slug: string;
-      };
-    }
-  ];
+  offered_games: gameType[];
   owner_confirmed: boolean;
   trader_confirmed: boolean;
   status: string;
-  trader? : {
-    data: userType
-  }
+  trader?: {
+    data: userType;
+  };
+  game_listing?: {
+    data: listingType;
+  };
 };

@@ -10,7 +10,7 @@ const TabMenu: React.FC<{ tabs: tab[] }> = ({ tabs }) => {
       padding="10px"
       h="100%"
     >
-      <TabList mb="1em" background="white">
+      <TabList mb="1em">
         {tabs.map((tab) => (
           <Tab
             key={tab.id}
