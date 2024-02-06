@@ -51,7 +51,7 @@ function SignUp() {
       bg="white"
       flexDirection="column"
       justifyContent="center"
-      alignItems="flex-start"
+      alignItems="center"
       w="20%"
       minW="400px"
       gap="20px"

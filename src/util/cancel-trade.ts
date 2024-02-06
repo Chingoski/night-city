@@ -1,14 +1,17 @@
+import { getAuthToken } from "./auth";
 import axios from "axios";
 import host from "../host";
-import { listingType } from "../types/listing-type";
-import { getAuthToken } from "./auth";
 
-export async function deleteMyListing(listing: listingType) {
+export async function cancelTrade(
+  tradeID: number,
+  setDidCancel: (didCancel: boolean) => void
+) {
   const token = getAuthToken();
-  const listingID: number = listing.id;
+
   try {
-    const response = await axios.delete(
-      `${host}/api/game_listings/${listingID}`,
+    const response = await axios.put(
+      `${host}/api/trades/cancel/${tradeID}`,
+      {},
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -21,6 +24,8 @@ export async function deleteMyListing(listing: listingType) {
     if (response.status !== 200) {
       throw new Error(response.statusText);
     }
+
+    setDidCancel(true);
   } catch (error) {
     return error;
   }

@@ -1,4 +1,4 @@
-import { useContext, useState, ChangeEvent } from "react";
+import { useContext, useState } from "react";
 import { gamesPickerContext } from "../../../context/GamesPickerContext";
 
 import { Flex } from "@chakra-ui/react";
@@ -27,9 +27,9 @@ const GamesPicker: React.FC<{
     setResultsOpen,
   } = useContext(gamesPickerContext);
 
-  function inputChangeHandler(event: ChangeEvent<HTMLInputElement>) {
+  function inputChangeHandler(value: string) {
     setFormErrorMessage("");
-    const value = event.target.value;
+
     setSearchValue(value);
     if (timeoutId) {
       clearTimeout(timeoutId);
@@ -37,7 +37,7 @@ const GamesPicker: React.FC<{
 
     const newTimeoutId = setTimeout(() => {
       fetchGames(value, setGameResults, pickedGames);
-      if (event.target.value !== "") {
+      if (value !== "") {
         setResultsOpen(true);
       } else {
         setResultsOpen(false);

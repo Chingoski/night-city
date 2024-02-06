@@ -12,8 +12,9 @@ import { ChangeEvent } from "react";
 import { FaDollarSign } from "react-icons/fa6";
 
 const CashInput: React.FC<{
+  value: string;
   onChange: (value: number) => void;
-}> = ({ onChange }) => {
+}> = ({ onChange, value }) => {
   function inputChangeHandler(event: ChangeEvent<HTMLInputElement>) {
     onChange(+event.target.value);
   }
@@ -33,6 +34,7 @@ const CashInput: React.FC<{
             focusBorderColor="teal.300"
             name="cash"
             backgroundColor="white"
+            value={value}
           />
         </InputGroup>
       </FormControl>

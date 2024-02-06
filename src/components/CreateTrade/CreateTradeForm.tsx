@@ -53,7 +53,7 @@ const CreateTradeForm: React.FC<{
   }
 
   function onCancel() {
-    navigate('/')
+    navigate("/");
   }
 
   return (
@@ -63,7 +63,7 @@ const CreateTradeForm: React.FC<{
       alignItems="center"
       w="100%"
     >
-      <CashInput onChange={cashChangeHandler} />
+      <CashInput onChange={cashChangeHandler} value={`${offeredCash}`} />
       <GamesPicker
         setFormErrorMessage={setFormErrorMessage}
         title="Games I want to trade:"
