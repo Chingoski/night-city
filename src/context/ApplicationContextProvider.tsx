@@ -3,19 +3,22 @@ import FilteringContextProvider from "./FilterContext";
 import CreateTradeContextProvider from "./CreateTradeContext";
 import GamesPickerContextProvider from "./GamesPickerContext";
 import ListingActionsContextProvider from "./ListingActionsContext";
+import TradesActionsContextProvider from "./TradesActionsContext";
 const ApplicationContextProvider: React.FC<{ children?: React.ReactNode }> = ({
   children,
 }) => {
   return (
-    <ListingActionsContextProvider>
-      <GamesPickerContextProvider>
-        <CreateTradeContextProvider>
-          <FilteringContextProvider>
-            <NavigationContextProvider>{children}</NavigationContextProvider>
-          </FilteringContextProvider>
-        </CreateTradeContextProvider>
-      </GamesPickerContextProvider>
-    </ListingActionsContextProvider>
+    <TradesActionsContextProvider>
+      <ListingActionsContextProvider>
+        <GamesPickerContextProvider>
+          <CreateTradeContextProvider>
+            <FilteringContextProvider>
+              <NavigationContextProvider>{children}</NavigationContextProvider>
+            </FilteringContextProvider>
+          </CreateTradeContextProvider>
+        </GamesPickerContextProvider>
+      </ListingActionsContextProvider>
+    </TradesActionsContextProvider>
   );
 };
 

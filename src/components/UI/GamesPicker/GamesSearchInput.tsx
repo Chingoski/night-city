@@ -10,9 +10,12 @@ import { ChangeEvent } from "react";
 import { FaGamepad } from "react-icons/fa";
 
 const GamesSearchInput: React.FC<{
-  inputChangeHandler: (event: ChangeEvent<HTMLInputElement>) => void;
+  inputChangeHandler: (value: string) => void;
   searchValue: string;
 }> = ({ inputChangeHandler, searchValue }) => {
+  function onChange(event: ChangeEvent<HTMLInputElement>) {
+    inputChangeHandler(event.target.value);
+  }
   return (
     <Flex w="100%" flexDir="column">
       <InputGroup>
@@ -21,11 +24,10 @@ const GamesSearchInput: React.FC<{
         </InputLeftElement>
         <Input
           type="text"
-          onChange={inputChangeHandler}
+          onChange={onChange}
           placeholder="Search games"
           focusBorderColor="teal.300"
           value={searchValue}
-          name="games"
           backgroundColor="white"
         />
       </InputGroup>

@@ -4,11 +4,19 @@ import { tradeType } from "../../types/trade-type";
 
 import { constructURL, fetchTrades } from "../../util/get-trades";
 
-import { Flex, Text, SimpleGrid } from "@chakra-ui/react";
+import { Flex, useDisclosure } from "@chakra-ui/react";
 import TradeCard from "./TradeCard";
 import SearchInput from "../TopMenu/SearchInput";
 import StatusMenuSelect from "./StatusMenuSelect";
 import LoadMoreButton from "../UI/LoadMoreButton";
+import GridWrapper from "../UI/GridWrapper";
+import SearchResultsMessage from "../UI/SearchResultsMessage";
+import LoadingMessage from "../UI/LoadingMessage";
+import NoResultsMessage from "../UI/NoResultsMessage";
+import AcceptTradeModal from "./TradeOffersActions/AcceptTradeModal";
+import CancelTradeModal from "./TradeOffersActions/CancelTradeModal";
+import UpdateTradeModal from "./TradeOffersActions/UpdateTradeModal";
+import ConfirmTradeModal from "./TradeOffersActions/ConfirmTradeModal";
 
 const TradeOffersPanel: React.FC<{ type: string; userID: number }> = ({
   type,
@@ -18,6 +26,7 @@ const TradeOffersPanel: React.FC<{ type: string; userID: number }> = ({
   const [activeStatus, setActiveStatus] = useState(0);
   const [trades, setTrades] = useState<tradeType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [nextPage, setNextPage] = useState<URL | null>(null);
 
   function searchInputHandler(value: string) {
@@ -29,7 +38,9 @@ const TradeOffersPanel: React.FC<{ type: string; userID: number }> = ({
     setActiveStatus(value);
   }
 
-  function loadMoreHandler() {}
+  function loadMoreHandler() {
+    // setIsLoadingMore(true);
+  }
 
   useEffect(() => {
     const tradesURL = constructURL(
@@ -41,87 +52,144 @@ const TradeOffersPanel: React.FC<{ type: string; userID: number }> = ({
     fetchTrades(tradesURL, setTrades, setNextPage, setIsLoading);
   }, [searchInputValue, activeStatus]);
 
+  const {
+    isOpen: acceptIsOpen,
+    onOpen: acceptOnOpen,
+    onClose: acceptOnClose,
+  } = useDisclosure();
+
+  const {
+    isOpen: cancelIsOpen,
+    onOpen: cancelOnOpen,
+    onClose: cancelOnClose,
+  } = useDisclosure();
+
+  const {
+    isOpen: updateIsOpen,
+    onOpen: updateOnOpen,
+    onClose: updateOnClose,
+  } = useDisclosure();
+
+  const {
+    isOpen: confirmIsOpen,
+    onOpen: confirmOnOpen,
+    onClose: confirmOnClose,
+  } = useDisclosure();
+
+  function removeTrade(toRemoveTrade: tradeType) {
+    const updatedTrades = trades.filter(
+      (trade) => trade.id !== toRemoveTrade.id
+    );
+    setTrades(updatedTrades);
+  }
+
+  function updateTradesHandler() {
+    const tradesURL = constructURL(
+      searchInputValue,
+      activeStatus,
+      type,
+      userID
+    );
+    fetchTrades(tradesURL, setTrades, setNextPage, setIsLoading);
+  }
+
   return (
-    <Flex w="100%" flexDirection="column">
-      <Flex
-        flexDir="row"
-        justifyContent="flex-start"
-        alignItems="center"
-        gap="15px"
-      >
-        <SearchInput
-          placeholder="Search trades"
-          searchInputHandler={searchInputHandler}
-        />
-        <StatusMenuSelect
-          selectedStatus={activeStatus}
-          selectStatusHandler={statusSelectHandler}
-        />
+    <>
+      <AcceptTradeModal
+        onClose={acceptOnClose}
+        isOpen={acceptIsOpen}
+        type={type}
+        removeTrade={removeTrade}
+      />
+      <CancelTradeModal
+        onClose={cancelOnClose}
+        isOpen={cancelIsOpen}
+        removeTrade={removeTrade}
+      />
+      <UpdateTradeModal
+        onClose={updateOnClose}
+        isOpen={updateIsOpen}
+        updateTradesHandler={updateTradesHandler}
+      />
+      <ConfirmTradeModal
+        onClose={confirmOnClose}
+        type={type}
+        isOpen={confirmIsOpen}
+        removeTrade={removeTrade}
+      />
+      <Flex w="100%" flexDirection="column">
+        <Flex
+          flexDir="row"
+          justifyContent="flex-start"
+          alignItems="center"
+          gap="15px"
+        >
+          <SearchInput
+            placeholder="Search trades"
+            searchInputHandler={searchInputHandler}
+          />
+          <StatusMenuSelect
+            selectedStatus={activeStatus}
+            selectStatusHandler={statusSelectHandler}
+          />
+        </Flex>
+
+        {!isLoading && trades.length !== 0 && (
+          <>
+            {searchInputValue !== "" && (
+              <SearchResultsMessage searchInputValue={searchInputValue} />
+            )}
+            <GridWrapper>
+              {trades.map((trade) => (
+                <TradeCard
+                  key={trade.id}
+                  trade={trade}
+                  type={type}
+                  activeStatus={activeStatus}
+                  acceptOnOpen={acceptOnOpen}
+                  cancelOnOpen={cancelOnOpen}
+                  updateOnOpen={updateOnOpen}
+                  confirmOnOpen={confirmOnOpen}
+                />
+              ))}
+            </GridWrapper>
+          </>
+        )}
+
+        {isLoadingMore && trades.length !== 0 && (
+          <>
+            {searchInputValue !== "" && (
+              <SearchResultsMessage searchInputValue={searchInputValue} />
+            )}
+            <GridWrapper>
+              {trades.map((trade) => (
+                <TradeCard
+                  key={trade.id}
+                  trade={trade}
+                  type={type}
+                  activeStatus={activeStatus}
+                  acceptOnOpen={acceptOnOpen}
+                  cancelOnOpen={cancelOnOpen}
+                  updateOnOpen={updateOnOpen}
+                  confirmOnOpen={confirmOnOpen}
+                />
+              ))}
+            </GridWrapper>
+            <LoadingMessage />
+          </>
+        )}
+
+        {!isLoading && trades.length === 0 && (
+          <NoResultsMessage resultType="trades" />
+        )}
+
+        {isLoading && trades.length === 0 && <LoadingMessage />}
+
+        {nextPage !== null && !isLoading && trades.length !== 0 && (
+          <LoadMoreButton loadMoreHandler={loadMoreHandler} />
+        )}
       </Flex>
-
-      {!isLoading && trades.length !== 0 && (
-        <>
-          {searchInputValue !== "" && (
-            <Text p="10px 15px 0 15px" fontSize="0.9rem" color="gray.500" m="0">
-              Showing results for: "{searchInputValue}"
-            </Text>
-          )}
-          <SimpleGrid
-            mt="10px"
-            minChildWidth="300px"
-            spacing="15px"
-            sx={{
-              gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-            }}
-          >
-            {trades.map((trade) => (
-              <TradeCard key={trade.id} trade={trade} type={type} />
-            ))}
-          </SimpleGrid>
-        </>
-      )}
-
-      {isLoading && trades.length !== 0 && (
-        <>
-          {searchInputValue !== "" && (
-            <Text p="10px 15px 0 15px" fontSize="0.9rem" color="gray.500" m="0">
-              Showing results for: "{searchInputValue}"
-            </Text>
-          )}
-          <SimpleGrid
-            mt="10px"
-            minChildWidth="300px"
-            spacing="15px"
-            sx={{
-              gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-            }}
-          >
-            {trades.map((trade) => (
-              <TradeCard key={trade.id} trade={trade} type={type} />
-            ))}
-          </SimpleGrid>
-          <Text w="100%" margin="auto" paddingTop="25px" textAlign="center">
-            Loading...
-          </Text>
-        </>
-      )}
-
-      {!isLoading && trades.length === 0 && (
-        <Text w="100%" margin="auto" textAlign="center">
-          No listings found.
-        </Text>
-      )}
-
-      {isLoading && trades.length === 0 && (
-        <Text w="100%" margin="auto" textAlign="center">
-          Loading...
-        </Text>
-      )}
-
-      {nextPage !== null && !isLoading && trades.length !== 0 && (
-        <LoadMoreButton loadMoreHandler={loadMoreHandler} />
-      )}
-    </Flex>
+    </>
   );
 };
 

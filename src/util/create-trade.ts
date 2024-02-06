@@ -87,12 +87,11 @@ export async function placeTradeOffer(
   const token = getAuthToken();
   const offeredGames = pickedGames.map((game) => {
     return {
-      id: game.id,
-      platform: {
-        id: game.platform.id,
-      },
+      game_id: game.id,
+      platform_id: game.platform.id,
     };
   });
+
   try {
     const response = await axios.post(
       `${host}/api/trades`,
