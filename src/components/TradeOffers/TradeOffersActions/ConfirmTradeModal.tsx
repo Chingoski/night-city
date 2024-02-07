@@ -24,8 +24,8 @@ const ConfirmTradeModal: React.FC<{
   isOpen: boolean;
   onClose: () => void;
   type: string;
-  removeTrade: (trade: tradeType) => void;
-}> = ({ isOpen, onClose, type, removeTrade }) => {
+  updateTrades: (trade: tradeType) => void;
+}> = ({ isOpen, onClose, type, updateTrades }) => {
   const [didConfirm, setDidConfirm] = useState(false);
   const { toConfirmTrade } = useContext(tradesActionsContext);
 
@@ -34,7 +34,12 @@ const ConfirmTradeModal: React.FC<{
   }
 
   function closeHandler() {
-    removeTrade(toConfirmTrade as tradeType);
+    if (type === "received" && toConfirmTrade) {
+      updateTrades({ ...toConfirmTrade, owner_confirmed: true });
+    }
+    if (type === "sent" && toConfirmTrade) {
+      updateTrades({ ...toConfirmTrade, trader_confirmed: true });
+    }
     onClose();
   }
 

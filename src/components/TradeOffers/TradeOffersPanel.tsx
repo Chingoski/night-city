@@ -83,14 +83,11 @@ const TradeOffersPanel: React.FC<{ type: string; userID: number }> = ({
     setTrades(updatedTrades);
   }
 
-  function updateTradesHandler() {
-    const tradesURL = constructURL(
-      searchInputValue,
-      activeStatus,
-      type,
-      userID
+  function updateTradesArrayHandler(updatedTrade: tradeType) {
+    const updatedTradesArray: tradeType[] = trades.map((trade) =>
+      trade.id === updatedTrade.id ? updatedTrade : trade
     );
-    fetchTrades(tradesURL, setTrades, setNextPage, setIsLoading);
+    setTrades(updatedTradesArray);
   }
 
   return (
@@ -109,13 +106,13 @@ const TradeOffersPanel: React.FC<{ type: string; userID: number }> = ({
       <UpdateTradeModal
         onClose={updateOnClose}
         isOpen={updateIsOpen}
-        updateTradesHandler={updateTradesHandler}
+        updateTrades={updateTradesArrayHandler}
       />
       <ConfirmTradeModal
         onClose={confirmOnClose}
         type={type}
         isOpen={confirmIsOpen}
-        removeTrade={removeTrade}
+        updateTrades={updateTradesArrayHandler}
       />
       <Flex w="100%" flexDirection="column">
         <Flex

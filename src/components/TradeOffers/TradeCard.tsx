@@ -9,6 +9,7 @@ import {
   CardBody,
   Icon,
   CardFooter,
+  Badge,
 } from "@chakra-ui/react";
 import { tradeType } from "../../types/trade-type";
 import { FaArrowRightArrowLeft } from "react-icons/fa6";
@@ -76,9 +77,43 @@ const TradeCard: React.FC<{
       >
         <>
           {type === "received" ? (
-            <TradeOfferItems trade={trade} type={type} />
+            <>
+              {activeStatus === 1 && (
+                <Badge
+                  bg={trade.trader_confirmed ? "teal.400" : "gray.100"}
+                  color={trade.trader_confirmed ? "white" : "gray.500"}
+                  textTransform="uppercase"
+                  p="2px 4px"
+                  opacity="0.8"
+                  w="100%"
+                  textAlign="right"
+                >
+                  {trade.trader_confirmed
+                    ? "Confirmed by trader"
+                    : "Awaiting confirmation"}
+                </Badge>
+              )}
+              <TradeOfferItems trade={trade} type={type} />
+            </>
           ) : (
-            <TradedListing trade={trade} type={type} />
+            <>
+              {activeStatus === 1 && (
+                <Badge
+                  bg={trade.owner_confirmed ? "teal.400" : "gray.100"}
+                  color={trade.owner_confirmed ? "white" : "gray.500"}
+                  textTransform="uppercase"
+                  p="2px 4px"
+                  opacity="0.8"
+                  w="100%"
+                  textAlign="right"
+                >
+                  {trade.owner_confirmed
+                    ? "Confirmed by owner"
+                    : "Awaiting confirmation"}
+                </Badge>
+              )}
+              <TradedListing trade={trade} type={type} />
+            </>
           )}
           <Icon
             as={FaArrowRightArrowLeft}
@@ -100,7 +135,11 @@ const TradeCard: React.FC<{
           <UpdateTradeButton onOpen={updateOnOpen} trade={trade} />
         )}
         {activeStatus === 1 && (
-          <ConfirmTradeButton trade={trade} onOpen={confirmOnOpen} />
+          <ConfirmTradeButton
+            trade={trade}
+            onOpen={confirmOnOpen}
+            type={type}
+          />
         )}
         {(activeStatus === 0 || activeStatus === 1) && (
           <CancelTradeButton trade={trade} onOpen={cancelOnOpen} />

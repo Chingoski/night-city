@@ -19,13 +19,15 @@ import {
 
 import { updateTradeOffer } from "../../../util/update-trade";
 import { gameType } from "../../../types/game-types";
+import { tradeType } from "../../../types/trade-type";
+
 import UpdateTradeForm from "./UpdateTradeForm";
 
 const UpdateTradeModal: React.FC<{
   isOpen: boolean;
   onClose: () => void;
-  updateTradesHandler: () => void;
-}> = ({ isOpen, onClose, updateTradesHandler }) => {
+  updateTrades: (trade: tradeType) => void;
+}> = ({ isOpen, onClose, updateTrades }) => {
   const { toUpdateTrade } = useContext(tradesActionsContext);
 
   const [didUpdate, setDidUpdate] = useState(false);
@@ -64,7 +66,11 @@ const UpdateTradeModal: React.FC<{
 
   function closeHandler() {
     if (toUpdateTrade) {
-      updateTradesHandler();
+      updateTrades({
+        ...toUpdateTrade,
+        offered_games: offeredGames,
+        offered_amount: offeredCash,
+      });
     }
     onClose();
   }
